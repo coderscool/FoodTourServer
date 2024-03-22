@@ -7,3 +7,5 @@
 /FastFoodServer/WebApi/obj
 /FastFoodServer/Contracts/obj
 /FastFoodServer/Services/Account/Command/WorkerService1/obj
+/FastFoodServer/Services/Identity/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Command/WorkerService1/obj
