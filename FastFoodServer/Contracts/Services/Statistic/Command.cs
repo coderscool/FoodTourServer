@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.Services.Statistic
 {
-    internal class Command
+    public static class Command
     {
     }
 }

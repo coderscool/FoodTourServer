@@ -9,3 +9,11 @@
 /FastFoodServer/Services/Account/Command/WorkerService1/obj
 /FastFoodServer/Services/Identity/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/Identity/Command/WorkerService1/obj
+/FastFoodServer/Infratructure.MessageBus/obj/Debug/net6.0
+/FastFoodServer/Services/Identity/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Command/Application/obj
+/FastFoodServer/Services/Identity/Command/Domain/obj
+/FastFoodServer/Services/Identity/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Identity/Command/Infratructure.MessageBus/obj
+/FastFoodServer/Infratructure.MessageBus/obj
+/FastFoodServer/Services/Account/Command/WorkerService1/bin/Debug/net6.0
