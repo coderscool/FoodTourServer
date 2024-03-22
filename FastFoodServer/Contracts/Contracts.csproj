@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractions\Messages\" />
+    <Folder Include="Services\Account\" />
+  </ItemGroup>
+
 </Project>
