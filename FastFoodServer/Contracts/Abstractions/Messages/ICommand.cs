@@ -8,8 +8,5 @@ using System.Threading.Tasks;
 namespace Contracts.Abstractions.Messages
 {
     [ExcludeFromTopology]
-    public interface IMessage
-    {
-        DateTimeOffset Timestamp { get; }
-    }
+    public interface ICommand : IMessage { }
 }

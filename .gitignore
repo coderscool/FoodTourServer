@@ -18,3 +18,6 @@
 /FastFoodServer/Infratructure.MessageBus/obj
 /FastFoodServer/Services/Account/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/Identity/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Contracts/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/WebApi/bin/Debug/net6.0

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Contracts.Abstractions.Messages
 {
     [ExcludeFromTopology]
-    public interface IMessage
+    public abstract record Message : IMessage
     {
-        DateTimeOffset Timestamp { get; }
+        public DateTimeOffset Timestamp { get; private init; } = DateTimeOffset.Now;
     }
 }
