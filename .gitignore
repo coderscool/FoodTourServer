@@ -17,3 +17,4 @@
 /FastFoodServer/Services/Identity/Command/Infratructure.MessageBus/obj
 /FastFoodServer/Infratructure.MessageBus/obj
 /FastFoodServer/Services/Account/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Command/Infrastructure.MessageBus/obj
