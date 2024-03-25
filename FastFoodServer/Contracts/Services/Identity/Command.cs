@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Contracts.Services.Identity
 {
     public static class Command
     {
-        public record RegisterUser(Guid Id, string UserName, string PassWord, string ConfirmPassWord, string Name, string Image);
+        public record RegisterUser(Guid Id, string UserName, string PassWord, string ConfirmPassWord, string Name, IFormFile Image);
     }
 }
