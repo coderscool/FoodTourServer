@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.Abstractions.Messages
 {
-    internal interface IQuery
+    public interface IQuery
     {
     }
 }

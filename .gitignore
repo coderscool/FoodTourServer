@@ -21,3 +21,10 @@
 /FastFoodServer/Contracts/bin/Debug/net6.0
 /FastFoodServer/Services/Identity/Command/Domain/bin/Debug/net6.0
 /FastFoodServer/WebApi/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/Application/obj
+/FastFoodServer/Services/Dish/Query/Domain/obj
+/FastFoodServer/Services/Dish/Query/GrpcService1/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/GrpcService1/obj
+/FastFoodServer/Services/Dish/Query/Infrastructure.ElasticSearch/obj
+/FastFoodServer/Services/Dish/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/Dish/Query/Infrastructure.Projection/obj
