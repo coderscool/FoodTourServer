@@ -9,7 +9,8 @@ namespace Contracts.Abstractions.DataTransferObject
     public static class Dto
     {
         public record Price(string Cost, float Discount);
-        public record Dish(string Description, string Name, string Category, string Image);
-        public record DishItem(Guid Id, Dish Dish, Price Price);
+        public record Search(List<string> Nation, List<string> Category);
+        public record Rate(float Point);
+        public record Dish(string Location, string Name, string Image);
     }
 }

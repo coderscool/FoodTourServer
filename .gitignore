@@ -28,3 +28,8 @@
 /FastFoodServer/Services/Dish/Query/Infrastructure.ElasticSearch/obj
 /FastFoodServer/Services/Dish/Query/Infrastructure.EventBus/obj
 /FastFoodServer/Services/Dish/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Dish/Command/Application/obj
+/FastFoodServer/Services/Dish/Command/Domain/obj
+/FastFoodServer/Services/Dish/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Dish/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Command/WorkerService1/obj
