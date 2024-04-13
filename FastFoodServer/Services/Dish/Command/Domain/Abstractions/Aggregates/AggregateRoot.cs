@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates
+namespace Domain.Abstractions.Aggregates
 {
     public abstract class AggregateRoot : IAggregateRoot
     {
@@ -14,7 +14,7 @@ namespace Domain.Aggregates
 
         public long Version { get; private set; }
 
-        public string AggregateId { get; private set; }
+        public Guid AggregateId { get; private set; }
 
         [JsonIgnore]
         public IEnumerable<IDomainEvent> UncommittedEvents
@@ -35,13 +35,13 @@ namespace Domain.Aggregates
 
         public abstract void Handle(ICommand command);
 
-        protected void RaiseEvent<TEvent>(Func<long, string, TEvent> func) where TEvent : IDomainEvent
-            => RaiseEvent((func as Func<long, string, IDomainEvent>)!);
+        protected void RaiseEvent<TEvent>(Func<long, Guid, TEvent> func) where TEvent : IDomainEvent
+            => RaiseEvent((func as Func<long, Guid, IDomainEvent>)!);
 
-        protected void RaiseEvent(Func<long, string, IDomainEvent> onRaise)
+        protected void RaiseEvent(Func<long, Guid, IDomainEvent> onRaise)
         {
             Version++;
-            AggregateId = Guid.NewGuid().ToString();
+            AggregateId = Guid.NewGuid();
             var @event = onRaise(Version, AggregateId);
             _events.Add(@event);
         }

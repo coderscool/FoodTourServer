@@ -17,7 +17,7 @@ namespace Contracts.Abstractions.Messages
     public interface IVersionedEvent : IEvent
     {
         long Version { get; }
-        string AggregateId { get; }
+        Guid AggregateId { get; }
     }
 
     [ExcludeFromTopology]

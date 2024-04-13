@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Abstractions.Aggregates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions.Gateways
 {
-    internal class IEventStoreGateway
+    public interface IEventStoreGateway
     {
+        Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
+        Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid aggregateId, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new();
     }
 }

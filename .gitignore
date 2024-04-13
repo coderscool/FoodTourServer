@@ -33,3 +33,11 @@
 /FastFoodServer/Services/Dish/Command/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/Dish/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/Dish/Command/WorkerService1/obj
+/FastFoodServer/Services/Dish/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Dish/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/Infrastructure.EventBus/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/Infrastructure.Projection/bin/Debug/net6.0

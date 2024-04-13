@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates
+namespace Domain.Abstractions.Aggregates
 {
     public interface IAggregateRoot
     {

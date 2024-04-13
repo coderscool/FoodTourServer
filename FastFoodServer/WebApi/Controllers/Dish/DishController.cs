@@ -17,6 +17,7 @@ namespace WebApi.Controllers.Dish
         public async Task<IActionResult> CreateDish([FromBody] Command.CreateDish request)
         {
             await _publishEndpoint.Publish(request);
+            Console.WriteLine("--send--");
             return Ok();
         }
         

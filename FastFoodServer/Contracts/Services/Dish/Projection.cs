@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,22 @@ namespace Contracts.Services.Dish
     {
         public class Dish : IProjection 
         {
-            public Guid Id { get; set; }
+            [BsonElement("Name")]
             public string Name { get; set; } = string.Empty;
-            public string Category { get; set; } = string.Empty;
-            public string Nation { get; set; } = string.Empty;
-            public float Price { get; set; }
+            [BsonElement("Image")]
+            public string Image { get; set; } = string.Empty;
+            [BsonElement("Location")]
             public string Location { get; set; } = string.Empty;
+            [BsonElement("Category")]
+            public List<string>? Category { get; set; }
+            [BsonElement("Nation")]
+            public List<string>? Nation { get; set; }
+            [BsonElement("Cost")]
+            public string Cost { get; set; } = string.Empty;
+            [BsonElement("Discount")]
+            public float Discount { get; set; }
+            [BsonElement("Rate")]
+            public float Rate { get; set; }
         }
     }
 }

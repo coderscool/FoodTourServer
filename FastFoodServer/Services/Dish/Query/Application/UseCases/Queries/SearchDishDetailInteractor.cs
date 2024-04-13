@@ -37,7 +37,7 @@ namespace Application.UseCases.Queries
                                 ),
                                 m => m
                                 .Range(r => r
-                                    .Field(f => f.Price)
+                                    .Field(f => f.Cost)
                                     .GreaterThanOrEquals(20000)
                                     .LessThanOrEquals(50000)
                                 ),

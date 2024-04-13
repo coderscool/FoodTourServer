@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Gateways;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.MessageBus.DependencyInjection.Extensions
+namespace Infrastructure.EventBus.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtension
     {
@@ -31,8 +30,5 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
             });
             return services;
         }
-
-        public static IServiceCollection AddEventBusGateway(this IServiceCollection services)
-            => services.AddScoped<IEventBusGateway, EventBusGateway>();
     }
 }

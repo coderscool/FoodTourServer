@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.Services.Dish
 {
-    public static class Command
+    public static class DomainEvent
     {
-        public record CreateDish(Guid Id, Dto.Dish Dish, Dto.Price Price, Dto.Rate Rate, Dto.Search Search) : Message, ICommand;
+        public record DishCreate(Guid AggregateId, Dto.Dish Dish, Dto.Price Price, Dto.Rate Rate, Dto.Search Search, long Version) : Message, IDomainEvent;
     }
 }
