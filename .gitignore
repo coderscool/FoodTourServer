@@ -41,3 +41,13 @@
 /FastFoodServer/Services/Dish/Query/Application/bin/Debug/net6.0
 /FastFoodServer/Services/Dish/Query/Infrastructure.EventBus/bin/Debug/net6.0
 /FastFoodServer/Services/Dish/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Application/obj
+/FastFoodServer/Services/Identity/Query/GrpcService1/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/GrpcService1/obj
+/FastFoodServer/Services/Identity/Query/Infrastructure.Authenticate/obj
+/FastFoodServer/Services/Identity/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/Identity/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Order/Command/Application/obj
+/FastFoodServer/Services/Order/Command/Domain/obj
+/FastFoodServer/Services/ShoppingCart/Command/Application/obj
+/FastFoodServer/Services/ShoppingCart/Command/Domain/obj

@@ -11,6 +11,8 @@ namespace Contracts.Abstractions.DataTransferObject
         public record Price(string Cost, float Discount);
         public record Search(List<string> Nation, List<string> Category);
         public record Rate(float Point);
-        public record Dish(string Location, string Name, string Image);
+        public record Dish(string Location, string Name);
+        public record Person(string Name, string Address, string Phone);
+        public record Restaurant(string Name, string Address, string Phone);
     }
 }

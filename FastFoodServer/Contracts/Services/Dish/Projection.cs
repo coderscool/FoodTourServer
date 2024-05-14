@@ -16,7 +16,7 @@ namespace Contracts.Services.Dish
             [BsonElement("Name")]
             public string Name { get; set; } = string.Empty;
             [BsonElement("Image")]
-            public string Image { get; set; } = string.Empty;
+            public byte[] Image { get; set; }
             [BsonElement("Location")]
             public string Location { get; set; } = string.Empty;
             [BsonElement("Category")]

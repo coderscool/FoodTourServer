@@ -10,6 +10,6 @@ namespace Contracts.Services.Dish
 {
     public static class DomainEvent
     {
-        public record DishCreate(Guid AggregateId, Dto.Dish Dish, Dto.Price Price, Dto.Rate Rate, Dto.Search Search, long Version) : Message, IDomainEvent;
+        public record DishCreate(Guid AggregateId, Dto.Dish Dish, byte[] Image, Dto.Price Price, Dto.Rate Rate, Dto.Search Search, long Version) : Message, IDomainEvent;
     }
 }

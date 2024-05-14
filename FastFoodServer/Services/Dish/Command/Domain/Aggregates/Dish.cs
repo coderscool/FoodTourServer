@@ -1,4 +1,5 @@
-﻿using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.DataTransferObject;
+using Contracts.Abstractions.Messages;
 using Contracts.Services.Dish;
 using Domain.Abstractions.Aggregates;
 using Microsoft.AspNetCore.Http;
@@ -21,19 +22,17 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateDish cmd)
             => RaiseEvent<DomainEvent.DishCreate>((version, AggregateId) => new(
-                AggregateId, cmd.Dish, cmd.Price, cmd.Rate, cmd.Search, version));
+                AggregateId, cmd.Dish, ChangeFile(cmd.Image), cmd.Price, cmd.Rate, cmd.Search, version));
 
         protected override void Apply(IDomainEvent @event)
         {
             throw new NotImplementedException();
         }
 
-        private static byte[] SaveFile(IFormFile file)
+        private static byte[] ChangeFile(string file)
         {
-            var ms = new MemoryStream();
-            file.CopyTo(ms);
-            var fileBytes = ms.ToArray();
-            return fileBytes;
+            byte[] bytes = Encoding.UTF8.GetBytes(file);
+            return bytes;
         }
     }
 }
