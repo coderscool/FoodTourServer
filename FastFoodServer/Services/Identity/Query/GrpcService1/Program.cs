@@ -1,4 +1,14 @@
+using Application.Abstractions;
+using Application.Abstractions.Gateways;
+using Application.UseCases.Events;
+using Application.UseCases.Queries;
+using Contracts.Services.Identity;
 using GrpcService1.Services;
+using Infrastructure.Authenticate;
+using Infrastructure.Projection;
+using Infrastructure.Projection.Abstractions;
+using MongoDB.Driver;
+using Infrastructure.EventBus.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +16,15 @@ var builder = WebApplication.CreateBuilder(args);
 // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 // Add services to the container.
+builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
+builder.Services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>();
+builder.Services.AddScoped<IInteractor<DomainEvent.RegisterEvent>, ProjectUserWhenCreateUserInteractor>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
+builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
+builder.Services.AddConfigurationMasstransit();
 builder.Services.AddGrpc();
+
 
 var app = builder.Build();
 

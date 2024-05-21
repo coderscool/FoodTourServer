@@ -1,5 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Dish;
+using Contracts.Services.Identity;
 using Domain.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
@@ -18,19 +18,14 @@ namespace Domain.Aggregates
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
-        public void Handle(Command.CreateDish cmd)
-            => RaiseEvent<DomainEvent.DishCreate>((version, AggregateId) => new(
-                AggregateId, cmd.Dish, ChangeFile(cmd.Image), cmd.Price, cmd.Rate, cmd.Search, version));
+        public void Handle(Command.Register cmd)
+            => RaiseEvent<DomainEvent.RegisterEvent>((version, AggregateId) => new(
+                AggregateId, cmd.UserName, cmd.PassWord, cmd.Person, cmd.Search, cmd.Image, cmd.Role, version));
 
         protected override void Apply(IDomainEvent @event)
         {
             throw new NotImplementedException();
         }
 
-        private static byte[] ChangeFile(string file)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(file);
-            return bytes;
-        }
     }
 }

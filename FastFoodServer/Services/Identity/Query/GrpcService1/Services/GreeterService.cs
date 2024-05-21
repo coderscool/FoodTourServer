@@ -8,9 +8,9 @@ namespace GrpcService1.Services
     public class GreeterService : Greeter.GreeterBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private readonly IInteractor<Query.Login, Projection.LoginUser> _getLoginUser;
+        private readonly IInteractor<Query.Login, Projection.User> _getLoginUser;
         public GreeterService(ILogger<GreeterService> logger,
-            IInteractor<Query.Login, Projection.LoginUser> getLoginUser)
+            IInteractor<Query.Login, Projection.User> getLoginUser)
         {
             _logger = logger;
             _getLoginUser = getLoginUser;
@@ -24,9 +24,16 @@ namespace GrpcService1.Services
                 PassWord = request.PassWord,
             };
             var result = await _getLoginUser.InteractAsync(query, context.CancellationToken);
+            if(result == null)
+            {
+                return await Task.FromResult(new TokenReply
+                {
+                    Token = "Hello "
+                });
+            }
             return await Task.FromResult(new TokenReply
             {
-                Token = "Hello " 
+                Token = result.Token
             });
         }
     }

@@ -51,3 +51,8 @@
 /FastFoodServer/Services/Order/Command/Domain/obj
 /FastFoodServer/Services/ShoppingCart/Command/Application/obj
 /FastFoodServer/Services/ShoppingCart/Command/Domain/obj
+/FastFoodServer/Services/Identity/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Infrastructure.Authenticate/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Infrastructure.EventBus/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Infrastructure.Projection/bin/Debug/net6.0

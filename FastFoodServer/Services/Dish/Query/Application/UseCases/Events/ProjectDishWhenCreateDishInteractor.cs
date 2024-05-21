@@ -22,6 +22,7 @@ namespace Application.UseCases.Events
         {
             var listAccountUser = new Projection.Dish
             {
+                Id = @event.AggregateId,
                 Name = @event.Dish.Name,
                 Image = @event.Image,
                 Location = @event.Dish.Location,
@@ -31,8 +32,8 @@ namespace Application.UseCases.Events
                 Discount = @event.Price.Discount,
                 Rate = @event.Rate.Point
             };
-            Console.WriteLine(@event.Image);
-            //await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);
+            Console.WriteLine(@event.AggregateId);
+            await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);
         }
     }
 }

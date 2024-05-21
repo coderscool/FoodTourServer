@@ -15,8 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\..\..\Dish\Query\Application\Application.csproj" />
+    <ProjectReference Include="..\Infrastructure.Authenticate\Infrastructure.Authenticate.csproj" />
+    <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
+    <ProjectReference Include="..\Infrastructure.Projection\Infrastructure.Projection.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,7 +23,7 @@ namespace Application.Services
             await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents, cancellationToken);
         }
 
-        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(Guid id, CancellationToken cancellationToken)
+        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string id, CancellationToken cancellationToken)
             where TAggregate : IAggregateRoot, new()
             => await _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 

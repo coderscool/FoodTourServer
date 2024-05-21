@@ -11,6 +11,6 @@ namespace Contracts.Services.Identity
 {
     public static class Command
     {
-        public record Register(Guid Id, string UserName, string PassWord, Dto.Person Person, string Name, string Image, string Role): Message, ICommand;
+        public record Register(string Id, string UserName, string PassWord, Dto.Person Person, Dto.Search Search, string Image, string Role): Message, ICommand;
     }
 }

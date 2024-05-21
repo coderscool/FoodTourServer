@@ -13,10 +13,13 @@ namespace Contracts.Services.Dish
     {
         public class Dish : IProjection 
         {
+            [BsonId]
+            [BsonRepresentation(BsonType.ObjectId)]
+            public string Id { get; set; }
             [BsonElement("Name")]
             public string Name { get; set; } = string.Empty;
             [BsonElement("Image")]
-            public byte[] Image { get; set; }
+            public string Image { get; set; }
             [BsonElement("Location")]
             public string Location { get; set; } = string.Empty;
             [BsonElement("Category")]
