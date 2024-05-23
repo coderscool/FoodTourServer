@@ -56,3 +56,11 @@
 /FastFoodServer/Services/Identity/Query/Infrastructure.Authenticate/bin/Debug/net6.0
 /FastFoodServer/Services/Identity/Query/Infrastructure.EventBus/bin/Debug/net6.0
 /FastFoodServer/Services/Identity/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Order/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Order/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Command/WorkerService1/obj
