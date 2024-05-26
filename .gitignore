@@ -64,3 +64,15 @@
 /FastFoodServer/Services/Order/Command/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/Order/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/Order/Command/WorkerService1/obj
+/FastFoodServer/Services/Notification/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/Application/obj
+/FastFoodServer/Services/Notification/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/Domain/obj
+/FastFoodServer/Services/Notification/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Notification/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Notification/Command/NotificationHub/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/NotificationHub/obj
+/FastFoodServer/Services/Order/Query/GrpcService1/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Query/GrpcService1/obj

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class RegisterUserConsumer : Consumer<Command.Register>
+    public class RegisterUserConsumer : Consumers<Command.Register>
     {
         public RegisterUserConsumer(IInteractor<Command.Register> interactor) : base(interactor)
         {

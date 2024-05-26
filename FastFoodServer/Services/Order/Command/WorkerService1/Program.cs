@@ -1,4 +1,7 @@
 using Application.DependencyInjection.Extensions;
+using Google.Protobuf.WellKnownTypes;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using Infrastructure.EventStore.DependencyInjection.Extensions;
 using Infrastructure.MessageBus.DependencyInjection.Extensions;
 
@@ -13,6 +16,11 @@ builder.ConfigureServices((context, services) =>
     services.AddEventStoreGateway();
 
     services.AddApplicationService();
+
+    services.AddHangfire(config => config.UseMemoryStorage());
+    
+    services.AddHangfireServer();
+
 });
 
 using var host = builder.Build();

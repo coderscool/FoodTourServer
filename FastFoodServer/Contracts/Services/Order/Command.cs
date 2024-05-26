@@ -11,6 +11,6 @@ namespace Contracts.Services.Order
     public class Command
     {
         public record AddItemOrder(string Id, string PersonId, string DishId, Dto.Person Person,
-            Dto.Dish Dish, byte[] Image, Dto.Price Price, int Amount, int Time, DateTime Date) : Message, ICommand;
+            Dto.Dish Dish, string Image, Dto.Price Price, int Amount, int Time, DateTime Date) : Message, ICommand;
     }
 }
