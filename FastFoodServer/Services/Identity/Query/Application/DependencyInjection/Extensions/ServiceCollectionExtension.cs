@@ -13,6 +13,7 @@ namespace Application.DependencyInjection.Extensions
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
-            => services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>();
+            => services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>()
+                       .AddScoped<IInteractor<Query.GetUserRequest, Projection.User>, GetUserInteractor>();
     }
 }

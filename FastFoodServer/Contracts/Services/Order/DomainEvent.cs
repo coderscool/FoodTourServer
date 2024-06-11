@@ -11,6 +11,6 @@ namespace Contracts.Services.Order
     public class DomainEvent
     {
         public record OrderAddItem(string AggregateId, string PersonId, string DishId, Dto.Person Person,
-            Dto.Dish Dish, string Image, Dto.Price Price, int Amount, int Time, DateTime Date, long Version) : Message, IDomainEvent;
+            string Name, string Image, Dto.Price Price, int Amount, int Time, DateTime Date, long Version) : Message, IDomainEvent;
     }
 }

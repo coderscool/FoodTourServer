@@ -22,7 +22,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateDish cmd)
             => RaiseEvent<DomainEvent.DishCreate>((version, AggregateId) => new(
-                AggregateId, cmd.Dish, cmd.Image, cmd.Price, cmd.Rate, cmd.Search, version));
+                AggregateId, cmd.PersonId, cmd.Person, cmd.Name, cmd.Image, cmd.Price, cmd.Rate, cmd.Search, version));
 
         protected override void Apply(IDomainEvent @event)
         {

@@ -17,8 +17,7 @@ namespace Infrastructure.Authenticate
         public JwtTokenGenerator()
         {
         }
-
-        public async Task<string> Generate(string UserName, string Role, CancellationToken cancellationToken)
+        public async Task<string> Generate(string Id, string Role, CancellationToken cancellationToken)
         {
             var singingCredentials = new SigningCredentials(
                 key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789ABCDEF")),
@@ -26,6 +25,7 @@ namespace Infrastructure.Authenticate
 
             var claims = new[]
             {
+                new Claim(ClaimTypes.NameIdentifier, Id),
                 new Claim(ClaimTypes.Role, Role)
             };
 

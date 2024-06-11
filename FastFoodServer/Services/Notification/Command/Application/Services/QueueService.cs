@@ -14,7 +14,7 @@ namespace Application.Services
     {
         public string PersonId { get; set; }
         public string Message { get; set; }
-        public string JobId { get; set; } // Thêm JobId để quản lý công việc
+        public string JobId { get; set; } 
     }
     public class QueueService : IQueueService
     {

@@ -32,19 +32,15 @@ namespace WebApi.Controllers.Identity
         }
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromForm] Query.Login request)
+        public async Task<IActionResult> Login([FromBody] Query.Login request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var input = new LoginRequest
             {
                 UserName = request.UserName,
                 PassWord = request.PassWord
             };
             var channel = GrpcChannel.ForAddress("http://localhost:5123");
-            var client = new Greeter.GreeterClient(channel);
+            var client = new Identiter.IdentiterClient(channel);
             var reply = await client.LoginAsync(input);
             return Ok(reply);
         }
@@ -62,6 +58,26 @@ namespace WebApi.Controllers.Identity
         {
             return Ok("sale");
         }
-
+        [HttpGet("infor")]
+        public async Task<IActionResult> GetUser([FromForm] Query.GetUserRequest request)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if(identity != null)
+            {
+                var userClaims = identity.Claims;
+                var input = new GetUserRequest
+                {
+                    Id = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.NameIdentifier)?.Value,
+                };
+                var channel = GrpcChannel.ForAddress("http://localhost:5123");
+                var client = new Identiter.IdentiterClient(channel);
+                var reply = await client.GetUserAsync(input);
+                return Ok(reply);
+            }
+            else
+            {
+                return Ok(null);
+            }
+        }
     }
 }

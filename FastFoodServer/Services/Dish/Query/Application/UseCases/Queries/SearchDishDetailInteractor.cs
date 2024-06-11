@@ -40,11 +40,6 @@ namespace Application.UseCases.Queries
                                     .Field(f => f.Cost)
                                     .GreaterThanOrEquals(20000)
                                     .LessThanOrEquals(50000)
-                                ),
-                                m => m
-                                .Match(mq => mq
-                                    .Field(f => f.Location)
-                                    .Query("hà nội")
                                 )
                             )
                         ), cancellationToken);

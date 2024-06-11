@@ -14,5 +14,10 @@ namespace Contracts.Services.Identity
             public string UserName { get; set; } = string.Empty;
             public string PassWord { get; set; } = string.Empty;
         }
+
+        public class GetUserRequest : IQuery
+        {
+            public string Id { get; set; } = string.Empty;
+        }
     }
 }

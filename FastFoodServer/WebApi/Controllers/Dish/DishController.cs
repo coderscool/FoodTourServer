@@ -1,4 +1,6 @@
 ﻿using Contracts.Services.Dish;
+using Grpc.Net.Client;
+using GrpcService1;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -19,7 +21,6 @@ namespace WebApi.Controllers.Dish
         {
             await _publishEndpoint.Publish(request);
             Console.WriteLine("--send--");
-            Console.WriteLine(request.Dish.Name);
             return Ok();
         }
         [HttpPost("/shop")]
@@ -28,13 +29,18 @@ namespace WebApi.Controllers.Dish
 
             return Ok();
         }
-        private static async Task SaveFile(byte[] file)
+        [HttpGet("/list")]
+        public async Task<IActionResult> GetListDish()
         {
-            // In mảng byte
-            foreach (byte b in file)
+            var input = new GetListDishRequest
             {
-                Console.Write($"{b:X2} "); // In byte dưới dạng hex
-            }
+                Id = "1"
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5286");
+            var client = new Disher.DisherClient(channel);
+            var reply = await client.GetListDishAsync(input);
+            return Ok(reply);
         }
+
     }
 }

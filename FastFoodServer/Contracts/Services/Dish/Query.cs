@@ -18,5 +18,10 @@ namespace Contracts.Services.Dish
             public float PriceMax { get; set; }
             public string Location { get; set;} = string.Empty;
         }
+
+        public class DishDetailQuery: IQuery
+        {
+            public string Id { get; set; }
+        }
     }
 }

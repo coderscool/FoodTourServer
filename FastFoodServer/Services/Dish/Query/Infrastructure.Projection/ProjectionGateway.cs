@@ -16,7 +16,6 @@ namespace Infrastructure.Projection
     {
         private readonly IMongoCollection<TProjection> _collection;
         private const int pageSize = 2;
-
         public ProjectionGateway(IMongoDbContext context)
         {
             _collection = context.GetCollection<TProjection>();
@@ -24,5 +23,8 @@ namespace Infrastructure.Projection
 
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
             => await _collection.InsertOneAsync(replacement);
+
+        public async Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken)
+            => await _collection.Find(x => true).Sort(Builders<TProjection>.Sort.Descending("Sell")).Limit(2).ToListAsync(cancellationToken);
     }
 }

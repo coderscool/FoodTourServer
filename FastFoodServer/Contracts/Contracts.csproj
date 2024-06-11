@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Services\Identity\greet.proto" />
+    <None Remove="Services\Dish\dish.proto" />
+    <None Remove="Services\Identity\identity.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Services\Identity\greet.proto" GrpcServices="Client" />
+    <Protobuf Include="Services\Dish\dish.proto" GrpcServices="Client" />
+    <Protobuf Include="Services\Identity\identity.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

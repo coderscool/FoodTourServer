@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService1";
+
+package dish;
+
+// The greeting service definition.
+service Disher {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc GetListDish (GetListDishRequest) returns (GetListDishReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}
+
+message DishDetailReply {
+	string Id = 1;
+	string Name = 2;
+	string Image = 3;
+	string Adress = 4;
+	float Rate = 6;
+	string Price = 7;
+}
+
+message GetListDishReply {
+	repeated DishDetailReply list = 1;
+}
+
+message GetListDishRequest {
+	string Id = 1;
+}

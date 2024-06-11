@@ -23,14 +23,16 @@ namespace Application.UseCases.Events
             var listAccountUser = new Projection.Dish
             {
                 Id = @event.AggregateId,
-                Name = @event.Dish.Name,
+                PersonId = @event.PersonId,
+                Person = @event.Person,
+                Name = @event.Name,
                 Image = @event.Image,
-                Location = @event.Dish.Location,
                 Category = @event.Search.Category,
                 Nation = @event.Search.Nation,
                 Cost = @event.Price.Cost,
                 Discount = @event.Price.Discount,
-                Rate = @event.Rate.Point
+                Rate = @event.Rate.Point,
+                Sell = 0
             };
             Console.WriteLine(@event.AggregateId);
             await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);

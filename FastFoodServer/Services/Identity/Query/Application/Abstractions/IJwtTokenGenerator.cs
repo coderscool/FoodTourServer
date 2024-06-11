@@ -8,6 +8,6 @@ namespace Application.Abstractions
 {
     public interface IJwtTokenGenerator
     {
-        Task<string> Generate(string UserName, string Role, CancellationToken cancellationToken);
+        Task<string> Generate(string Id, string Role, CancellationToken cancellationToken);
     }
 }

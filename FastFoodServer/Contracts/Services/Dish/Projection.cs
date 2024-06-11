@@ -1,4 +1,5 @@
-﻿using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.DataTransferObject;
+using Contracts.Abstractions.Messages;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
@@ -16,13 +17,15 @@ namespace Contracts.Services.Dish
             [BsonId]
             [BsonRepresentation(BsonType.ObjectId)]
             public string Id { get; set; }
+            [BsonElement("PersonId")]
+            public string PersonId { get; set; } = string.Empty;
+            [BsonElement("Person")]
+            public Dto.Person Person { get; set; }
             [BsonElement("Name")]
             public string Name { get; set; } = string.Empty;
             [BsonElement("Image")]
             public string Image { get; set; }
             [BsonElement("Location")]
-            public string Location { get; set; } = string.Empty;
-            [BsonElement("Category")]
             public List<string>? Category { get; set; }
             [BsonElement("Nation")]
             public List<string>? Nation { get; set; }
@@ -32,6 +35,8 @@ namespace Contracts.Services.Dish
             public float Discount { get; set; }
             [BsonElement("Rate")]
             public float Rate { get; set; }
+            [BsonElement("Sell")]
+            public int Sell { get; set; }
         }
     }
 }

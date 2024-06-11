@@ -44,7 +44,7 @@ namespace Application.UseCases.Queries
 
         private async Task<string> GenerateToken(Projection.User userDetails, CancellationToken cancellationToken)
             => await _tokenGenerator.Generate(
-            userDetails.UserName,
+            userDetails.Id,
             userDetails.Role,
             cancellationToken);
     }
