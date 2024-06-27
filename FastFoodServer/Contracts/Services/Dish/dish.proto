@@ -8,7 +8,8 @@ package dish;
 service Disher {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply);
-  rpc GetListDish (GetListDishRequest) returns (GetListDishReply);
+  rpc GetListDishTrending (GetListDishRequest) returns (GetListDishReply);
+  rpc GetDishDetail (GetDishDetailRequest) returns (GetDishDetailReply);
 }
 
 // The request message containing the user's name.
@@ -23,11 +24,11 @@ message HelloReply {
 
 message DishDetailReply {
 	string Id = 1;
-	string Name = 2;
-	string Image = 3;
-	string Adress = 4;
-	float Rate = 6;
-	string Price = 7;
+	string RestaurantId = 2;
+	string Name = 3;
+	string Image = 4;
+	float Rate = 5;
+	string Price = 6;
 }
 
 message GetListDishReply {
@@ -36,4 +37,20 @@ message GetListDishReply {
 
 message GetListDishRequest {
 	string Id = 1;
+}
+
+message GetDishDetailRequest {
+	string Id = 1;
+	string RestaurantId = 2;
+}
+
+message GetDishDetailReply {
+	DishDetailReply dish = 1;
+	RestaurantReply restaurant = 2;
+}
+
+message RestaurantReply {
+	string Name = 1;
+	string Address = 2;
+	string Phone = 3;
 }

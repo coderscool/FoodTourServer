@@ -23,7 +23,6 @@ namespace Application.UseCases.Commands
             var account = await _applicationService.LoadAggregateAsync<Dish>(command.Id, cancellationToken);
             account.Handle(command);
             Console.WriteLine("--account--");
-            Console.WriteLine(command);
             await _applicationService.AppendEventsAsync(account, cancellationToken);
             account.MarkChangesAsCommitted();
         }

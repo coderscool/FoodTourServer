@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
-    public class GetListDishInteractor : IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish>
+    public class GetDishDetailInteractor : IInteractor<Query.DishDetailQuery, Projection.Dish>
     {
         private readonly IProjectionGateway<Projection.Dish> _projectionGateway;
 
-        public GetListDishInteractor(IProjectionGateway<Projection.Dish> projectionGateway)
+        public GetDishDetailInteractor(IProjectionGateway<Projection.Dish> projectionGateway)
         {
             _projectionGateway = projectionGateway;
         }
-        public async Task<List<Projection.Dish?>> InteractAsync(Query.ListDishTredingQuery query, CancellationToken cancellationToken)
-            => await _projectionGateway.FindSellAsync(cancellationToken);
+        public async Task<Projection.Dish?> InteractAsync(Query.DishDetailQuery query, CancellationToken cancellationToken)
+            => await _projectionGateway.FindAsync(x => x.Id == query.Id, cancellationToken);
     }
 }

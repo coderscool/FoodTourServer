@@ -2,6 +2,7 @@
 using Contracts.Abstractions.Messages;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,8 @@ namespace Infrastructure.Projection
 
         public async Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken)
             => await _collection.Find(x => true).Sort(Builders<TProjection>.Sort.Descending("Sell")).Limit(2).ToListAsync(cancellationToken);
+
+        public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
     }
 }

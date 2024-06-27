@@ -15,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
 builder.Services.AddScoped<IInteractor<DomainEvent.DishCreate>, ProjectDishWhenCreateDishInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.DishDetailQuery, Projection.Dish>, GetListDishInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish>, GetListDishInteractor>();
+builder.Services.AddScoped<IInteractor<Query.DishDetailQuery, Projection.Dish>, GetDishDetailInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
