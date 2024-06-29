@@ -84,3 +84,11 @@
 /FastFoodServer/Services/ShoppingCart/Command/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/ShoppingCart/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/ShoppingCart/Command/WorkerService1/obj
+/FastFoodServer/Services/ShoppingCart/Query/Application/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Query/Application/obj
+/FastFoodServer/Services/ShoppingCart/Query/GrpcService1/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Query/GrpcService1/obj
+/FastFoodServer/Services/ShoppingCart/Query/Infrastructure.EventBus/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/ShoppingCart/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Query/Infrastructure.Projection/obj
