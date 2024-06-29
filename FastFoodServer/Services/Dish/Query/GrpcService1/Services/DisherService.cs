@@ -58,15 +58,7 @@ namespace GrpcService1.Services
             var query = new Query.DishDetailQuery
             {
                 Id = request.Id,
-                RestaurantId = request.RestaurantId,
             };
-            var input = new GetUserRequest
-            {
-                Id = request.RestaurantId
-            };
-            var channel = GrpcChannel.ForAddress("http://localhost:5123");
-            var client = new Identiter.IdentiterClient(channel);
-            var restaurant = await client.GetUserAsync(input);
             var result = await _interactor.InteractAsync(query, context.CancellationToken);
             if (result == null)
             {
@@ -81,6 +73,13 @@ namespace GrpcService1.Services
                 Rate = result.Rate,
                 Price = result.Cost
             };
+            var input = new GetUserRequest
+            {
+                Id = result.PersonId
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5123");
+            var client = new Identiter.IdentiterClient(channel);
+            var restaurant = await client.GetUserAsync(input);
             var res = new RestaurantReply
             {
                 Name = restaurant.Name,

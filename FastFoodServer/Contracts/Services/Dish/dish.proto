@@ -41,7 +41,6 @@ message GetListDishRequest {
 
 message GetDishDetailRequest {
 	string Id = 1;
-	string RestaurantId = 2;
 }
 
 message GetDishDetailReply {

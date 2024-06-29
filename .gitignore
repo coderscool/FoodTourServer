@@ -76,3 +76,11 @@
 /FastFoodServer/Services/Notification/Command/NotificationHub/obj
 /FastFoodServer/Services/Order/Query/GrpcService1/bin/Debug/net6.0
 /FastFoodServer/Services/Order/Query/GrpcService1/obj
+/FastFoodServer/Services/ShoppingCart/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/ShoppingCart/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/ShoppingCart/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/ShoppingCart/Command/WorkerService1/obj

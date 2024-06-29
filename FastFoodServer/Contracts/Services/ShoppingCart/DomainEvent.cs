@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.Services.ShoppingCart
 {
-    internal class DomainEvent
+    public class DomainEvent
     {
-        public record CartItemAdd(Guid Id, Guid PersonId, Guid DishId, Dto.Person Person, string Name, byte[] Image, Dto.Price Price, int Amount, string Status, int TimeExpire) : Message, ICommand;
+        public record CartItemAdd(string AggregateId, string RestaurantId, string CustomerId, string DishId, int Amount, long Version) : Message, IDomainEvent;
     }
 }

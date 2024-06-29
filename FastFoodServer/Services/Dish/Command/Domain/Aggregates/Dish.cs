@@ -28,11 +28,5 @@ namespace Domain.Aggregates
         {
             throw new NotImplementedException();
         }
-
-        private static byte[] ChangeFile(string file)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes(file);
-            return bytes;
-        }
     }
 }

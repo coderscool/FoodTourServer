@@ -10,6 +10,6 @@ namespace Contracts.Services.ShoppingCart
 {
     public class Command
     {
-        public record AddCartItem(Guid Id, Guid PersonId, Guid DishId, Dto.Person Person, string Name, byte[] Image, Dto.Price Price, int Amount, string Status, int TimeExpire): Message, ICommand;
+        public record AddCartItem(string Id, string RestaurantId, string CustomerId, string DishId, int Amount): Message, ICommand;
     }
 }

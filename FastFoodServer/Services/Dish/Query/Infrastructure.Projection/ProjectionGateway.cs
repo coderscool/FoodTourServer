@@ -26,7 +26,7 @@ namespace Infrastructure.Projection
             => await _collection.InsertOneAsync(replacement);
 
         public async Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken)
-            => await _collection.Find(x => true).Sort(Builders<TProjection>.Sort.Descending("Sell")).Limit(2).ToListAsync(cancellationToken);
+            => await _collection.Find(x => true).Sort(Builders<TProjection>.Sort.Descending("Sell")).Limit(10).ToListAsync(cancellationToken);
 
         public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
