@@ -11,16 +11,14 @@ namespace Domain.Aggregates
 {
     public class Order : AggregateRoot
     {
-        public bool IsActive { get; private set; }
-        public string? Title { get; private set; }
-        public string? Description { get; private set; }
 
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
         public void Handle(Command.AddItemOrder cmd)
             => RaiseEvent<DomainEvent.OrderAddItem>((version, AggregateId) => new(
-                AggregateId, cmd.PersonId, cmd.DishId, cmd.Person, cmd.Dish, cmd.Image, cmd.Price, cmd.Amount, cmd.Time, cmd.Date, version));
+                AggregateId, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Restaurant, cmd.Customer, cmd.Name, 
+                cmd.Price, cmd.Amount, cmd.Time, cmd.Status, cmd.Date, version));
 
         protected override void Apply(IDomainEvent @event)
         {

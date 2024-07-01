@@ -92,3 +92,9 @@
 /FastFoodServer/Services/ShoppingCart/Query/Infrastructure.EventBus/obj
 /FastFoodServer/Services/ShoppingCart/Query/Infrastructure.Projection/bin/Debug/net6.0
 /FastFoodServer/Services/ShoppingCart/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Order/Query/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Query/Application/obj
+/FastFoodServer/Services/Order/Query/Infrastructure.EventBus/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/Order/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/Order/Query/Infrastructure.Projection/obj

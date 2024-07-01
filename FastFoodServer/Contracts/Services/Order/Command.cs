@@ -10,7 +10,7 @@ namespace Contracts.Services.Order
 {
     public class Command
     {
-        public record AddItemOrder(string Id, string PersonId, string DishId, Dto.Person Person,
-            string Name, string Image, Dto.Price Price, int Amount, int Time, DateTime Date) : Message, ICommand;
+        public record AddItemOrder(string Id, string RestaurantId, string CustomerId, string DishId, Dto.Person Restaurant, 
+            Dto.Person Customer, string Name, Dto.Price Price, int Amount, int Time, string Status, DateTime Date) : Message, ICommand;
     }
 }

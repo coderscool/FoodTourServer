@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace Domain.Abstractions.Aggregates
         protected void RaiseEvent(Func<long, string, IDomainEvent> onRaise)
         {
             Version++;
-            AggregateId = Guid.NewGuid().ToString();
+            AggregateId = ObjectId.GenerateNewId().ToString();
             var @event = onRaise(Version, AggregateId);
             _events.Add(@event);
         }
