@@ -98,3 +98,12 @@
 /FastFoodServer/Services/Order/Query/Infrastructure.EventBus/obj
 /FastFoodServer/Services/Order/Query/Infrastructure.Projection/bin/Debug/net6.0
 /FastFoodServer/Services/Order/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Account/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Command/Application/obj/Debug/net6.0
+/FastFoodServer/Services/Account/Command/Application/obj
+/FastFoodServer/Services/Account/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Command/Domain/obj
+/FastFoodServer/Services/Account/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Account/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Command/Infrastructure.MessageBus/obj
