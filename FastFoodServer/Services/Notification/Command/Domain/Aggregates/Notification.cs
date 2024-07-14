@@ -22,10 +22,6 @@ namespace Domain.Aggregates
         public override void When(IEvent @event)
             => When(@event as dynamic);
 
-        public void When(OrderEvent.OrderAddItem cmd)
-            => RaiseEvent<NotificationEvent.MessageNotification>((version, AggregateId) => new(
-                AggregateId, cmd.PersonId, Message(cmd.Person.Name, cmd.Dish.Name, cmd.Amount), string.Empty, cmd.Time, version));
-
         protected override void Apply(IDomainEvent @event)
         {
             throw new NotImplementedException();

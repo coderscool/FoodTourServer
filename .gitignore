@@ -107,3 +107,15 @@
 /FastFoodServer/Services/Account/Command/Infrastructure.EventStore/obj
 /FastFoodServer/Services/Account/Command/Infrastructure.MessageBus/bin/Debug/net6.0
 /FastFoodServer/Services/Account/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Notification/Command/Infrastructure.Hubs/bin/Debug/net6.0
+/FastFoodServer/Services/Notification/Command/Infrastructure.Hubs/obj
+/FastFoodServer/Services/Restaurant/Command/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Command/Application/obj
+/FastFoodServer/Services/Restaurant/Command/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Command/Domain/obj
+/FastFoodServer/Services/Restaurant/Command/Infrastructure.EventStore/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Restaurant/Command/Infrastructure.MessageBus/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Restaurant/Command/WorkerService1/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Command/WorkerService1/obj

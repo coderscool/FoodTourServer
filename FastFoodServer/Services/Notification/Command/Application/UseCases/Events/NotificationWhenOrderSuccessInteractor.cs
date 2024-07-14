@@ -1,34 +1,37 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.Services.Order;
+using Contracts.Abstractions.Messages;
+using Contracts.Services.Account;
 using Domain.Aggregates;
+using Infrastructure.Hubs.Abstractions;
+using Microsoft.AspNetCore.SignalR;
+using SignalRNotification.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Events
 {
-    public class NotificationWhenOrderSuccessInteractor : IInteractor<DomainEvent.OrderAddItem>
+    public class NotificationWhenOrderSuccessInteractor : IInteractor<DomainEvent.PaymentRequest>
     {
         private readonly IApplicationService _applicationService;
         private readonly IQueueService _queueService;
-        public NotificationWhenOrderSuccessInteractor(IApplicationService applicationService, IQueueService queueService)
+        private readonly IHubContext<NotificationHub> _hubContext;
+        public NotificationWhenOrderSuccessInteractor(IApplicationService applicationService,
+            IQueueService queueService, IHubContext<NotificationHub> hubContext)
         {
             _applicationService = applicationService;
             _queueService = queueService;
+            _hubContext = hubContext;
         }
 
-        public async Task InteractAsync(DomainEvent.OrderAddItem @event, CancellationToken cancellationToken)
+        public async Task InteractAsync(DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
         {
             Console.WriteLine("123");
-            var account = await _applicationService.LoadAggregateAsync<Notification>(@event.AggregateId, cancellationToken);
-            account.When(@event);
-            Console.WriteLine(@event);
-            //await _applicationService.AppendEventsAsync(account, cancellationToken);
-            await _queueService.ScheduleNotification(@event.PersonId, Message(@event.Person.Name, @event.Dish.Name, @event.Amount), @event.Time);
-            account.MarkChangesAsCommitted();
+            var s = _queueService.GetConnectionId(@event.RestaurantId);
+            Console.WriteLine(s);
+            await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", @event.Name);
         }
 
         private string Message(string Name, string Dish, int Amount)
