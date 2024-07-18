@@ -111,8 +111,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventStore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MessageBus", "Services\Notification\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{E100DC84-7610-4397-BD70-3A0785E8D8E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService1", "Services\ShoppingCart\Command\WorkerService1\WorkerService1.csproj", "{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MessageBus", "Services\ShoppingCart\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{4AE988C8-B53B-4031-AB56-C107C8F62013}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventStore", "Services\ShoppingCart\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{2905BB6E-DF35-463D-872D-87FCB5DD67C4}"
@@ -145,15 +143,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Restaurant", "Restaurant", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Command", "Command", "{9D808C7C-90E8-440F-8A35-01F82E8318A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "Services\Restaurant\Command\WorkerService1\WorkerService1.csproj", "{35FB8913-EF61-43CF-83AD-5B5C2EF72D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService1", "Services\Restaurant\Command\WorkerService1\WorkerService1.csproj", "{35FB8913-EF61-43CF-83AD-5B5C2EF72D44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Services\Restaurant\Command\Application\Application.csproj", "{F515024E-D551-4514-92AB-4ECC2DBA4513}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Services\Restaurant\Command\Application\Application.csproj", "{F515024E-D551-4514-92AB-4ECC2DBA4513}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Services\Restaurant\Command\Domain\Domain.csproj", "{0905DCE3-4A54-4CC5-9240-74C6631D9A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Services\Restaurant\Command\Domain\Domain.csproj", "{0905DCE3-4A54-4CC5-9240-74C6631D9A70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "Services\Restaurant\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{111D9A11-BE22-488C-8E58-63EB69B7509C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MessageBus", "Services\Restaurant\Command\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{111D9A11-BE22-488C-8E58-63EB69B7509C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventStore", "Services\Restaurant\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventStore", "Services\Restaurant\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "Services\ShoppingCart\Command\WorkerService1\WorkerService1.csproj", "{F0530C05-50A4-4648-B6A7-1D6BDEB79974}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -305,10 +305,6 @@ Global
 		{E100DC84-7610-4397-BD70-3A0785E8D8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E100DC84-7610-4397-BD70-3A0785E8D8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E100DC84-7610-4397-BD70-3A0785E8D8E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4AE988C8-B53B-4031-AB56-C107C8F62013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4AE988C8-B53B-4031-AB56-C107C8F62013}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AE988C8-B53B-4031-AB56-C107C8F62013}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -385,6 +381,10 @@ Global
 		{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0530C05-50A4-4648-B6A7-1D6BDEB79974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0530C05-50A4-4648-B6A7-1D6BDEB79974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0530C05-50A4-4648-B6A7-1D6BDEB79974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0530C05-50A4-4648-B6A7-1D6BDEB79974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -441,7 +441,6 @@ Global
 		{505211DC-3986-4E84-ABDC-4D1135BA4F85} = {B66FC438-2B18-4564-9153-167B6B85DE5A}
 		{476B959B-45FA-4B60-89BE-6382F0EF2374} = {B66FC438-2B18-4564-9153-167B6B85DE5A}
 		{E100DC84-7610-4397-BD70-3A0785E8D8E7} = {B66FC438-2B18-4564-9153-167B6B85DE5A}
-		{0E7D7AD9-9740-4DA5-AA3A-648A225CAC80} = {875B3293-6F3C-44B1-9C96-7DFF523488AD}
 		{4AE988C8-B53B-4031-AB56-C107C8F62013} = {875B3293-6F3C-44B1-9C96-7DFF523488AD}
 		{2905BB6E-DF35-463D-872D-87FCB5DD67C4} = {875B3293-6F3C-44B1-9C96-7DFF523488AD}
 		{06E3A06F-A10B-4CA8-8132-2415609B89E1} = {B8B846CE-5E9D-4E83-955B-FBD7F1121970}
@@ -463,6 +462,7 @@ Global
 		{0905DCE3-4A54-4CC5-9240-74C6631D9A70} = {9D808C7C-90E8-440F-8A35-01F82E8318A7}
 		{111D9A11-BE22-488C-8E58-63EB69B7509C} = {9D808C7C-90E8-440F-8A35-01F82E8318A7}
 		{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378} = {9D808C7C-90E8-440F-8A35-01F82E8318A7}
+		{F0530C05-50A4-4648-B6A7-1D6BDEB79974} = {875B3293-6F3C-44B1-9C96-7DFF523488AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {089153FC-1032-4A82-B35D-6364FB3FD10B}

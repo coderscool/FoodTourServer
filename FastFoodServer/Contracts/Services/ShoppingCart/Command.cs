@@ -11,5 +11,6 @@ namespace Contracts.Services.ShoppingCart
     public class Command
     {
         public record AddCartItem(string Id, string RestaurantId, string CustomerId, string DishId, int Amount): Message, ICommand;
+        public record CheckAndRemoveDishCart(string Id) : Message, ICommand;
     }
 }

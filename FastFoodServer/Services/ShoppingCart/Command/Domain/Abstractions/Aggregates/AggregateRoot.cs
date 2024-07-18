@@ -30,6 +30,7 @@ namespace Domain.Abstractions.Aggregates
         {
             foreach (var @event in events)
             {
+                Apply(@event);
                 Version = @event.Version;
             }
         }

@@ -1,5 +1,7 @@
 ﻿using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.EventStore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +12,40 @@ namespace Infrastructure.EventStore
 {
     public class EventStoreGateway : IEventStoreGateway
     {
-        public EventStoreGateway()
+        private readonly int interval = 2;
+        private readonly IEventStoreRepository _repository;
+        public EventStoreGateway(IEventStoreRepository repository)
         {
+            _repository = repository;
         }
         public async Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         {
-            foreach (var @event in aggregate.UncommittedEvents)
+            foreach (var @event in aggregate.UncommittedEvents.Select(@event => StoreEvent.Create(aggregate, @event)))
             {
-                Console.WriteLine(@event);
+                await _repository.AppendEventAsync(@event, cancellationToken);
+
+                if (@event.Version % interval is 0)
+                    await _repository.AppendSnapshotAsync(Snapshot.Create(aggregate, @event), cancellationToken);
             }
         }
 
-        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string aggregateId, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new()
+        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string aggregateId, CancellationToken cancellationToken)
+        where TAggregate : IAggregateRoot, new()
         {
-            var aggregate = new TAggregate();
+            var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
+            var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
+
+            foreach (var @event in events)
+            {
+                Console.WriteLine(@event);
+            }
+            if (snapshot is null && events is { Count: 0 })
+                throw new Exception();
+
+            var aggregate = snapshot?.Aggregate ?? new TAggregate();
+
+            aggregate.LoadFromHistory(events);
+
             return (TAggregate)aggregate;
         }
     }

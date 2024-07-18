@@ -20,11 +20,9 @@ namespace Application.UseCases.Commands
 
         public async Task InteractAsync(Command.AddCartItem command, CancellationToken cancellationToken)
         {
-            var cart = await _applicationService.LoadAggregateAsync<ShoppingCart>(command.Id, cancellationToken);
-            cart.Handle(command);
-            Console.WriteLine("--account--");
-            await _applicationService.AppendEventsAsync(cart, cancellationToken);
-            cart.MarkChangesAsCommitted();
+            ShoppingCart shoppingCart = new();
+            shoppingCart.Handle(command);
+            await _applicationService.AppendEventsAsync(shoppingCart, cancellationToken);
         }
     }
 }
