@@ -20,11 +20,9 @@ namespace Application.UseCases.Commands
 
         public async Task InteractAsync(Command.AddItemOrder command, CancellationToken cancellationToken)
         {
-            var account = await _applicationService.LoadAggregateAsync<Order>(command.Id, cancellationToken);
-            account.Handle(command);
-            Console.WriteLine(command);
-            await _applicationService.AppendEventsAsync(account, cancellationToken);
-            account.MarkChangesAsCommitted();
+            Order order = new();
+            order.Handle(command);
+            await _applicationService.AppendEventsAsync(order, cancellationToken);
         }
     }
 }

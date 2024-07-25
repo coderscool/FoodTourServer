@@ -25,5 +25,11 @@ namespace WebApi.Controllers.ShoppingCart
             await _endpoint.Publish(request);
             return Ok();
         }
+        [HttpPut]
+        public async Task<IActionResult> IncreaseQuantityCart(Command.IncreaseQuantityCart request)
+        {
+            await _endpoint.Publish(request);
+            return Ok();
+        }
     }
 }

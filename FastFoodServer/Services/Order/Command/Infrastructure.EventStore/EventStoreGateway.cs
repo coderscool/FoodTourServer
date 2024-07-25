@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions.Gateways;
 using Domain.Abstractions.Aggregates;
+using Domain.Abstractions.EventStore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +11,36 @@ namespace Infrastructure.EventStore
 {
     public class EventStoreGateway : IEventStoreGateway
     {
-        private const int SnapshotInterval = 5;
-        public EventStoreGateway()
+        private readonly int interval = 5;
+        private readonly IEventStoreRepository _repository;
+        public EventStoreGateway(IEventStoreRepository repository)
         {
+            _repository = repository;
         }
         public async Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
         {
-            foreach (var @event in aggregate.UncommittedEvents)
+            foreach (var @event in aggregate.UncommittedEvents.Select(@event => StoreEvent.Create(aggregate, @event)))
             {
-                Console.WriteLine(@event);
-                //if (@event.Version % SnapshotInterval is 0)
-                //await _repository.AppendSnapshotAsync(Snapshot.Create(aggregate, _event), cancellationToken);
+                await _repository.AppendEventAsync(@event, cancellationToken);
+
+                if (@event.Version % interval is 0)
+                    await _repository.AppendSnapshotAsync(Snapshot.Create(aggregate, @event), cancellationToken);
             }
         }
 
-        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string aggregateId, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new()
+        public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string aggregateId, CancellationToken cancellationToken)
+        where TAggregate : IAggregateRoot, new()
         {
-            //var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
-            //var events = await _repository.GetStreamAsync(aggregateId, 1, cancellationToken);
-            var aggregate = new TAggregate();
-            //aggregate.LoadFromHistory(events);
+            var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
+            var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
+
+            if (snapshot is null && events is { Count: 0 })
+                throw new Exception();
+
+            var aggregate = snapshot?.Aggregate ?? new TAggregate();
+
+            aggregate.LoadFromHistory(events);
+
             return (TAggregate)aggregate;
         }
     }

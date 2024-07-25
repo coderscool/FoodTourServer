@@ -1,6 +1,8 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Account;
 using Domain.Abstractions.Aggregates;
+using Domain.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,37 @@ namespace Domain.Aggregates
 {
     public class Account : AggregateRoot
     {
+        [JsonProperty]
+        private readonly List<AccountItem> _items = new();
 
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
         public void Handle(Command.RequestPayment cmd)
-            => RaiseEvent<DomainEvent.PaymentRequest>((version, AggregateId) => new(
-                cmd.Id, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Amount, version));
-
-        protected override void Apply(IDomainEvent @event)
         {
-            throw new NotImplementedException();
+            var item = _items.Where(accountItem => accountItem.Id == cmd.Id).FirstOrDefault();  
+            if (item != null)
+            {
+                if(item.Budget >= cmd.Amount)
+                {
+                    RaiseEvent<DomainEvent.PaymentRequest>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Amount, item.Budget, version));
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
         }
+
+        public void Handle(Command.CreateAccount cmd)
+            => RaiseEvent<DomainEvent.AccountCreate>((version, AggregateId) => new(cmd.Id, cmd.Amount, version));
+        protected override void Apply(IDomainEvent @event)
+            => When(@event as dynamic);
+
+        public void When(DomainEvent.PaymentRequest @event)
+            => _items.Single(item => item.Id == @event.AggregateId).Decrease(@event.Price);
+
+        public void When(DomainEvent.AccountCreate @event)
+            => _items.Add(new(@event.AggregateId, @event.Budget));
     }
 }

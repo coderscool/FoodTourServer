@@ -21,8 +21,7 @@ namespace Domain.Aggregates
         => Handle(command as dynamic);
 
         public void Handle(Command.AddCartItem cmd)
-            => RaiseEvent<DomainEvent.CartItemAdd>((version, AggregateId) => new(
-                AggregateId, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Amount, version));
+            => RaiseEvent<DomainEvent.CartItemAdd>((version, AggregateId) => new(AggregateId, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Amount, version));
 
         public void Handle(Command.CheckAndRemoveDishCart cmd)
         {
@@ -39,10 +38,18 @@ namespace Domain.Aggregates
             }
         }
 
+        public void Handle(Command.IncreaseQuantityCart cmd)
+            => RaiseEvent<DomainEvent.CartIncreaseQuantity>((Version, AggregateId) => new(cmd.Id, cmd.Quantity, Version));
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.CartItemAdd @event)
             => _items.Add(new(@event.AggregateId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Amount));
+
+        public void When(DomainEvent.CartItemRemove @event)
+            => _items.RemoveAll(item => item.Id == @event.AggregateId);
+
+        private void When(DomainEvent.CartIncreaseQuantity @event)
+            => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Quantity);
     }
 }

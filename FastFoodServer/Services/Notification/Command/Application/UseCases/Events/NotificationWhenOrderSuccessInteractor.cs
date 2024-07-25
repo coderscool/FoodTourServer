@@ -29,9 +29,9 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
         {
             Console.WriteLine("123");
-            var s = _queueService.GetConnectionId(@event.RestaurantId);
-            Console.WriteLine(s);
-            await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", @event.Name);
+            //var s = _queueService.GetConnectionId(@event.RestaurantId);
+            //Console.WriteLine(s);
+            //await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", @event.Name);
         }
 
         private string Message(string Name, string Dish, int Amount)

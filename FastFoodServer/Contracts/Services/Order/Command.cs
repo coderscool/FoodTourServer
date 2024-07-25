@@ -11,6 +11,8 @@ namespace Contracts.Services.Order
     public class Command
     {
         public record AddItemOrder(string Id, string RestaurantId, string CustomerId, string DishId, Dto.Person Restaurant, 
-            Dto.Person Customer, string Name, Dto.Price Price, int Amount, int Time, string Status, DateTime Date) : Message, ICommand;
+            Dto.Person Customer, string Name, long Price, int Quantity, int Time, string Status, DateTime Date) : Message, ICommand;
+
+        public record ConfirmOrder(string Id, string Status) : Message, ICommand;
     }
 }

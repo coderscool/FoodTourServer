@@ -30,7 +30,7 @@ namespace Contracts.Services.Order
             [BsonElement("Name")]
             public string Name { get; set; }
             [BsonElement("Price")]
-            public Dto.Price Price { get; set; }
+            public long Price { get; set; }
             [BsonElement("Status")]
             public string Status { get; set; }
             [BsonElement("Amount")]

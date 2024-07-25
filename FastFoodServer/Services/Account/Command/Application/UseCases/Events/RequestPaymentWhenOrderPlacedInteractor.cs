@@ -21,18 +21,8 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(Order.DomainEvent.OrderAddItem @event, CancellationToken cancellationToken)
         {
-            Account account = new();
-
-            account.Handle(new Command.RequestPayment(
-                @event.AggregateId, 
-                @event.RestaurantId,
-                @event.CustomerId,
-                @event.DishId,
-                @event.Customer,
-                @event.Name,
-                @event.Price,
-                @event.Amount));
-
+            var account = await _applicationService.LoadAggregateAsync<Account>(@event.CustomerId, cancellationToken);
+            account.Handle(new Command.RequestPayment(@event.CustomerId, @event.AggregateId, @event.Quantity));
             await _applicationService.AppendEventsAsync(account, cancellationToken);
         }
     }

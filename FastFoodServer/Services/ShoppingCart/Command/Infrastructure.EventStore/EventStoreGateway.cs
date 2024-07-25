@@ -35,10 +35,6 @@ namespace Infrastructure.EventStore
             var snapshot = await _repository.GetSnapshotAsync(aggregateId, cancellationToken);
             var events = await _repository.GetStreamAsync(aggregateId, snapshot?.Version, cancellationToken);
 
-            foreach (var @event in events)
-            {
-                Console.WriteLine(@event);
-            }
             if (snapshot is null && events is { Count: 0 })
                 throw new Exception();
 

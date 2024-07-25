@@ -31,7 +31,7 @@ namespace Application.UseCases.Events
                 Name = @event.Name,
                 Price = @event.Price,
                 Status = @event.Status,
-                Amount = @event.Amount,
+                Amount = @event.Quantity,
                 Date = @event.Date
             };
             Console.WriteLine(@event.AggregateId);

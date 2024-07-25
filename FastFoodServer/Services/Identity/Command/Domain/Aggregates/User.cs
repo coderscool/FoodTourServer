@@ -11,10 +11,6 @@ namespace Domain.Aggregates
 {
     public class User : AggregateRoot
     {
-        public bool IsActive { get; private set; }
-        public string? Title { get; private set; }
-        public string? Description { get; private set; }
-
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 

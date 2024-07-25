@@ -21,11 +21,6 @@ namespace Domain.Abstractions.Aggregates
         public IEnumerable<IDomainEvent> UncommittedEvents
             => _events.AsReadOnly();
 
-        public void MarkChangesAsCommitted()
-        {
-            _events.Clear();
-        }
-
         public void LoadFromHistory(IEnumerable<IDomainEvent> events)
         {
             foreach (var @event in events)
@@ -45,6 +40,7 @@ namespace Domain.Abstractions.Aggregates
             Version++;
             AggregateId = ObjectId.GenerateNewId().ToString();
             var @event = onRaise(Version, AggregateId);
+            Apply(@event);
             _events.Add(@event);
         }
 

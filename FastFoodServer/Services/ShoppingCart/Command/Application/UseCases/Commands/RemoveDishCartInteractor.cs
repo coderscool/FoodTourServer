@@ -19,7 +19,6 @@ namespace Application.UseCases.Commands
         }
         public async Task InteractAsync(Command.CheckAndRemoveDishCart command, CancellationToken cancellationToken)
         {
-            Console.WriteLine("ok");
             var cart = await _applicationService.LoadAggregateAsync<ShoppingCart>(command.Id, cancellationToken);
             cart.Handle(command);
             await _applicationService.AppendEventsAsync(cart, cancellationToken);

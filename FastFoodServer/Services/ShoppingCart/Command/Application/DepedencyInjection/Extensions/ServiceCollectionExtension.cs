@@ -16,6 +16,7 @@ namespace Application.DepedencyInjection.Extensions
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
                        .AddScoped<IInteractor<Command.AddCartItem>, AddCartItemInteractor>()
-                       .AddScoped<IInteractor<Command.CheckAndRemoveDishCart>, RemoveDishCartInteractor>();
+                       .AddScoped<IInteractor<Command.CheckAndRemoveDishCart>, RemoveDishCartInteractor>()
+                       .AddScoped<IInteractor<Command.IncreaseQuantityCart>, IncreaseQuantityCartInteractor>();
     }
 }

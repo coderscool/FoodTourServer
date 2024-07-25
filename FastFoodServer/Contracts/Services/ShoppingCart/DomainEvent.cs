@@ -12,5 +12,6 @@ namespace Contracts.Services.ShoppingCart
     {
         public record CartItemAdd(string AggregateId, string RestaurantId, string CustomerId, string DishId, int Amount, long Version) : Message, IDomainEvent;
         public record CartItemRemove(string AggregateId, long Version): Message, IDomainEvent;
+        public record CartIncreaseQuantity(string AggregateId, int Quantity, long Version) : Message, IDomainEvent;
     }
 }

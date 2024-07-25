@@ -20,11 +20,9 @@ namespace Application.UseCases.Commands
 
         public async Task InteractAsync(Command.Register command, CancellationToken cancellationToken)
         {
-            var account = await _applicationService.LoadAggregateAsync<User>(command.Id.ToString(), cancellationToken);
-            account.Handle(command);
-            Console.WriteLine(command);
-            await _applicationService.AppendEventsAsync(account, cancellationToken);
-            account.MarkChangesAsCommitted();
+            User user = new();
+            user.Handle(command);
+            await _applicationService.AppendEventsAsync(user, cancellationToken);
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Contracts.Services.Account
 {
     public static class DomainEvent
     {
-        public record PaymentRequest(string AggregateId, string RestaurantId, string CustomerId, string DishId,
-            Dto.Person Customer, string Name, Dto.Price Price, int Amount, long Version) : Message, IDomainEvent;
+        public record PaymentRequest(string AggregateId, string OrderId, long Price, long Budget, long Version) : Message, IDomainEvent;
+
+        public record AccountCreate(string AggregateId, long Budget, long Version) : Message, IDomainEvent;
     }
 }
