@@ -31,9 +31,12 @@ namespace Domain.Aggregates
                 .Where(orderItem => orderItem.Id == cmd.Id)
                 .FirstOrDefault();
 
-            RaiseEvent<DomainEvent.OrderConfirm>((version, AggregateId) => new(
-                cmd.Id, item.RestaurantId, item.CustomerId, item.DishId, new Dto.Person(item.Customer.Name, item.Customer.Address, item.Customer.Phone), 
-                item.Name, item.Price, item.Quantity, item.Time, item.Status, item.Date, version));
+            if(item != null)
+            {
+                RaiseEvent<DomainEvent.OrderConfirm>((version, AggregateId) => new(
+                    cmd.Id, item.RestaurantId, item.CustomerId, item.DishId, new Dto.Person(item.Customer.Name, item.Customer.Address, item.Customer.Phone),
+                    item.Name, item.Price, item.Quantity, item.Time, item.Status, item.Date, version));
+            }
         }
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);

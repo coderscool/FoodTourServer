@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Account;
+using Contracts.Services.Order;
 using Infrastructure.MessageBus.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class RequestRestaurantWhenPaymentRequestConsumer : Consumer<DomainEvent.PaymentRequest>
+    public class RequestRestaurantWhenPaymentRequestConsumer : Consumer<DomainEvent.OrderConfirm>
     {
-        public RequestRestaurantWhenPaymentRequestConsumer(IInteractor<DomainEvent.PaymentRequest> interactor) : base(interactor)
+        public RequestRestaurantWhenPaymentRequestConsumer(IInteractor<DomainEvent.OrderConfirm> interactor) : base(interactor)
         {
         }
     }

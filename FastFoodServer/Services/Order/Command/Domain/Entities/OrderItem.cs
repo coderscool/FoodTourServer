@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class OrderItem
+    public class OrderItem
     {
         public OrderItem(string id, string restaurantId, string customerId, string dishId, Dto.Person restaurant,
             Dto.Person customer, string name, long price, int quantity, int time, string status, DateTime date) 

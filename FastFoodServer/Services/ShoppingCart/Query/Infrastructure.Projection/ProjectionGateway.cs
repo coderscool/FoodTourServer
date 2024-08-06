@@ -2,6 +2,7 @@
 using Contracts.Abstractions.Messages;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,9 @@ namespace Infrastructure.Projection
         {
             _collection = context.GetCollection<TProjection>();
         }
+
+        public async Task<List<TProjection?>> ListAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).ToListAsync();
 
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
             => await _collection.InsertOneAsync(replacement);

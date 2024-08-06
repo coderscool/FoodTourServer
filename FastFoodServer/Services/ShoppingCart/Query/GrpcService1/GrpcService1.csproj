@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <None Remove="Protos\cart.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\Infrastructure.Projection\Infrastructure.Projection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\cart.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

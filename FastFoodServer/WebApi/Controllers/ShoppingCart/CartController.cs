@@ -1,4 +1,6 @@
 ﻿using Contracts.Services.ShoppingCart;
+using Grpc.Net.Client;
+using GrpcService1;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +32,18 @@ namespace WebApi.Controllers.ShoppingCart
         {
             await _endpoint.Publish(request);
             return Ok();
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerCart([FromQuery] Query.CustomerCartQuery request)
+        {
+            var input = new GetListCartRequest
+            {
+                CustomerId = request.CustomerId,
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5162");
+            var client = new Carter.CarterClient(channel);
+            var reply = await client.ListDishCartQueryAsync(input);
+            return Ok(reply);
         }
     }
 }

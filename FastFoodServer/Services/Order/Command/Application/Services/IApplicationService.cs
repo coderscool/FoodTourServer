@@ -1,4 +1,5 @@
-﻿using Domain.Abstractions.Aggregates;
+﻿using Contracts.Abstractions.Messages;
+using Domain.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Application.Services
     {
         Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
         Task<TAggregate> LoadAggregateAsync<TAggregate>(string id, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new();
+        Task PublishEventAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
     }
 }

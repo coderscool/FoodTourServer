@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.BackgroundJobs
 {
-    public interface IScheduleNotification<in TMessage> where TMessage : IMessage
+    public interface IScheduleNotification
     {
-        Task AddScheduleNotification(TMessage @event, int time, CancellationToken cancellationToken);
+        Task AddScheduleNotification(string id, int time, CancellationToken cancellationToken);
+        Task RemoveSchedule(string id);
     }
 }

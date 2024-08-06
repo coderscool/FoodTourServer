@@ -12,5 +12,6 @@ namespace Application.Abstractions.Gateways
     where TProjection : IProjection
     {
         ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken);
+        Task<List<TProjection?>> ListAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
     }
 }

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Payment = Contracts.Services.Account;
+using Order = Contracts.Services.Order;
 
 namespace Application.DepedencyInjection.Extensions
 {
@@ -18,8 +18,8 @@ namespace Application.DepedencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
-                       .AddScoped<IInteractor<Payment.DomainEvent.PaymentRequest>, RequestRestaurantWhenPaymentRequestInteractor>()
+                       .AddScoped<IInteractor<Order.DomainEvent.OrderConfirm>, RequestRestaurantWhenPaymentRequestInteractor>()
                        .AddScoped<IInteractor<DomainEvent.ExpireOrderRestaurant>, CancelOrderWhenExpireRestaurant>()
-                       .AddScoped(typeof(IScheduleNotification<>), typeof(ScheduleNotification<>));
+                       .AddScoped<IScheduleNotification, ScheduleNotification>();
     }
 }

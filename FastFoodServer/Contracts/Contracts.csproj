@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Services\Dish\dish.proto" />
     <None Remove="Services\Identity\identity.proto" />
+    <None Remove="Services\ShoppingCart\cart.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <Protobuf Include="Services\Dish\dish.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Identity\identity.proto" GrpcServices="Client" />
+    <Protobuf Include="Services\ShoppingCart\cart.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

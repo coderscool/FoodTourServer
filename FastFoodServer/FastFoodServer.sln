@@ -153,7 +153,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MessageBus",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventStore", "Services\Restaurant\Command\Infrastructure.EventStore\Infrastructure.EventStore.csproj", "{1AD31C61-9DF0-4E2F-92E4-0F6CE6611378}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "Services\ShoppingCart\Command\WorkerService1\WorkerService1.csproj", "{F0530C05-50A4-4648-B6A7-1D6BDEB79974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService1", "Services\ShoppingCart\Command\WorkerService1\WorkerService1.csproj", "{F0530C05-50A4-4648-B6A7-1D6BDEB79974}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Gateways;
+using Contracts.Abstractions.Messages;
 using Domain.Abstractions.Aggregates;
 using System;
 using System.Collections.Generic;
@@ -26,5 +27,8 @@ namespace Application.Services
         public async Task<TAggregate> LoadAggregateAsync<TAggregate>(string id, CancellationToken cancellationToken)
             where TAggregate : IAggregateRoot, new()
             => await _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
+
+        public async Task PublishEventAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
+            => await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents, cancellationToken);
     }
 }

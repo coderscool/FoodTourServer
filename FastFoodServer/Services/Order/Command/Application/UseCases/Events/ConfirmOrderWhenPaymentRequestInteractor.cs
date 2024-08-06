@@ -23,8 +23,7 @@ namespace Application.UseCases.Events
         {
             var order = await _applicationService.LoadAggregateAsync<Order>(@event.OrderId, cancellationToken);
             order.Handle(new Command.ConfirmOrder(@event.OrderId, "Process"));
-            Console.WriteLine(order);
-            //await _applicationService.AppendEventsAsync(order, cancellationToken);
+            await _applicationService.PublishEventAsync(order, cancellationToken);
         }
     }
 }
