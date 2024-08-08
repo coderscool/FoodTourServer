@@ -23,5 +23,10 @@ namespace Domain.Entities
                 Budget -= price;
             }
         }
+
+        public void Increase(long price)
+        {
+            Budget += price;
+        }
     }
 }

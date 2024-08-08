@@ -119,3 +119,11 @@
 /FastFoodServer/Services/Restaurant/Command/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/Restaurant/Command/WorkerService1/bin/Debug/net6.0
 /FastFoodServer/Services/Restaurant/Command/WorkerService1/obj
+/FastFoodServer/Services/Account/Query/Application/obj
+/FastFoodServer/Services/Account/Query/Domain/obj
+/FastFoodServer/Services/Account/Query/GrpcService1/obj
+/FastFoodServer/Services/Account/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Restaurant/Query/Application/obj
+/FastFoodServer/Services/Restaurant/Query/GrpcService1/obj
+/FastFoodServer/Services/Restaurant/Query/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Restaurant/Query/Infrastructure.Projection/obj

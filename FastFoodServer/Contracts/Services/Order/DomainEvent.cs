@@ -11,9 +11,11 @@ namespace Contracts.Services.Order
     public class DomainEvent
     {
         public record OrderAddItem(string AggregateId, string RestaurantId, string CustomerId, string DishId, Dto.Person Restaurant,
-            Dto.Person Customer, string Name, long Price, int Quantity, int Time, string Status, DateTime Date, long Version) : Message, IDomainEvent;
+            Dto.Person Customer, string Name, long Price, int Quantity, int Time, bool Status, DateTime Date, long Version) : Message, IDomainEvent;
         
         public record OrderConfirm(string AggregateId, string RestaurantId, string CustomerId, string DishId, Dto.Person Customer,
-            string Name, long Price, int Quantity, int Time, string Status, DateTime Date, long Version) : Message, IDomainEvent;
+            string Name, long Price, int Quantity, int Time, bool Status, DateTime Date, long Version) : Message, IDomainEvent;
+
+        public record StatusUpdate(string AggregateId, bool Status, long Version) : Message, IDomainEvent;
     }
 }

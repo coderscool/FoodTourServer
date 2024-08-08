@@ -24,9 +24,9 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(Order.DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
         {
-            Console.WriteLine("requestpayment");
             Restaurant restaurant = new();
-            //restaurant.Handle(Command.CreateBillRestaurant { })
+            restaurant.Handle(new Command.CreateBillRestaurant(@event.AggregateId, @event.RestaurantId, @event.CustomerId,
+                @event.DishId, @event.Customer, @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Status, @event.Date));
             await _schedule.AddScheduleNotification(restaurant.AggregateId, 1, cancellationToken);
         }
     }

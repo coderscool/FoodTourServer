@@ -37,6 +37,15 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateAccount cmd)
             => RaiseEvent<DomainEvent.AccountCreate>((version, AggregateId) => new(cmd.Id, cmd.Amount, version));
+
+        public void Handle(Command.RefundPayment cmd)
+        {
+            var item = _items.Where(accountItem => accountItem.Id == cmd.Id).FirstOrDefault();
+            if(item != null)
+            {
+                RaiseEvent<DomainEvent.PaymentRefund>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, item.Budget, version));
+            }
+        }
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
@@ -45,5 +54,8 @@ namespace Domain.Aggregates
 
         public void When(DomainEvent.AccountCreate @event)
             => _items.Add(new(@event.AggregateId, @event.Budget));
+
+        public void When(DomainEvent.PaymentRefund @event)
+            => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Price);
     }
 }

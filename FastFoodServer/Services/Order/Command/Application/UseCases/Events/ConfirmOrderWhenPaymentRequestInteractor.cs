@@ -22,7 +22,7 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(Account.DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
         {
             var order = await _applicationService.LoadAggregateAsync<Order>(@event.OrderId, cancellationToken);
-            order.Handle(new Command.ConfirmOrder(@event.OrderId, "Process"));
+            order.Handle(new Command.ConfirmOrder(@event.OrderId));
             await _applicationService.PublishEventAsync(order, cancellationToken);
         }
     }

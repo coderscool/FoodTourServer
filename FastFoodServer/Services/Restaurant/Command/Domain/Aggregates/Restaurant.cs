@@ -23,11 +23,40 @@ namespace Domain.Aggregates
             => RaiseEvent<DomainEvent.RestaurantCreateBill>((version, AggregateId) => new(AggregateId, cmd.OrderId, cmd.RestaurantId,
                 cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Quantity, cmd.Time, cmd.Status, cmd.Date, version));
 
+        public void Handle(Command.RestaurantAccept cmd)
+        {
+            var item = _items
+                .Where(resItem => resItem.Id == cmd.Id && resItem.Status == null)
+                .FirstOrDefault();
+
+            if(item != null) 
+            {
+                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.OrderId, item.RestaurantId,
+                    item.CustomerId, item.Price, true, version));
+            }
+        }
+
+        public void Handle(Command.RejectRestaurant cmd)
+        {
+            var item = _items
+                .Where(resItem => resItem.Id == cmd.Id && resItem.Status == null)
+                .FirstOrDefault();
+
+            if (item != null)
+            {
+                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.OrderId, item.RestaurantId,
+                    item.CustomerId, item.Price, false, version));
+            }
+        }
+
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.RestaurantCreateBill @event)
             => _items.Add(new(@event.AggregateId, @event.OrderId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Customer,
                 @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Status, @event.Date));
+
+        public void When(DomainEvent.RestaurantReply @event)
+            => _items.Single(item => item.Id == @event.AggregateId).UpdateStatus(@event.Status);
     }
 }
