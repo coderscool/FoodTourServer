@@ -127,3 +127,8 @@
 /FastFoodServer/Services/Restaurant/Query/GrpcService1/obj
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Account/Query/Application/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Query/Domain/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Query/GrpcService1/bin/Debug/net6.0
+/FastFoodServer/Services/Account/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/Restaurant/Query/Infrastructure.EventBus/obj

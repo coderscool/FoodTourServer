@@ -157,23 +157,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkerService1", "Services\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{7DB89F0B-6AA6-4FA5-96C1-14554C0CDAE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Services\Account\Query\Application\Application.csproj", "{F1B076F8-5D4F-48A4-A443-F9042F5EA37B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Services\Account\Query\Application\Application.csproj", "{F1B076F8-5D4F-48A4-A443-F9042F5EA37B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "Services\Account\Query\Domain\Infrastructure.EventBus.csproj", "{54C0AEE2-809D-4F1A-8859-26E02AE58D43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EventBus", "Services\Account\Query\Domain\Infrastructure.EventBus.csproj", "{54C0AEE2-809D-4F1A-8859-26E02AE58D43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projection", "Services\Account\Query\Infrastructure.Projection\Infrastructure.Projection.csproj", "{212FF9EE-B2A5-4791-92A0-D5E11E4A2AEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Projection", "Services\Account\Query\Infrastructure.Projection\Infrastructure.Projection.csproj", "{212FF9EE-B2A5-4791-92A0-D5E11E4A2AEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService1", "Services\Account\Query\GrpcService1\GrpcService1.csproj", "{905C21A0-B462-4BAB-AB49-3515A82826BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService1", "Services\Account\Query\GrpcService1\GrpcService1.csproj", "{905C21A0-B462-4BAB-AB49-3515A82826BA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{50E7780C-6721-46FC-B713-B90389D76676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Services\Restaurant\Query\Application\Application.csproj", "{F6A54CCB-D16F-4E6C-924E-1C3A50F93338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Services\Restaurant\Query\Application\Application.csproj", "{F6A54CCB-D16F-4E6C-924E-1C3A50F93338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.MessageBus", "Services\Restaurant\Query\Infrastructure.MessageBus\Infrastructure.MessageBus.csproj", "{1E0577A3-56DF-4CE9-B149-98D546FE882E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Projection", "Services\Restaurant\Query\Infrastructure.Projection\Infrastructure.Projection.csproj", "{F1F180C5-4AB1-4218-8B39-5D81BED11B70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Projection", "Services\Restaurant\Query\Infrastructure.Projection\Infrastructure.Projection.csproj", "{F1F180C5-4AB1-4218-8B39-5D81BED11B70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService1", "Services\Restaurant\Query\GrpcService1\GrpcService1.csproj", "{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcService1", "Services\Restaurant\Query\GrpcService1\GrpcService1.csproj", "{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EventBus", "Services\Restaurant\Query\Infrastructure.EventBus\Infrastructure.EventBus.csproj", "{612F07BB-65EE-4B13-9A67-DC1D1AB15958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -425,10 +425,6 @@ Global
 		{F6A54CCB-D16F-4E6C-924E-1C3A50F93338}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A54CCB-D16F-4E6C-924E-1C3A50F93338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A54CCB-D16F-4E6C-924E-1C3A50F93338}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E0577A3-56DF-4CE9-B149-98D546FE882E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E0577A3-56DF-4CE9-B149-98D546FE882E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E0577A3-56DF-4CE9-B149-98D546FE882E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E0577A3-56DF-4CE9-B149-98D546FE882E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F1F180C5-4AB1-4218-8B39-5D81BED11B70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F1F180C5-4AB1-4218-8B39-5D81BED11B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1F180C5-4AB1-4218-8B39-5D81BED11B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -437,6 +433,10 @@ Global
 		{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{612F07BB-65EE-4B13-9A67-DC1D1AB15958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{612F07BB-65EE-4B13-9A67-DC1D1AB15958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{612F07BB-65EE-4B13-9A67-DC1D1AB15958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{612F07BB-65EE-4B13-9A67-DC1D1AB15958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -522,9 +522,9 @@ Global
 		{905C21A0-B462-4BAB-AB49-3515A82826BA} = {7DB89F0B-6AA6-4FA5-96C1-14554C0CDAE0}
 		{50E7780C-6721-46FC-B713-B90389D76676} = {2607D192-5CED-4008-B8E8-32293BABA175}
 		{F6A54CCB-D16F-4E6C-924E-1C3A50F93338} = {50E7780C-6721-46FC-B713-B90389D76676}
-		{1E0577A3-56DF-4CE9-B149-98D546FE882E} = {50E7780C-6721-46FC-B713-B90389D76676}
 		{F1F180C5-4AB1-4218-8B39-5D81BED11B70} = {50E7780C-6721-46FC-B713-B90389D76676}
 		{D05B54A5-9E2E-476B-ABAC-A9B9E28B4EA9} = {50E7780C-6721-46FC-B713-B90389D76676}
+		{612F07BB-65EE-4B13-9A67-DC1D1AB15958} = {50E7780C-6721-46FC-B713-B90389D76676}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {089153FC-1032-4A82-B35D-6364FB3FD10B}
