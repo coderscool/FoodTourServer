@@ -20,6 +20,7 @@ message LoginRequest {
 // The response message containing the greetings.
 message TokenReply {
   string Token = 1;
+  string Role = 2;
 }
 
 message GetUserRequest {

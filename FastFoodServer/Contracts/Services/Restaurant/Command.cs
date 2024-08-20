@@ -10,7 +10,7 @@ namespace Contracts.Services.Restaurant
 {
     public static class Command
     {
-        public record CreateBillRestaurant(string OrderId, string RestaurantId, string CustomerId, string DishId, Dto.Person Customer,
+        public record CreateBillRestaurant(string Id, string RestaurantId, string CustomerId, string DishId, Dto.Person Customer,
             string Name, long Price, int Quantity, int Time, bool Status, DateTime Date) : Message, ICommand;
 
         public record RestaurantAccept(string Id) : Message, ICommand;

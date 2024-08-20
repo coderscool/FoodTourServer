@@ -31,7 +31,7 @@ namespace Domain.Aggregates
                 .Where(orderItem => orderItem.Id == cmd.Id)
                 .FirstOrDefault();
 
-            if(item != null &&  item.Status == null)
+            if(item != null &&  item.Status == false)
             {
                 RaiseEvent<DomainEvent.OrderConfirm>((version, AggregateId) => new(
                     cmd.Id, item.RestaurantId, item.CustomerId, item.DishId, new Dto.Person(item.Customer.Name, item.Customer.Address, item.Customer.Phone),

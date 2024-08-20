@@ -31,12 +31,14 @@ namespace GrpcService1.Services
             {
                 return await Task.FromResult(new TokenReply
                 {
-                    Token = "Hello "
+                    Token = "Hello ",
+                    Role = "word"
                 });
             }
             return await Task.FromResult(new TokenReply
             {
-                Token = result.Token
+                Token = result.Token,
+                Role = result.Role
             });
         }
 

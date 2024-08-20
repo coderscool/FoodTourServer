@@ -15,7 +15,7 @@ namespace Domain.Abstractions.Aggregates
 
         public long Version { get; private set; }
 
-        public string AggregateId { get; private set; } 
+        public string AggregateId { get; private set; }
 
         [JsonIgnore]
         public IEnumerable<IDomainEvent> UncommittedEvents
@@ -30,6 +30,7 @@ namespace Domain.Abstractions.Aggregates
         {
             foreach (var @event in events)
             {
+                Apply(@event);
                 Version = @event.Version;
             }
         }
@@ -42,8 +43,9 @@ namespace Domain.Abstractions.Aggregates
         protected void RaiseEvent(Func<long, string, IDomainEvent> onRaise)
         {
             Version++;
-            AggregateId = ObjectId.GenerateNewId().ToString(); ;
+            AggregateId = ObjectId.GenerateNewId().ToString();
             var @event = onRaise(Version, AggregateId);
+            Apply(@event);
             _events.Add(@event);
         }
 

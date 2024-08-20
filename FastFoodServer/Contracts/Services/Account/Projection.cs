@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,10 @@ namespace Contracts.Services.Account
     {
         public class Account : IProjection
         {
+            [BsonId]
+            [BsonRepresentation(BsonType.ObjectId)]
             public string Id { get; set; }
+            [BsonElement("Budget")]
             public long Budget { get; set; }
         }
     }

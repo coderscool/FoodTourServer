@@ -9,11 +9,10 @@ namespace Domain.Entities.Res
 {
     public class RestaurantItem
     {
-        public RestaurantItem(string id, string orderId, string restaurantId, string customerId, string dishId,
+        public RestaurantItem(string id, string restaurantId, string customerId, string dishId,
             Dto.Person customer, string name, long price, int quantity, int time, bool status, DateTime date)
         {
             Id = id;
-            OrderId = orderId;
             RestaurantId = restaurantId;
             CustomerId = customerId;
             DishId = dishId;
@@ -26,7 +25,6 @@ namespace Domain.Entities.Res
             Date = date;
         }
         public string Id { get; }
-        public string OrderId { get; }
         public string RestaurantId { get; }
         public string CustomerId { get; }
         public string DishId { get; }
