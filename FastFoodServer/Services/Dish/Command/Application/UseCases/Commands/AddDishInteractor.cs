@@ -5,6 +5,7 @@ using Domain.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,11 +21,9 @@ namespace Application.UseCases.Commands
 
         public async Task InteractAsync(Command.CreateDish command, CancellationToken cancellationToken)
         {
-            var account = await _applicationService.LoadAggregateAsync<Dish>(command.Id, cancellationToken);
+            Dish account = new Dish();
             account.Handle(command);
-            Console.WriteLine("--account--");
             await _applicationService.AppendEventsAsync(account, cancellationToken);
-            account.MarkChangesAsCommitted();
         }
     }
 }

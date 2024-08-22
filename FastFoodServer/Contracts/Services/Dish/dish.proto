@@ -10,6 +10,7 @@ service Disher {
   rpc SayHello (HelloRequest) returns (HelloReply);
   rpc GetListDishTrending (GetListDishRequest) returns (GetListDishReply);
   rpc GetDishDetail (GetDishDetailRequest) returns (GetDishDetailReply);
+  rpc GetListDishRestaurant (GetListDishRestaurantRequest) returns (GetListDishReply);
 }
 
 // The request message containing the user's name.
@@ -29,6 +30,9 @@ message DishDetailReply {
 	string Image = 4;
 	float Rate = 5;
 	string Price = 6;
+	int32 Quantity = 7;
+	repeated string Category = 8;
+	repeated string Nation = 9;
 }
 
 message GetListDishReply {
@@ -52,4 +56,9 @@ message RestaurantReply {
 	string Name = 1;
 	string Address = 2;
 	string Phone = 3;
+}
+
+message GetListDishRestaurantRequest {
+	string Id = 1;
+	int32 Page = 2;
 }

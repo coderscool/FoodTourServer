@@ -20,7 +20,6 @@ namespace WebApi.Controllers.Dish
         public async Task<IActionResult> CreateDish([FromBody] Command.CreateDish request)
         {
             await _publishEndpoint.Publish(request);
-            Console.WriteLine("--send--");
             return Ok();
         }
         [HttpPost("/shop")]
@@ -51,6 +50,20 @@ namespace WebApi.Controllers.Dish
             var channel = GrpcChannel.ForAddress("http://localhost:5286");
             var client = new Disher.DisherClient(channel);
             var reply = await client.GetDishDetailAsync(input);
+            return Ok(reply);
+        }
+
+        [HttpGet("/restaurant")]
+        public async Task<IActionResult> GetListDishRestaurant([FromQuery] Query.DishRestaurantQuery request)
+        {
+            var input = new GetListDishRestaurantRequest
+            {
+                Id = request.Id,
+                Page = request.Page
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5286");
+            var client = new Disher.DisherClient(channel);
+            var reply = await client.GetListDishRestaurantAsync(input);
             return Ok(reply);
         }
     }

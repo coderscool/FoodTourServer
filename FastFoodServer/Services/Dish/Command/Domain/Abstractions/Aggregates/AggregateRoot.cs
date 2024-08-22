@@ -30,6 +30,7 @@ namespace Domain.Abstractions.Aggregates
         {
             foreach (var @event in events)
             {
+                Apply(@event);
                 Version = @event.Version;
             }
         }
@@ -44,6 +45,7 @@ namespace Domain.Abstractions.Aggregates
             Version++;
             AggregateId = ObjectId.GenerateNewId().ToString();
             var @event = onRaise(Version, AggregateId);
+            Apply(@event);
             _events.Add(@event);
         }
 

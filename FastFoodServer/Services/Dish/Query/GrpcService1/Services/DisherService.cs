@@ -11,13 +11,16 @@ namespace GrpcService1.Services
         private readonly ILogger<DisherService> _logger;
         private readonly IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish> _pagedInteractor;
         private readonly IInteractor<Query.DishDetailQuery, Projection.Dish> _interactor;
+        private readonly IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish> _pagedIndexInteractor;
         public DisherService(ILogger<DisherService> logger, 
             IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish> pagedInteractor,
-            IInteractor<Query.DishDetailQuery, Projection.Dish> interactor)
+            IInteractor<Query.DishDetailQuery, Projection.Dish> interactor,
+            IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish> pagedIndexInteractor)
         {
             _logger = logger;
             _pagedInteractor = pagedInteractor;
             _interactor = interactor;
+            _pagedIndexInteractor = pagedIndexInteractor;
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -45,7 +48,40 @@ namespace GrpcService1.Services
                 Name = x.Name,
                 Image = x.Image,
                 Rate = x.Rate,
-                Price = x.Cost
+                Price = x.Cost,
+                Quantity = x.Quantity,
+                Category = {x.Category},
+                Nation = {x.Nation},
+            });
+            return await Task.FromResult(new GetListDishReply
+            {
+                List = { list }
+            });
+        }
+
+        public override async Task<GetListDishReply> GetListDishRestaurant(GetListDishRestaurantRequest request, ServerCallContext context)
+        {
+            var query = new Query.DishRestaurantQuery
+            {
+                Id = request.Id,
+                Page = request.Page,
+            };
+            var result = await _pagedIndexInteractor.InteractAsync(query, context.CancellationToken);
+            if (result == null)
+            {
+                return null;
+            }
+            var list = result.Select(x => new DishDetailReply
+            {
+                Id = x.Id,
+                RestaurantId = x.PersonId,
+                Name = x.Name,
+                Image = x.Image,
+                Rate = x.Rate,
+                Price = x.Cost,
+                Quantity = x.Quantity,
+                Category = { x.Category },
+                Nation = { x.Nation },
             });
             return await Task.FromResult(new GetListDishReply
             {

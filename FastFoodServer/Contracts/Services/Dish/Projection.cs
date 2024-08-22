@@ -19,8 +19,6 @@ namespace Contracts.Services.Dish
             public string Id { get; set; }
             [BsonElement("PersonId")]
             public string PersonId { get; set; } = string.Empty;
-            [BsonElement("Person")]
-            public Dto.Person Person { get; set; }
             [BsonElement("Name")]
             public string Name { get; set; } = string.Empty;
             [BsonElement("Image")]
@@ -35,8 +33,8 @@ namespace Contracts.Services.Dish
             public float Discount { get; set; }
             [BsonElement("Rate")]
             public float Rate { get; set; }
-            [BsonElement("Sell")]
-            public int Sell { get; set; }
+            [BsonElement("Quantity")]
+            public int Quantity { get; set; }
         }
     }
 }

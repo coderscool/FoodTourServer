@@ -30,5 +30,8 @@ namespace Infrastructure.Projection
 
         public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
+
+        public async Task<List<TProjection?>> FindPaginatonAsync(Expression<Func<TProjection, bool>> predicate, int pageIndex, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).Skip(pageIndex*4).Take(pageSize).ToListAsync();
     }
 }

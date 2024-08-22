@@ -27,5 +27,11 @@ namespace Contracts.Services.Dish
         public class ListDishTredingQuery : IQuery
         {
         }
+
+        public class DishRestaurantQuery : IQuery
+        {
+            public string Id { get; set; }
+            public int Page { get; set; }
+        }
     }
 }

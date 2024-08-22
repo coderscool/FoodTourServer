@@ -24,7 +24,6 @@ namespace Application.UseCases.Events
             {
                 Id = @event.AggregateId,
                 PersonId = @event.PersonId,
-                Person = @event.Person,
                 Name = @event.Name,
                 Image = @event.Image,
                 Category = @event.Search.Category,
@@ -32,7 +31,7 @@ namespace Application.UseCases.Events
                 Cost = @event.Price.Cost,
                 Discount = @event.Price.Discount,
                 Rate = @event.Rate.Point,
-                Sell = 0
+                Quantity = 0
             };
             Console.WriteLine(@event.AggregateId);
             await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);
