@@ -12,7 +12,7 @@ namespace Infrastructure.EventStore
 {
     public class EventStoreGateway : IEventStoreGateway
     {
-        private readonly int interval = 2;
+        private readonly int interval = 5;
         private readonly IEventStoreRepository _repository;
         public EventStoreGateway(IEventStoreRepository repository)
         {

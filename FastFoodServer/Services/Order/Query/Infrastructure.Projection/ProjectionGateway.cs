@@ -24,5 +24,12 @@ namespace Infrastructure.Projection
 
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
             => await _collection.InsertOneAsync(replacement);
+
+        public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
+
+        public async Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken)
+            => await _collection.ReplaceOneAsync(predicate, projection);
     }
 }
+

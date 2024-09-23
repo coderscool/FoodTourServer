@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService1";
+
+package restaurant;
+
+service Restauranter {
+  rpc GetListOrder (GetOrderRequest) returns (GetOrderReply);
+}
+
+message GetOrderRequest {
+  string Id = 1;
+}
+
+message GetOrderReply {
+  repeated OrderDetail list = 1;
+}
+
+message OrderDetail {
+	string Id = 1;
+	string RestaurantId = 2;
+	string CustomerId = 3;
+	string DishId = 4;
+	PersonDetail Customer = 5;
+	string Name = 6;
+	int64 Price = 7;
+	int32 Quantity = 8;
+}
+
+message PersonDetail {
+	string name = 1;
+	string Address = 2;
+	string Phone = 3;
+}

@@ -62,7 +62,7 @@ namespace WebApi.Controllers.Identity
         public async Task<IActionResult> GetUser([FromForm] Query.GetUserRequest request)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if(identity != null)
+            if (identity != null)
             {
                 var userClaims = identity.Claims;
                 var input = new GetUserRequest
@@ -78,6 +78,19 @@ namespace WebApi.Controllers.Identity
             {
                 return Ok(null);
             }
+        }
+        [HttpGet("test")]
+        public async Task<IActionResult> GetUserInfor([FromQuery] Query.GetUserRequest request)
+        {
+
+            var input = new GetUserRequest
+            {
+                Id = request.Id,
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5123");
+            var client = new Identiter.IdentiterClient(channel);
+            var reply = await client.GetUserAsync(input);
+            return Ok(reply);
         }
     }
 }

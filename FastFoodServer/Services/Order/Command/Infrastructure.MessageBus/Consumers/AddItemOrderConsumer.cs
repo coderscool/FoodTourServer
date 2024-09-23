@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class AddItemOderConsumer : Consumers<Command.AddItemOrder>
+    public class AddItemOderConsumer : Consumer<Command.AddItemOrder>
     {
         public AddItemOderConsumer(IInteractor<Command.AddItemOrder> interactor) : base(interactor)
         {

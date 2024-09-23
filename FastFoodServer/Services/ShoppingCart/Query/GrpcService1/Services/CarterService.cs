@@ -42,8 +42,8 @@ namespace GrpcService1.Services
                 };
                 var cart = new GetCartDetail
                 {
-                    Id = item.DishId,
-                    RestaurantId = item.Id,
+                    Id = item.Id,
+                    RestaurantId = item.RestaurantId,
                     CustomerId = item.CustomerId,
                     DishId = item.DishId,
                     Restaurant = res,

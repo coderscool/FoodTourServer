@@ -26,5 +26,8 @@ namespace Infrastructure.Projection
 
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
             => await _collection.InsertOneAsync(replacement);
+
+        public async Task DeleteAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.DeleteManyAsync(predicate, cancellationToken);
     }
 }

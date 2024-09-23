@@ -1,5 +1,7 @@
 ﻿using Application.Abstractions;
+using Application.Services;
 using Contracts.Services.Restaurant;
+using Domain.Aggregates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,18 @@ namespace Application.UseCases.Events
 {
     public class CancelOrderWhenExpireRestaurant : IInteractor<DomainEvent.ExpireOrderRestaurant>
     {
-        public async Task InteractAsync(DomainEvent.ExpireOrderRestaurant message, CancellationToken cancellationToken)
+        private readonly IApplicationService _applicationService;
+        public CancelOrderWhenExpireRestaurant(IApplicationService applicationService) 
         {
-            Console.WriteLine("123");
+            _applicationService = applicationService;
+        }
+        public async Task InteractAsync(DomainEvent.ExpireOrderRestaurant @event, CancellationToken cancellationToken)
+        {
+            Console.WriteLine("successsssssss");
+            var restaurant = await _applicationService.LoadAggregateAsync<Restaurant>(@event.AggregateId, cancellationToken);
+            restaurant.Handle(new Command.ReplyRestaurant(@event.AggregateId, false));
+            Console.WriteLine(restaurant);
+            await _applicationService.AppendEventsAsync(restaurant, cancellationToken);
         }
     }
 }

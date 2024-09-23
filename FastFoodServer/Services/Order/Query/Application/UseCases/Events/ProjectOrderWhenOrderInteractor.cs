@@ -31,10 +31,10 @@ namespace Application.UseCases.Events
                 Name = @event.Name,
                 Price = @event.Price,
                 Status = @event.Status,
-                Amount = @event.Quantity,
+                Active = @event.Active,
+                Quantity = @event.Quantity,
                 Date = @event.Date
             };
-            Console.WriteLine(@event.AggregateId);
             await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);
         }
     }

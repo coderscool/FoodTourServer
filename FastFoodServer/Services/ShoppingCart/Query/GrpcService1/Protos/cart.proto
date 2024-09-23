@@ -22,7 +22,7 @@ message GetCartDetail {
 	CartRestaurantReply Restaurant = 5;
 	string Name = 6;
 	string Image = 7;
-	string Price = 8;
+	int64 Price = 8;
 	int32 Quantity = 9;
 }
 

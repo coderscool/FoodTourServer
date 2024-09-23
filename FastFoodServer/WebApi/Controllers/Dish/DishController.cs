@@ -28,7 +28,7 @@ namespace WebApi.Controllers.Dish
 
             return Ok();
         }
-        [HttpGet("/list")]
+        [HttpGet("list")]
         public async Task<IActionResult> GetListDishTrending()
         {
             var input = new GetListDishRequest
@@ -53,7 +53,7 @@ namespace WebApi.Controllers.Dish
             return Ok(reply);
         }
 
-        [HttpGet("/restaurant")]
+        [HttpGet("restaurant")]
         public async Task<IActionResult> GetListDishRestaurant([FromQuery] Query.DishRestaurantQuery request)
         {
             var input = new GetListDishRestaurantRequest

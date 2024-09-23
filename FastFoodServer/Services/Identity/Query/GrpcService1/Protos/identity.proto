@@ -33,6 +33,7 @@ message GetUserReply {
 	string Address = 3;
 	string Phone = 4;
 	string Role = 5;
+	int64 Budget = 6;
 }
 
 

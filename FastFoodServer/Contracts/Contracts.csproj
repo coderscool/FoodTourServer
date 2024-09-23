@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Services\Account\account.proto" />
     <None Remove="Services\Dish\dish.proto" />
     <None Remove="Services\Identity\identity.proto" />
+    <None Remove="Services\Restaurant\restaurant.proto" />
     <None Remove="Services\ShoppingCart\cart.proto" />
   </ItemGroup>
 
@@ -26,8 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Services\Account\account.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Dish\dish.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Identity\identity.proto" GrpcServices="Client" />
+    <Protobuf Include="Services\Restaurant\restaurant.proto" GrpcServices="Client" />
     <Protobuf Include="Services\ShoppingCart\cart.proto" GrpcServices="Client" />
   </ItemGroup>
 

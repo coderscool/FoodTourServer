@@ -28,7 +28,7 @@ namespace Application.UseCases.Events
                 Image = @event.Image,
                 Category = @event.Search.Category,
                 Nation = @event.Search.Nation,
-                Cost = @event.Price.Cost,
+                Cost = 0,
                 Discount = @event.Price.Discount,
                 Rate = @event.Rate.Point,
                 Quantity = 0

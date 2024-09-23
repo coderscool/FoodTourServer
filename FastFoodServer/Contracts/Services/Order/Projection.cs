@@ -33,8 +33,10 @@ namespace Contracts.Services.Order
             public long Price { get; set; }
             [BsonElement("Status")]
             public bool Status { get; set; }
-            [BsonElement("Amount")]
-            public int Amount { get; set; }
+            [BsonElement("Active")]
+            public bool Active { get; set; }
+            [BsonElement("Quantity")]
+            public int Quantity { get; set; }
             [BsonElement("Date")]
             public DateTime Date { get; set; }
         }

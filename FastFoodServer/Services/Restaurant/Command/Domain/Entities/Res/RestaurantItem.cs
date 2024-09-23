@@ -10,7 +10,7 @@ namespace Domain.Entities.Res
     public class RestaurantItem
     {
         public RestaurantItem(string id, string restaurantId, string customerId, string dishId,
-            Dto.Person customer, string name, long price, int quantity, int time, bool status, DateTime date)
+            Dto.Person customer, string name, long price, int quantity, int time, bool status, bool active, DateTime date)
         {
             Id = id;
             RestaurantId = restaurantId;
@@ -22,6 +22,7 @@ namespace Domain.Entities.Res
             Quantity = quantity;
             Time = time;
             Status = status;
+            Active = active;
             Date = date;
         }
         public string Id { get; }
@@ -34,9 +35,13 @@ namespace Domain.Entities.Res
         public int Quantity { get; }
         public int Time { get; }
         public bool Status { get; private set; }
+        public bool Active { get; private set; }
         public DateTime Date { get; }
 
-        public void UpdateStatus(bool  status)
-            => Status = status;
+        public void UpdateStatus(bool status)
+        {
+            Status = status;
+            Active = true;
+        }
     }
 }

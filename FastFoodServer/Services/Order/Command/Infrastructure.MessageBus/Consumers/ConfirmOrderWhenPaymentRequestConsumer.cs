@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class ConfirmOrderWhenPaymentRequestConsumer : Consumers<DomainEvent.PaymentRequest>
+    public class ConfirmOrderWhenPaymentRequestConsumer : Consumer<DomainEvent.PaymentRequest>
     {
         public ConfirmOrderWhenPaymentRequestConsumer(IInteractor<DomainEvent.PaymentRequest> interactor) : base(interactor)
         {

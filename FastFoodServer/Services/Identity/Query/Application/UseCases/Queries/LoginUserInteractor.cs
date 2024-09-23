@@ -29,7 +29,8 @@ namespace Application.UseCases.Queries
                 {
                     var result = new Projection.User
                     {
-                        Token = token
+                        Token = token,
+                        Role = userDetails.Role,
                     };
                     return result;
                 }

@@ -24,9 +24,10 @@ namespace Domain.Aggregates
             var item = _items.Where(accountItem => accountItem.Id == cmd.Id).FirstOrDefault();  
             if (item != null)
             {
-                if(item.Budget >= cmd.Amount)
+                if(item.Budget >= cmd.Price * cmd.Quantity)
                 {
-                    RaiseEvent<DomainEvent.PaymentRequest>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Amount, item.Budget, version));
+                    item.Decrease(cmd.Price * cmd.Quantity);
+                    RaiseEvent<DomainEvent.PaymentRequest>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, item.Budget, version));
                 }
                 else
                 {
@@ -43,19 +44,20 @@ namespace Domain.Aggregates
             var item = _items.Where(accountItem => accountItem.Id == cmd.Id).FirstOrDefault();
             if(item != null)
             {
-                RaiseEvent<DomainEvent.PaymentRefund>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, item.Budget, version));
+                item.Increase(cmd.Price * cmd.Quantity);
+                RaiseEvent<DomainEvent.PaymentRefund>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, item.Budget, version));
             }
         }
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.PaymentRequest @event)
-            => _items.Single(item => item.Id == @event.AggregateId).Decrease(@event.Price);
+            => _items.Single(item => item.Id == @event.AggregateId).UpdateBudget(@event.Budget);
 
         public void When(DomainEvent.AccountCreate @event)
             => _items.Add(new(@event.AggregateId, @event.Budget));
 
         public void When(DomainEvent.PaymentRefund @event)
-            => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Price);
+            => _items.Single(item => item.Id == @event.AggregateId).UpdateBudget(@event.Budget);
     }
 }

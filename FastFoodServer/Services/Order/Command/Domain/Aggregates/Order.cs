@@ -23,7 +23,7 @@ namespace Domain.Aggregates
         public void Handle(Command.AddItemOrder cmd)
             => RaiseEvent<DomainEvent.OrderAddItem>((version, AggregateId) => new(
                 AggregateId, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Restaurant, cmd.Customer, cmd.Name, 
-                cmd.Price, cmd.Quantity, cmd.Time, cmd.Status, cmd.Date, version));
+                cmd.Price, cmd.Quantity, cmd.Time, false, false, cmd.Date, version));
 
         public void Handle(Command.ConfirmOrder cmd)
         {
@@ -31,11 +31,11 @@ namespace Domain.Aggregates
                 .Where(orderItem => orderItem.Id == cmd.Id)
                 .FirstOrDefault();
 
-            if(item != null &&  item.Status == false)
+            if(item != null && item.Active == false)
             {
                 RaiseEvent<DomainEvent.OrderConfirm>((version, AggregateId) => new(
                     cmd.Id, item.RestaurantId, item.CustomerId, item.DishId, new Dto.Person(item.Customer.Name, item.Customer.Address, item.Customer.Phone),
-                    item.Name, item.Price, item.Quantity, item.Time, item.Status, item.Date, version));
+                    item.Name, item.Price, item.Quantity, item.Time, item.Date, version));
             }
         }
 
@@ -54,6 +54,6 @@ namespace Domain.Aggregates
 
         public void When(DomainEvent.OrderAddItem @event)
             => _items.Add(new(@event.AggregateId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Restaurant,
-                @event.Customer, @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Status, @event.Date));
+                @event.Customer, @event.Name, @event.Price, @event.Quantity, @event.Time, false, false, @event.Date));
     }
 }

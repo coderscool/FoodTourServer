@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands
 {
-    public class RestaurantAcceptInteractor : IInteractor<Command.RestaurantAccept>
+    public class ReplyRestaurantInteractor : IInteractor<Command.ReplyRestaurant>
     {
         private readonly IApplicationService _applicationService;
         private readonly IScheduleNotification _scheduleNotification;
-        public RestaurantAcceptInteractor(IApplicationService applicationService, 
+        public ReplyRestaurantInteractor(IApplicationService applicationService,
             IScheduleNotification scheduleNotification)
         {
             _applicationService = applicationService;
             _scheduleNotification = scheduleNotification;
         }
-        public async Task InteractAsync(Command.RestaurantAccept command, CancellationToken cancellationToken)
+        public async Task InteractAsync(Command.ReplyRestaurant command, CancellationToken cancellationToken)
         {
             var restaurant = await _applicationService.LoadAggregateAsync<Restaurant>(command.Id, cancellationToken);
             restaurant.Handle(command);

@@ -1,6 +1,7 @@
 using Application.Abstractions;
 using Contracts.Services.Identity;
 using Grpc.Core;
+using Grpc.Net.Client;
 using GrpcService1;
 
 namespace GrpcService1.Services
@@ -53,6 +54,14 @@ namespace GrpcService1.Services
             {
                 return null;
             }
+            var input = new AccountRequest
+            {
+                Id = request.Id
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5061");
+            var client = new Accounter.AccounterClient(channel);
+            var reply = await client.GetBudgetAccountAsync(input);
+            Console.WriteLine(reply);
             return await Task.FromResult(new GetUserReply
             {
                 Id = result.Id,
@@ -60,6 +69,7 @@ namespace GrpcService1.Services
                 Address = result.Address,
                 Phone = result.Phone,
                 Role = result.Role,
+                Budget = reply.Budget,
             });
         }
     }

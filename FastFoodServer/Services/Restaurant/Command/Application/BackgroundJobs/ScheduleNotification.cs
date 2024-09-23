@@ -4,6 +4,7 @@ using Contracts.Services.Restaurant;
 using Domain.Entities.Schedule;
 using Hangfire;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,8 @@ namespace Application.BackgroundJobs
         public async Task AddScheduleNotification(string id, int time, CancellationToken cancellationToken)
         {
             var @event = new DomainEvent.ExpireOrderRestaurant(id, 1);
-            var jobId = BackgroundJob.Schedule(() => _interactor.InteractAsync(@event, cancellationToken), TimeSpan.FromMinutes(1));
+            Console.WriteLine(@event);
+            var jobId = BackgroundJob.Schedule(() => _interactor.InteractAsync(@event, cancellationToken), TimeSpan.FromMinutes(time));
             Console.WriteLine(jobId);
             var job = new Schedule
             {

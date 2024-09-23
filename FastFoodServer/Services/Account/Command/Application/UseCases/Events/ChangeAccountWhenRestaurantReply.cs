@@ -23,13 +23,13 @@ namespace Application.UseCases.Events
             if(@event.Status == true)
             {
                 var account = await _applicationService.LoadAggregateAsync<Account>(@event.RestaurantId, cancellationToken);
-                account.Handle(new Command.RefundPayment(@event.RestaurantId, @event.AggregateId, @event.Price));
+                account.Handle(new Command.RefundPayment(@event.RestaurantId, @event.AggregateId, @event.Price, @event.Quantity));
                 await _applicationService.AppendEventsAsync(account, cancellationToken);
             }
             else
             {
                 var account = await _applicationService.LoadAggregateAsync<Account>(@event.CustomerId, cancellationToken);
-                account.Handle(new Command.RefundPayment(@event.CustomerId, @event.AggregateId, @event.Price));
+                account.Handle(new Command.RefundPayment(@event.CustomerId, @event.AggregateId, @event.Price, @event.Quantity));
                 await _applicationService.AppendEventsAsync(account, cancellationToken);
             }
         }

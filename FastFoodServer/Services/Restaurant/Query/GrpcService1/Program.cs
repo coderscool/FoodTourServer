@@ -6,7 +6,8 @@ using MongoDB.Driver;
 using Infrastructure.EventBus.DependencyInjection.Extensions;
 using Contracts.Services.Restaurant;
 using Application.Abstractions;
-using Application.UseCases;
+using Application.UseCases.Events;
+using Application.UseCases.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
+builder.Services.AddScoped<IPagedInteractor<Query.GetListOrderRestaurantQuery, Projection.Restaurant>, GetListOrderRestaurantInteractor>();
+builder.Services.AddScoped<IInteractor<DomainEvent.RestaurantReply>, ProjectRestaurantWhenRestaurantReplyInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.RestaurantCreateBill>, ProjectRestaurantWhenRestaurantCreateBillInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
@@ -24,7 +27,7 @@ builder.Services.AddGrpc();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>();
+app.MapGrpcService<RestauranterService>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

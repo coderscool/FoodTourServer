@@ -28,7 +28,7 @@ namespace Contracts.Services.Dish
             [BsonElement("Nation")]
             public List<string>? Nation { get; set; }
             [BsonElement("Cost")]
-            public string Cost { get; set; } = string.Empty;
+            public long Cost { get; set; } 
             [BsonElement("Discount")]
             public float Discount { get; set; }
             [BsonElement("Rate")]

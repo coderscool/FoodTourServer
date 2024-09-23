@@ -28,5 +28,10 @@ namespace Domain.Entities
         {
             Budget += price;
         }
+
+        public void UpdateBudget(long budget)
+        {
+            Budget = budget;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Application.Abstractions.Gateways
     {
         ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken);
         Task<List<TProjection?>> ListAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
+        Task DeleteAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
     }
 }

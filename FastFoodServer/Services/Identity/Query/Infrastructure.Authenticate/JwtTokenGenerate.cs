@@ -34,7 +34,7 @@ namespace Infrastructure.Authenticate
                 audience: "https://localhost:44381",
                 claims: claims,
                 signingCredentials: singingCredentials,
-                expires: DateTimeOffset.Now.AddMinutes(5).DateTime
+                expires: DateTimeOffset.Now.AddMinutes(60).DateTime
             );
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);

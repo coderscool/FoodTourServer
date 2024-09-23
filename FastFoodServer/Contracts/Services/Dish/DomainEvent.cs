@@ -11,5 +11,6 @@ namespace Contracts.Services.Dish
     public static class DomainEvent
     {
         public record DishCreate(string AggregateId, string PersonId, string Name, string Image, Dto.Price Price, int Quantity, Dto.Rate Rate, Dto.Search Search, long Version) : Message, IDomainEvent;
+        public record QuantityUpdate(string AggregateId, int Quantity, long Version) : Message, IDomainEvent;
     }
 }

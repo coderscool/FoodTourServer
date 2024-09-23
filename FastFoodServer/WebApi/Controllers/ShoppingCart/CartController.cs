@@ -21,7 +21,7 @@ namespace WebApi.Controllers.ShoppingCart
             await _endpoint.Publish(request);
             return Ok();
         }
-        [HttpDelete]
+        [HttpPost("delete")]
         public async Task<IActionResult> DeleteDishCart(Command.CheckAndRemoveDishCart request)
         {
             await _endpoint.Publish(request);

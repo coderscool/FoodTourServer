@@ -29,7 +29,7 @@ message DishDetailReply {
 	string Name = 3;
 	string Image = 4;
 	float Rate = 5;
-	string Price = 6;
+	int64 Price = 6;
 	int32 Quantity = 7;
 	repeated string Category = 8;
 	repeated string Nation = 9;

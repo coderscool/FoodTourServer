@@ -16,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
 builder.Services.AddScoped<IInteractor<DomainEvent.OrderAddItem>, ProjectOrderWhenOrderInteractor>();
+builder.Services.AddScoped<IInteractor<DomainEvent.StatusUpdate>, ProjectOrderWhenStatusUpdateInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

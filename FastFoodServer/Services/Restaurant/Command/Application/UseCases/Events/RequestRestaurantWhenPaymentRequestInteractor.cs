@@ -26,8 +26,8 @@ namespace Application.UseCases.Events
         {
             Restaurant restaurant = new();
             restaurant.Handle(new Command.CreateBillRestaurant(@event.AggregateId, @event.RestaurantId, @event.CustomerId,
-                @event.DishId, @event.Customer, @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Status, @event.Date));
-            await _schedule.AddScheduleNotification(restaurant.AggregateId, 1, cancellationToken);
+                @event.DishId, @event.Customer, @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Date));
+            await _schedule.AddScheduleNotification(restaurant.AggregateId, @event.Time, cancellationToken);
             await _applicationService.AppendEventsAsync(restaurant, cancellationToken);
         }
     }

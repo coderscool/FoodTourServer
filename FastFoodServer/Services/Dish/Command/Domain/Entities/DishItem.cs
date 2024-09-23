@@ -25,7 +25,9 @@ namespace Domain.Entities
         public Dto.Price Price { get; }
         public Dto.Rate Rate { get; } 
         public Dto.Search Search { get; }
-        public int Quantity { get; }
+        public int Quantity { get; private set; }
 
+        public void UpdateQuantity(int quantity)
+            => Quantity = quantity;
     }
 }

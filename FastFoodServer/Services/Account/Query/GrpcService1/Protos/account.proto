@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService1";
+
+package account;
+
+// The greeting service definition.
+service Accounter {
+  // Sends a greeting
+  rpc GetBudgetAccount (AccountRequest) returns (AccountReply);
+}
+
+message AccountRequest {
+	string Id = 1;
+}
+
+message AccountReply {
+	string Id = 1;
+	int64 Budget = 2;
+}

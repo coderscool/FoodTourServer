@@ -21,22 +21,9 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateBillRestaurant cmd)
             => RaiseEvent<DomainEvent.RestaurantCreateBill>((version, AggregateId) => new(cmd.Id, cmd.RestaurantId,
-                cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Quantity, cmd.Time, cmd.Status, cmd.Date, version));
+                cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Quantity, cmd.Time, false, false, cmd.Date, version));
 
-        public void Handle(Command.RestaurantAccept cmd)
-        {
-            var item = _items
-                .Where(resItem => resItem.Id == cmd.Id)
-                .FirstOrDefault();
-
-            if(item != null) 
-            {
-                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.RestaurantId,
-                    item.CustomerId, item.Price, true, version));
-            }
-        }
-
-        public void Handle(Command.RejectRestaurant cmd)
+        public void Handle(Command.ReplyRestaurant cmd)
         {
             var item = _items
                 .Where(resItem => resItem.Id == cmd.Id)
@@ -45,7 +32,7 @@ namespace Domain.Aggregates
             if (item != null)
             {
                 RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.RestaurantId,
-                    item.CustomerId, item.Price, false, version));
+                    item.CustomerId, item.Price, item.Quantity, cmd.Status, version));
             }
         }
 
@@ -54,7 +41,7 @@ namespace Domain.Aggregates
 
         public void When(DomainEvent.RestaurantCreateBill @event)
             => _items.Add(new(@event.AggregateId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Customer,
-                @event.Name, @event.Price, @event.Quantity, @event.Time, @event.Status, @event.Date));
+                @event.Name, @event.Price, @event.Quantity, @event.Time, false, false, @event.Date));
 
         public void When(DomainEvent.RestaurantReply @event)
             => _items.Single(item => item.Id == @event.AggregateId).UpdateStatus(@event.Status);

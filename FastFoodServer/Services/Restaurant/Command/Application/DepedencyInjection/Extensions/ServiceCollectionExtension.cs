@@ -2,6 +2,7 @@
 using Application.Abstractions.Gateways;
 using Application.BackgroundJobs;
 using Application.Services;
+using Application.UseCases.Commands;
 using Application.UseCases.Events;
 using Contracts.Services.Restaurant;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ namespace Application.DepedencyInjection.Extensions
             => services.AddScoped<IApplicationService, ApplicationService>()
                        .AddScoped<IInteractor<Order.DomainEvent.OrderConfirm>, RequestRestaurantWhenPaymentRequestInteractor>()
                        .AddScoped<IInteractor<DomainEvent.ExpireOrderRestaurant>, CancelOrderWhenExpireRestaurant>()
+                       .AddScoped<IInteractor<Command.ReplyRestaurant>, ReplyRestaurantInteractor>()
                        .AddScoped<IScheduleNotification, ScheduleNotification>();
     }
 }
