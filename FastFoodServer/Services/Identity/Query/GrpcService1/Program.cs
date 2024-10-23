@@ -9,7 +9,7 @@ using Infrastructure.Projection;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
 using Infrastructure.EventBus.DependencyInjection.Extensions;
-
+using Infrastructure.ElasticSearch.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Additional configuration is required to successfully run gRPC on macOS.
@@ -20,10 +20,12 @@ builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGatewa
 builder.Services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.RegisterEvent>, ProjectUserWhenCreateUserInteractor>();
 builder.Services.AddScoped<IInteractor<Query.GetUserRequest, Projection.User>, GetUserInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.GetRestaurantRequest, Projection.User>, GetListRestaurantSearchInteractor>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
 builder.Services.AddConfigurationMasstransit();
+builder.Services.AddElasticSearch();
 builder.Services.AddGrpc();
 
 

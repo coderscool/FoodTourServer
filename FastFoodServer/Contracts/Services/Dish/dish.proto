@@ -11,6 +11,7 @@ service Disher {
   rpc GetListDishTrending (GetListDishRequest) returns (GetListDishReply);
   rpc GetDishDetail (GetDishDetailRequest) returns (GetDishDetailReply);
   rpc GetListDishRestaurant (GetListDishRestaurantRequest) returns (GetListDishReply);
+  rpc SearchListDishRestaurant (SearchDishRequest) returns (GetListDishReply);
 }
 
 // The request message containing the user's name.
@@ -61,4 +62,13 @@ message RestaurantReply {
 message GetListDishRestaurantRequest {
 	string Id = 1;
 	int32 Page = 2;
+	int32 Size = 3;
+}
+
+message SearchDishRequest {
+	string Name = 1; 
+	string Category = 2;
+	string Nation = 3;
+	int32 Page = 4;
+	int32 Size = 5;
 }

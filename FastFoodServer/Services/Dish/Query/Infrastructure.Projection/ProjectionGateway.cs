@@ -16,7 +16,6 @@ namespace Infrastructure.Projection
         where TProjection : IProjection
     {
         private readonly IMongoCollection<TProjection> _collection;
-        private const int pageSize = 4;
         public ProjectionGateway(IMongoDbContext context)
         {
             _collection = context.GetCollection<TProjection>();
@@ -31,8 +30,8 @@ namespace Infrastructure.Projection
         public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.AsQueryable().Where(predicate).FirstOrDefaultAsync(cancellationToken)!;
 
-        public async Task<List<TProjection?>> FindPaginatonAsync(Expression<Func<TProjection, bool>> predicate, int pageIndex, CancellationToken cancellationToken)
-            => await _collection.AsQueryable().Where(predicate).Skip(pageIndex*4).Take(pageSize).ToListAsync();
+        public async Task<List<TProjection?>> FindPaginatonAsync(Expression<Func<TProjection, bool>> predicate, int pageIndex, int pageSize, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).Skip(pageIndex*pageSize).Take(pageSize).ToListAsync();
 
         public async Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken)
             => await _collection.ReplaceOneAsync(predicate, projection);

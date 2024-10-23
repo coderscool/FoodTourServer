@@ -137,3 +137,6 @@
 /FastFoodServer/Services/Restaurant/Query/GrpcService1/bin/Debug/net6.0
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.EventBus/bin/Debug/net6.0
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.Projection/bin/Debug/net6.0
+/FastFoodServer/Services/Dish/Query/Infrastructure.ElasticSearch/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Infrastructure.ElasticSearch/bin/Debug/net6.0
+/FastFoodServer/Services/Identity/Query/Infrastructure.ElasticSearch/obj

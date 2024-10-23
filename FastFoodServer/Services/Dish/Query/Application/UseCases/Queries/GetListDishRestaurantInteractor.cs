@@ -17,6 +17,6 @@ namespace Application.UseCases.Queries
             _projectionGateway = projectionGateway;
         }
         public async Task<List<Projection.Dish?>> InteractAsync(Query.DishRestaurantQuery query, CancellationToken cancellationToken)
-            => await _projectionGateway.FindPaginatonAsync(x => x.PersonId == query.Id, query.Page, cancellationToken);
+            => await _projectionGateway.FindPaginatonAsync(x => x.PersonId == query.Id, query.Page, query.Size, cancellationToken);
     }
 }

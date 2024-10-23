@@ -37,5 +37,8 @@ namespace Infrastructure.Projection
 
         public async Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken)
             => await _collection.ReplaceOneAsync(predicate, projection);
+
+        public async Task<List<TProjection?>> FindListAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).ToListAsync(cancellationToken);
     }
 }

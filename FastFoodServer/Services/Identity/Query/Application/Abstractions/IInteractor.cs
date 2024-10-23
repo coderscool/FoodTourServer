@@ -18,4 +18,11 @@ namespace Application.Abstractions
     {
         Task<TProjection?> InteractAsync(TQuery query, CancellationToken cancellationToken);
     }
+
+    public interface IPagedInteractor<in TQuery, TProjection>
+        where TQuery : IQuery
+        where TProjection : IProjection
+    {
+        Task<List<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
+    }
 }

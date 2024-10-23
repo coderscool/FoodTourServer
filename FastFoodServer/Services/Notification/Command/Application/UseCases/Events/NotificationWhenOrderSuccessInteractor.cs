@@ -29,7 +29,7 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
         {
             Console.WriteLine("123");
-            //var s = _queueService.GetConnectionId(@event.RestaurantId);
+            //var s = _queueService.GetConnectionId(@event.Restau;rantId);
             //Console.WriteLine(s);
             //await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", @event.Name);
         }

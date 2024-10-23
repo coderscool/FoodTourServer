@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.Identity;
+using Nest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,13 @@ namespace Application.UseCases.Events
     public class ProjectUserWhenCreateUserInteractor : IInteractor<DomainEvent.RegisterEvent>
     {
         private readonly IProjectionGateway<Projection.User> _projectionGateway;
+        private readonly IElasticClient _elasticClient;
 
-        public ProjectUserWhenCreateUserInteractor(IProjectionGateway<Projection.User> projectionGateway)
+        public ProjectUserWhenCreateUserInteractor(IProjectionGateway<Projection.User> projectionGateway,
+            IElasticClient elasticClient)
         {
             _projectionGateway = projectionGateway;
+            _elasticClient = elasticClient;
         }
 
         public async Task InteractAsync(DomainEvent.RegisterEvent @event, CancellationToken cancellationToken)
@@ -36,6 +40,7 @@ namespace Application.UseCases.Events
             };
             Console.WriteLine("123456789");
             await _projectionGateway.ReplaceInsertAsync(user, cancellationToken);
+            await _elasticClient.IndexDocumentAsync(user);
         }
     }
 }

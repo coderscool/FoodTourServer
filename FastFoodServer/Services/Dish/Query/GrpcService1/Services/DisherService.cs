@@ -12,15 +12,18 @@ namespace GrpcService1.Services
         private readonly IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish> _pagedInteractor;
         private readonly IInteractor<Query.DishDetailQuery, Projection.Dish> _interactor;
         private readonly IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish> _pagedIndexInteractor;
+        private readonly IPagedInteractor<Query.SearchDishDetail, Projection.Dish> _searchInteractor;
         public DisherService(ILogger<DisherService> logger, 
             IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish> pagedInteractor,
             IInteractor<Query.DishDetailQuery, Projection.Dish> interactor,
-            IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish> pagedIndexInteractor)
+            IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish> pagedIndexInteractor,
+            IPagedInteractor<Query.SearchDishDetail, Projection.Dish> searchInteractor)
         {
             _logger = logger;
             _pagedInteractor = pagedInteractor;
             _interactor = interactor;
             _pagedIndexInteractor = pagedIndexInteractor;
+            _searchInteractor = searchInteractor;
         }
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
@@ -65,6 +68,7 @@ namespace GrpcService1.Services
             {
                 Id = request.Id,
                 Page = request.Page,
+                Size = request.Size,
             };
             var result = await _pagedIndexInteractor.InteractAsync(query, context.CancellationToken);
             if (result == null)
@@ -126,6 +130,39 @@ namespace GrpcService1.Services
             {
                 Dish = dish,
                 Restaurant = res
+            });
+        }
+
+        public override async Task<GetListDishReply> SearchListDishRestaurant(SearchDishRequest request, ServerCallContext context)
+        {
+            var query = new Query.SearchDishDetail
+            {
+                Name = request.Name,
+                Category = request.Category,
+                Nation = request.Nation,
+                Page = request.Page,
+                Size = request.Size,
+            };
+            var result = await _searchInteractor.InteractAsync(query, context.CancellationToken);
+            if (result == null)
+            {
+                return null;
+            }
+            var list = result.Select(x => new DishDetailReply
+            {
+                Id = x.Id,
+                RestaurantId = x.PersonId,
+                Name = x.Name,
+                Image = x.Image,
+                Rate = x.Rate,
+                Price = x.Cost,
+                Quantity = x.Quantity,
+                Category = { x.Category },
+                Nation = { x.Nation },
+            });
+            return await Task.FromResult(new GetListDishReply
+            {
+                List = { list }
             });
         }
     }

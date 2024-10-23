@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.ElasticSearch\Infrastructure.ElasticSearch.csproj" />
     <ProjectReference Include="..\Infrastructure.EventBus\Infrastructure.EventBus.csproj" />
     <ProjectReference Include="..\Infrastructure.Projection\Infrastructure.Projection.csproj" />
   </ItemGroup>

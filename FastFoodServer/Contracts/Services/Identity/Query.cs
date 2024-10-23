@@ -19,5 +19,15 @@ namespace Contracts.Services.Identity
         {
             public string Id { get; set; } = string.Empty;
         }
+
+        public class GetRestaurantRequest : IQuery
+        {
+            public string Key { get; set; } = string.Empty;
+            public string Nation { get; set; } = string.Empty;
+            public string Location { get; set; } = string.Empty;
+            public int Page { get; set; }
+            public int Size { get; set; }
+
+        }
     }
 }

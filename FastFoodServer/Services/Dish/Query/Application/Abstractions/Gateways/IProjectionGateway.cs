@@ -14,7 +14,7 @@ namespace Application.Abstractions.Gateways
         ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken);
         Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken);
         Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
-        Task<List<TProjection?>> FindPaginatonAsync(Expression<Func<TProjection, bool>> predicate, int pageIndex, CancellationToken cancellationToken);
+        Task<List<TProjection?>> FindPaginatonAsync(Expression<Func<TProjection, bool>> predicate, int pageIndex, int pageSize, CancellationToken cancellationToken);
         Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken);
 
     }

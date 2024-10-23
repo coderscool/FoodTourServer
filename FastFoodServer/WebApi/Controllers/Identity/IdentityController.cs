@@ -92,5 +92,22 @@ namespace WebApi.Controllers.Identity
             var reply = await client.GetUserAsync(input);
             return Ok(reply);
         }
+
+        [HttpPost("store")]
+        public async Task<IActionResult> GetListRestaurant([FromBody] Query.GetRestaurantRequest request)
+        {
+            var input = new StoreRequest
+            {
+                Key = request.Key,
+                Nation = request.Nation,
+                Location = request.Location,
+                Page = request.Page,
+                Size = request.Size
+            };
+            var channel = GrpcChannel.ForAddress("http://localhost:5123");
+            var client = new Identiter.IdentiterClient(channel);
+            var reply = await client.GetListRestaurantAsync(input);
+            return Ok(reply);
+        }
     }
 }

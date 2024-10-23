@@ -11,13 +11,16 @@ namespace GrpcService1.Services
         private readonly ILogger<IdentiterService> _logger;
         private readonly IInteractor<Query.Login, Projection.User> _getLoginUser;
         private readonly IInteractor<Query.GetUserRequest, Projection.User> _getUser;
+        private readonly IPagedInteractor<Query.GetRestaurantRequest, Projection.User> _getRestaurant;
         public IdentiterService(ILogger<IdentiterService> logger,
             IInteractor<Query.Login, Projection.User> getLoginUser,
-            IInteractor<Query.GetUserRequest, Projection.User> getUser)
+            IInteractor<Query.GetUserRequest, Projection.User> getUser,
+            IPagedInteractor<Query.GetRestaurantRequest, Projection.User> getRestaurant)
         {
             _logger = logger;
             _getLoginUser = getLoginUser;
             _getUser = getUser;
+            _getRestaurant = getRestaurant;
         }
 
         public override async Task<TokenReply> Login(LoginRequest request, ServerCallContext context)
@@ -70,6 +73,37 @@ namespace GrpcService1.Services
                 Phone = result.Phone,
                 Role = result.Role,
                 Budget = reply.Budget,
+                Image = result.Image
+            });
+        }
+
+        public override async Task<ListStoreReply> GetListRestaurant(StoreRequest request, ServerCallContext context)
+        {
+            var query = new Query.GetRestaurantRequest
+            {
+                Key = request.Key,
+                Nation = request.Nation,
+                Location = request.Location,
+                Page = request.Page,
+                Size = request.Size,
+            };
+            var result = await _getRestaurant.InteractAsync(query, context.CancellationToken);
+            if (result == null)
+            {
+                return null;
+            }
+
+            var list = result.Select(x => new StoreReply
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Image = x.Image,
+                Address = x.Address,
+
+            });
+            return await Task.FromResult(new ListStoreReply
+            {
+                List = { list }
             });
         }
     }

@@ -9,6 +9,7 @@ using MassTransit;
 using System.Reflection;
 using Application.UseCases.Events;
 using Infrastructure.EventBus.DependencyInjection.Extensions;
+using Infrastructure.ElasticSearch.DependencyInjection.Extensions;
 using Application.UseCases.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +19,10 @@ builder.Services.AddScoped<IInteractor<DomainEvent.DishCreate>, ProjectDishWhenC
 builder.Services.AddScoped<IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish>, GetListDishInteractor>();
 builder.Services.AddScoped<IInteractor<Query.DishDetailQuery, Projection.Dish>, GetDishDetailInteractor>();
 builder.Services.AddScoped<IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish>, GetListDishRestaurantInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.SearchDishDetail, Projection.Dish>, SearchDishDetailInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.QuantityUpdate>, ProjectDishWhenStatusUpdateInteractor>();
 builder.Services.AddConfigurationMasstransit();
+builder.Services.AddElasticSearch();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
 builder.Services.AddGrpc();
