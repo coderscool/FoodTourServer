@@ -31,8 +31,6 @@ namespace Contracts.Services.Dish
             public long Cost { get; set; } 
             [BsonElement("Discount")]
             public float Discount { get; set; }
-            [BsonElement("Rate")]
-            public float Rate { get; set; }
             [BsonElement("Quantity")]
             public int Quantity { get; set; }
         }

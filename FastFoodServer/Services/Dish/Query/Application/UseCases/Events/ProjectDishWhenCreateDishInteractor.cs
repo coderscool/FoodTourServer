@@ -34,7 +34,6 @@ namespace Application.UseCases.Events
                 Nation = @event.Search.Nation,
                 Cost = @event.Price,
                 Discount = 0,
-                Rate = @event.Rate.Point,
                 Quantity = @event.Quantity
             };
             Console.WriteLine(@event.AggregateId);

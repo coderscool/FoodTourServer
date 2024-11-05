@@ -16,22 +16,14 @@ namespace Domain.Entities
         public string Id { get; }
         public long Budget { get; private set; }
 
-        public void Decrease(long price) 
-        { 
-            if(Budget >= price)
-            {
-                Budget -= price;
-            }
+        public void Decrease(int quantity, long price) 
+        {
+            Budget -= quantity * price;
         }
 
-        public void Increase(long price)
+        public void Increase(int quantity, long price)
         {
-            Budget += price;
-        }
-
-        public void UpdateBudget(long budget)
-        {
-            Budget = budget;
+            Budget += quantity * price;
         }
     }
 }

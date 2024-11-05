@@ -10,7 +10,7 @@ namespace Contracts.Services.Identity
 {
     public static class DomainEvent
     {
-        public record RegisterEvent(string AggregateId, string UserName, string PassWord, Dto.Person Person, Dto.Search Search, string Image, string Role, long Version) : Message, IDomainEvent;
+        public record RegisterEvent(string AggregateId, string UserName, string PassWord, Dto.Person Person, List<string>  Nation, string Image, string Role, long Version) : Message, IDomainEvent;
 
     }
 }

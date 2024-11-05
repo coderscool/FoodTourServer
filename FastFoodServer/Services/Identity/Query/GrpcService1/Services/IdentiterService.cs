@@ -64,13 +64,12 @@ namespace GrpcService1.Services
             var channel = GrpcChannel.ForAddress("http://localhost:5061");
             var client = new Accounter.AccounterClient(channel);
             var reply = await client.GetBudgetAccountAsync(input);
-            Console.WriteLine(reply);
             return await Task.FromResult(new GetUserReply
             {
                 Id = result.Id,
-                Name = result.Name,
-                Address = result.Address,
-                Phone = result.Phone,
+                Name = result.Person.Name,
+                Address = result.Person.Address,
+                Phone = result.Person.Phone,
                 Role = result.Role,
                 Budget = reply.Budget,
                 Image = result.Image
@@ -96,10 +95,9 @@ namespace GrpcService1.Services
             var list = result.Select(x => new StoreReply
             {
                 Id = x.Id,
-                Name = x.Name,
+                Name = x.Person.Name,
                 Image = x.Image,
-                Address = x.Address,
-
+                Address = x.Person.Address,
             });
             return await Task.FromResult(new ListStoreReply
             {

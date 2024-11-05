@@ -9,6 +9,6 @@ namespace Contracts.Services.Notification
 {
     public class Command
     {
-        public record NotificationMessage(string AggregateId, string PersonId, string Message, int Time) : Message, ICommand;
+        public record NotificationMessage(string AggregateId, string PersonId, string Message, string Type) : Message, ICommand;
     }
 }

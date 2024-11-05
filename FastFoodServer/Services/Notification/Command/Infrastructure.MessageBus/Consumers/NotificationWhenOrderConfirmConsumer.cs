@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Account;
+using Contracts.Services.Order;
 using Infrastructure.MessageBus.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class NotificationSuccessConsumer : Consumer<DomainEvent.PaymentRequest>
+    public class NotificationWhenOrderConfirmConsumer : Consumer<DomainEvent.OrderConfirm>
     {
-        public NotificationSuccessConsumer(IInteractor<DomainEvent.PaymentRequest> interactor) : base(interactor)
+        public NotificationWhenOrderConfirmConsumer(IInteractor<DomainEvent.OrderConfirm> interactor) : base(interactor)
         {
         }
     }

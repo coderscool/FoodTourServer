@@ -19,7 +19,7 @@ namespace Application.DepedencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
-                       .AddScoped<IInteractor<Order.DomainEvent.OrderConfirm>, RequestRestaurantWhenPaymentRequestInteractor>()
+                       .AddScoped<IInteractor<Order.DomainEvent.OrderConfirm>, RequestRestaurantWhenOrderConfirmInteractor>()
                        .AddScoped<IInteractor<DomainEvent.ExpireOrderRestaurant>, CancelOrderWhenExpireRestaurant>()
                        .AddScoped<IInteractor<Command.ReplyRestaurant>, ReplyRestaurantInteractor>()
                        .AddScoped<IScheduleNotification, ScheduleNotification>();

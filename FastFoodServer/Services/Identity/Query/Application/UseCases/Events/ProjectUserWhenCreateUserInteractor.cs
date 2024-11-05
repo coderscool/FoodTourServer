@@ -29,13 +29,10 @@ namespace Application.UseCases.Events
                 Id = @event.AggregateId,
                 UserName = @event.UserName,
                 PassWord = @event.PassWord,
-                Name = @event.Person.Name,
-                Address = @event.Person.Address,
-                Phone = @event.Person.Phone,
+                Person = @event.Person,
                 Image = @event.Image, 
                 Role = @event.Role,
-                Category = @event.Search.Category,
-                Nation = @event.Search.Nation,
+                Nation = @event.Nation,
                 Token = ""
             };
             Console.WriteLine("123456789");

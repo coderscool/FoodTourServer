@@ -19,12 +19,11 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
         {
             var account = await _projectionGateway.FindAsync(x => x.Id == @event.AggregateId, cancellationToken);
-            Console.WriteLine("request");
             if (account == null)
             {
                 throw new ArgumentException("Fail");
             }
-            account.Budget = @event.Budget;
+            account.Budget -= @event.Quantity * @event.Price;
             await _projectionGateway.UpdateFieldAsync(x => x.Id == @event.AggregateId, account, cancellationToken);
         }
     }

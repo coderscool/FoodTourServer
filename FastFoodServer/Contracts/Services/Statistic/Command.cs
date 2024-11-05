@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contracts.Abstractions.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace Contracts.Services.Statistic
 {
     public static class Command
     {
+        public record CreateStatistic(string Id) : Message, ICommand;
+        public record UpdateNumberDish(string Id) : Message, ICommand;
+        public record UpdateRevanue(string Id, int Quantity, long Price) : Message, ICommand;
     }
 }

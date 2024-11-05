@@ -21,7 +21,7 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(Identity.DomainEvent.RegisterEvent @event, CancellationToken cancellationToken)
         {
             Account account = new();
-            account.Handle(new Command.CreateAccount(@event.AggregateId, 10000000));
+            account.Handle(new Command.CreateAccount(@event.AggregateId));
             await _applicationService.AppendEventsAsync(account, cancellationToken);
         }
     }

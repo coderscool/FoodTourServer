@@ -13,5 +13,6 @@ namespace Contracts.Abstractions.DataTransferObject
         public record Rate(float Point);
         public record Person(string Name, string Address, string Phone);
         public record Restaurant(string Name, string Address, string Phone);
+        public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
     }
 }

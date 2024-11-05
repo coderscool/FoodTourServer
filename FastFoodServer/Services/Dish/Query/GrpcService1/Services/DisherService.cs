@@ -50,7 +50,6 @@ namespace GrpcService1.Services
                 RestaurantId = x.PersonId,
                 Name = x.Name,
                 Image = x.Image,
-                Rate = x.Rate,
                 Price = x.Cost,
                 Quantity = x.Quantity,
                 Category = {x.Category},
@@ -81,7 +80,6 @@ namespace GrpcService1.Services
                 RestaurantId = x.PersonId,
                 Name = x.Name,
                 Image = x.Image,
-                Rate = x.Rate,
                 Price = x.Cost,
                 Quantity = x.Quantity,
                 Category = { x.Category },
@@ -110,7 +108,6 @@ namespace GrpcService1.Services
                 RestaurantId = result.PersonId,
                 Name = result.Name,
                 Image = result.Image,
-                Rate = result.Rate,
                 Price = result.Cost
             };
             var input = new GetUserRequest
@@ -154,7 +151,6 @@ namespace GrpcService1.Services
                 RestaurantId = x.PersonId,
                 Name = x.Name,
                 Image = x.Image,
-                Rate = x.Rate,
                 Price = x.Cost,
                 Quantity = x.Quantity,
                 Category = { x.Category },

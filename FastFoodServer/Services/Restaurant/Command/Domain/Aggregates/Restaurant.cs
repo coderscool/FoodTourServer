@@ -31,7 +31,7 @@ namespace Domain.Aggregates
 
             if (item != null)
             {
-                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.RestaurantId,
+                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.RestaurantId, item.DishId,
                     item.CustomerId, item.Price, item.Quantity, cmd.Status, version));
             }
         }

@@ -26,8 +26,7 @@ namespace Domain.Aggregates
             {
                 if(item.Budget >= cmd.Price * cmd.Quantity)
                 {
-                    item.Decrease(cmd.Price * cmd.Quantity);
-                    RaiseEvent<DomainEvent.PaymentRequest>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, item.Budget, version));
+                    RaiseEvent<DomainEvent.PaymentRequest>((version) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, version));
                 }
                 else
                 {
@@ -37,27 +36,26 @@ namespace Domain.Aggregates
         }
 
         public void Handle(Command.CreateAccount cmd)
-            => RaiseEvent<DomainEvent.AccountCreate>((version, AggregateId) => new(cmd.Id, cmd.Amount, version));
+            => RaiseEvent<DomainEvent.AccountCreate>((version) => new(cmd.Id, 0, version));
 
         public void Handle(Command.RefundPayment cmd)
         {
             var item = _items.Where(accountItem => accountItem.Id == cmd.Id).FirstOrDefault();
             if(item != null)
             {
-                item.Increase(cmd.Price * cmd.Quantity);
-                RaiseEvent<DomainEvent.PaymentRefund>((version, AggregateId) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, item.Budget, version));
+                RaiseEvent<DomainEvent.PaymentRefund>((version) => new(cmd.Id, cmd.OrderId, cmd.Price, cmd.Quantity, version));
             }
         }
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.PaymentRequest @event)
-            => _items.Single(item => item.Id == @event.AggregateId).UpdateBudget(@event.Budget);
+            => _items.Single(item => item.Id == @event.AggregateId).Decrease(@event.Quantity, @event.Price);
 
         public void When(DomainEvent.AccountCreate @event)
             => _items.Add(new(@event.AggregateId, @event.Budget));
 
         public void When(DomainEvent.PaymentRefund @event)
-            => _items.Single(item => item.Id == @event.AggregateId).UpdateBudget(@event.Budget);
+            => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Quantity, @event.Price);
     }
 }

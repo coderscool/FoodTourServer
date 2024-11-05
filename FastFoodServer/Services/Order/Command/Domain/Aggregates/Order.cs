@@ -41,6 +41,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.UpdateStatus cmd)
             => RaiseEvent<DomainEvent.StatusUpdate>((version, AggregateId) => new(cmd.Id, cmd.Status, version));
+
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 

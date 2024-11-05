@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.DataTransferObject;
 
 namespace Contracts.Services.Identity
 {
@@ -21,18 +22,12 @@ namespace Contracts.Services.Identity
             [BsonElement("PassWord")]
             public string PassWord { get; set; } = string.Empty;
             [BsonElement("Name")]
-            public string Name { get; set; } = string.Empty;
-            [BsonElement("Address")]
-            public string Address { get; set; } = string.Empty;
-            [BsonElement("Phone")]
-            public string Phone { get; set; } = string.Empty;
+            public Dto.Person Person { get; set; }
             [BsonElement("Image")]
             public string Image { get; set; } = string.Empty;
             [BsonElement("Role")]
             public string Role { get; set; } = string.Empty;
             [BsonElement("Category")]
-            public List<string>? Category { get; set; }
-            [BsonElement("Nation")]
             public List<string>? Nation { get; set; }
             [BsonElement("Token")]
             public string Token { get; set; } = string.Empty;

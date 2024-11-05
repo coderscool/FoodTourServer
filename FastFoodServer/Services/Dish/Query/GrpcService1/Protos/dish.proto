@@ -29,11 +29,10 @@ message DishDetailReply {
 	string RestaurantId = 2;
 	string Name = 3;
 	string Image = 4;
-	float Rate = 5;
-	int64 Price = 6;
-	int32 Quantity = 7;
-	repeated string Category = 8;
-	repeated string Nation = 9;
+	int64 Price = 5;
+	int32 Quantity = 6;
+	repeated string Category = 7;
+	repeated string Nation = 8;
 }
 
 message GetListDishReply {

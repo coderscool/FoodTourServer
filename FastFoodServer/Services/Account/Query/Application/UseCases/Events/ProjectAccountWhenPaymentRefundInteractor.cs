@@ -24,7 +24,7 @@ namespace Application.UseCases.Events
             {
                 throw new ArgumentException("Fail");
             }
-            account.Budget = @event.Budget;
+            account.Budget += @event.Quantity * @event.Price;
             await _projectionGateway.UpdateFieldAsync(x => x.Id == @event.AggregateId, account, cancellationToken);
         }
     }

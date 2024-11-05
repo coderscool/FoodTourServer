@@ -4,6 +4,7 @@ using Contracts.Services.Dish;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,15 +23,15 @@ namespace Domain.Aggregates
         => Handle(command as dynamic);
 
         public void Handle(Command.CreateDish cmd)
-            => RaiseEvent<DomainEvent.DishCreate>((version, AggregateId) => new(
-                AggregateId, cmd.PersonId, cmd.Name, cmd.Image, cmd.Price, cmd.Quantity, cmd.Rate, cmd.Search, version));
+            => RaiseEvent<DomainEvent.DishCreate>((version) => new(
+                ObjectId.GenerateNewId().ToString(), cmd.PersonId, cmd.Name, cmd.Image, cmd.Price, cmd.Quantity, cmd.Search, version));
 
         public void Handle(Command.UpdateQuantity cmd)
         {
             var item = _items.Where(x => x.Id == cmd.Id).FirstOrDefault();
             if(item != null)
             {
-                RaiseEvent<DomainEvent.QuantityUpdate>((version, AggregateId) => new(
+                RaiseEvent<DomainEvent.QuantityUpdate>((version) => new(
                     cmd.Id, item.Quantity + cmd.Quantity, version));
             }
         }
@@ -38,7 +39,7 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.DishCreate @event)
-            => _items.Add(new (@event.AggregateId, @event.PersonId, @event.Name, @event.Price, @event.Quantity, @event.Rate, @event.Search));
+            => _items.Add(new (@event.AggregateId, @event.PersonId, @event.Name, @event.Price, @event.Quantity, @event.Search));
         
         public void When(DomainEvent.QuantityUpdate @event)
             => _items.Single(item => item.Id == @event.AggregateId).UpdateQuantity(@event.Quantity);

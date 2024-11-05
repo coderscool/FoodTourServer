@@ -12,7 +12,7 @@ namespace Contracts.Services.Account
     {
         public record RequestPayment(string Id, string OrderId, long Price, int Quantity) : Message, ICommand;
 
-        public record CreateAccount(string Id, long Amount) : Message, ICommand;
+        public record CreateAccount(string Id) : Message, ICommand;
 
         public record RefundPayment(string Id, string OrderId, long Price, int Quantity) : Message, ICommand;
     }

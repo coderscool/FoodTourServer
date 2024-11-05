@@ -15,8 +15,6 @@ namespace Domain.Abstractions.Aggregates
 
         public long Version { get; private set; }
 
-        public string AggregateId { get; private set; }
-
         [JsonIgnore]
         public IEnumerable<IDomainEvent> UncommittedEvents
             => _events.AsReadOnly();
@@ -37,14 +35,13 @@ namespace Domain.Abstractions.Aggregates
 
         public abstract void Handle(ICommand command);
 
-        protected void RaiseEvent<TEvent>(Func<long, string, TEvent> func) where TEvent : IDomainEvent
-            => RaiseEvent((func as Func<long, string, IDomainEvent>)!);
+        protected void RaiseEvent<TEvent>(Func<long, TEvent> func) where TEvent : IDomainEvent
+            => RaiseEvent((func as Func<long, IDomainEvent>)!);
 
-        protected void RaiseEvent(Func<long, string, IDomainEvent> onRaise)
+        protected void RaiseEvent(Func<long, IDomainEvent> onRaise)
         {
             Version++;
-            AggregateId = ObjectId.GenerateNewId().ToString();
-            var @event = onRaise(Version, AggregateId);
+            var @event = onRaise(Version);
             Apply(@event);
             _events.Add(@event);
         }

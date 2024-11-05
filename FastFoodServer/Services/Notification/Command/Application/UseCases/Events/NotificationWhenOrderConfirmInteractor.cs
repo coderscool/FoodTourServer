@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Services;
 using Contracts.Abstractions.Messages;
-using Contracts.Services.Account;
+using Contracts.Services.Order;
 using Domain.Aggregates;
 using Infrastructure.Hubs.Abstractions;
 using Microsoft.AspNetCore.SignalR;
@@ -13,12 +13,12 @@ using System.Text;
 
 namespace Application.UseCases.Events
 {
-    public class NotificationWhenOrderSuccessInteractor : IInteractor<DomainEvent.PaymentRequest>
+    public class NotificationWhenOrderConfirmInteractor : IInteractor<DomainEvent.OrderConfirm>
     {
         private readonly IApplicationService _applicationService;
         private readonly IQueueService _queueService;
         private readonly IHubContext<NotificationHub> _hubContext;
-        public NotificationWhenOrderSuccessInteractor(IApplicationService applicationService,
+        public NotificationWhenOrderConfirmInteractor(IApplicationService applicationService,
             IQueueService queueService, IHubContext<NotificationHub> hubContext)
         {
             _applicationService = applicationService;
@@ -26,12 +26,11 @@ namespace Application.UseCases.Events
             _hubContext = hubContext;
         }
 
-        public async Task InteractAsync(DomainEvent.PaymentRequest @event, CancellationToken cancellationToken)
+        public async Task InteractAsync(DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
         {
             Console.WriteLine("123");
-            //var s = _queueService.GetConnectionId(@event.Restau;rantId);
-            //Console.WriteLine(s);
-            //await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", @event.Name);
+            var s = _queueService.GetConnectionId(@event.RestaurantId);
+            await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", "order");
         }
 
         private string Message(string Name, string Dish, int Amount)

@@ -10,10 +10,10 @@ namespace Contracts.Services.Account
 {
     public static class DomainEvent
     {
-        public record PaymentRequest(string AggregateId, string OrderId, long Price, int Quantity, long Budget, long Version) : Message, IDomainEvent;
+        public record PaymentRequest(string AggregateId, string OrderId, long Price, int Quantity, long Version) : Message, IDomainEvent;
 
         public record AccountCreate(string AggregateId, long Budget, long Version) : Message, IDomainEvent;
 
-        public record PaymentRefund(string AggregateId, string OrderId, long Price, int Quantity, long Budget, long Version) : Message, IDomainEvent;
+        public record PaymentRefund(string AggregateId, string OrderId, long Price, int Quantity, long Version) : Message, IDomainEvent;
     }
 }

@@ -22,8 +22,8 @@ namespace Application.UseCases.Events
         {
             if(@event.Status == true)
             {
-                var dish = await _applicationService.LoadAggregateAsync<Dish>(@event.AggregateId, cancellationToken);
-                dish.Handle(new Command.UpdateQuantity(@event.AggregateId, @event.Quantity));
+                var dish = await _applicationService.LoadAggregateAsync<Dish>(@event.DishId, cancellationToken);
+                dish.Handle(new Command.UpdateQuantity(@event.DishId, @event.Quantity));
                 await _applicationService.AppendEventsAsync(dish, cancellationToken);
             }
         }

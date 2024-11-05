@@ -27,16 +27,8 @@ namespace Application.UseCases.Queries
                     .Bool(b => b
                         .Must(
                             mq => mq.Match(m => m
-                                .Field(f => f.Name)
-                                .Query(query.Key)
-                                ),
-                            mq => mq.Match(m => m
                                 .Field(f => f.Nation)
                                 .Query(query.Nation)
-                                ),
-                             mq => mq.Match(m => m
-                                .Field(f => f.Address)
-                                .Query(query.Location)
                                 ),
                              mq => mq.Match(m => m
                                 .Field(f => f.Role)

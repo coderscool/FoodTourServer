@@ -17,7 +17,7 @@ namespace Application.DependencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
-                       .AddScoped<IInteractor<DomainEvent.PaymentRequest>, NotificationWhenOrderSuccessInteractor>();
+                       .AddScoped<IInteractor<DomainEvent.PaymentRequest>, NotificationWhenOrderConfirmInteractor>();
 
         public static IServiceCollection AddHangfire(this IServiceCollection services)
             => services.AddHangfire(config => config.UseMemoryStorage())
