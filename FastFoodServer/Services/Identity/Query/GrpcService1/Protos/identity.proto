@@ -20,8 +20,9 @@ message LoginRequest {
 
 // The response message containing the greetings.
 message TokenReply {
-  string Token = 1;
-  string Role = 2;
+  string Id = 1;
+  string Token = 2;
+  string Role = 3;
 }
 
 message GetUserRequest {
@@ -36,6 +37,8 @@ message GetUserReply {
 	string Role = 5;
 	int64 Budget = 6;
 	string Image = 7;
+	int32 Cart = 8;
+	int32 Notification = 9;
 }
 
 message StoreReply {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Events
 {
-    public class ProjectCartWhenCartItemRemoveInteractor : IInteractor<DomainEvent.CartItemRemove>
+    public class ProjectCartWhenCartItemRemoveInteractor : IQueryInteractor<DomainEvent.CartItemRemove>
     {
         private readonly IProjectionGateway<Projection.Cart> _projectionGateway;
         public ProjectCartWhenCartItemRemoveInteractor(IProjectionGateway<Projection.Cart> projectionGateway)

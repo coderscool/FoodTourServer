@@ -16,9 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IInteractor<DomainEvent.CartItemAdd>, ProjectCartWhenAddCartItemInteractor>();
+builder.Services.AddScoped<IQueryInteractor<DomainEvent.CartItemAdd>, ProjectCartWhenAddCartItemInteractor>();
 builder.Services.AddScoped<IPagedInteractor<Query.CustomerCartQuery, Projection.Cart>, GetListDishCartInteractor>();
-builder.Services.AddScoped<IInteractor<DomainEvent.CartItemRemove>, ProjectCartWhenCartItemRemoveInteractor>();
+builder.Services.AddScoped<IQueryInteractor<DomainEvent.CartItemRemove>, ProjectCartWhenCartItemRemoveInteractor>();
+builder.Services.AddScoped<ICountInteractor<Query.CustomerCartQuery>, GetQuantityDishCartInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

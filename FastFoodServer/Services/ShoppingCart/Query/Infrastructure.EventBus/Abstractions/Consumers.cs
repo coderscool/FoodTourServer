@@ -12,8 +12,8 @@ namespace Infrastructure.EventBus.Abstractions
     public abstract class Consumer<TMessage> : IConsumer<TMessage>
     where TMessage : class, IDomainEvent
     {
-        private readonly IInteractor<TMessage> _interactor;
-        protected Consumer(IInteractor<TMessage> interactor)
+        private readonly IQueryInteractor<TMessage> _interactor;
+        protected Consumer(IQueryInteractor<TMessage> interactor)
         {
             _interactor = interactor;
         }

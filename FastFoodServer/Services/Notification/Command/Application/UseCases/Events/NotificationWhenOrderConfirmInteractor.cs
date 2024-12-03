@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Services;
-using Contracts.Abstractions.Messages;
-using Contracts.Services.Order;
+using Contracts.Services.Notification;
+using Order = Contracts.Services.Order;
 using Domain.Aggregates;
 using Infrastructure.Hubs.Abstractions;
 using Microsoft.AspNetCore.SignalR;
@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Application.UseCases.Events
 {
-    public class NotificationWhenOrderConfirmInteractor : IInteractor<DomainEvent.OrderConfirm>
+    public class NotificationWhenOrderConfirmInteractor : IInteractor<Order.DomainEvent.OrderConfirm>
     {
         private readonly IApplicationService _applicationService;
         private readonly IQueueService _queueService;
@@ -26,21 +26,23 @@ namespace Application.UseCases.Events
             _hubContext = hubContext;
         }
 
-        public async Task InteractAsync(DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
+        public async Task InteractAsync(Order.DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
         {
-            Console.WriteLine("123");
             var s = _queueService.GetConnectionId(@event.RestaurantId);
             await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", "order");
+            var message = Message(@event.Name, @event.Quantity);
+            //Notification notification = new();
+            //notification.Handle(new Command.NotificationMessage(@event.CustomerId, @event.Name, message));
+            //await _applicationService.AppendEventsAsync(notification, cancellationToken);
         }
 
-        private string Message(string Name, string Dish, int Amount)
+        private string Message(string Dish, int Amount)
         {
             var sb = new StringBuilder();
+            sb.Append("Đặt");
             sb.Append(Amount);
             sb.Append(" phần");
             sb.Append(Dish);
-            sb.Append(" từ");
-            sb.Append(Name);
             return sb.ToString();
         }
     }

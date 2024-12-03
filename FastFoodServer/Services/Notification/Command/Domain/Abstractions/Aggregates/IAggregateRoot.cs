@@ -12,6 +12,5 @@ namespace Domain.Abstractions.Aggregates
         IEnumerable<IDomainEvent> UncommittedEvents { get; }
         void Handle(ICommand command);
 
-        void When(IEvent events);
     }
 }

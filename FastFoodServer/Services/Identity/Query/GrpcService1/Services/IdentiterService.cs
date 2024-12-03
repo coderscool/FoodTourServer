@@ -11,11 +11,11 @@ namespace GrpcService1.Services
         private readonly ILogger<IdentiterService> _logger;
         private readonly IInteractor<Query.Login, Projection.User> _getLoginUser;
         private readonly IInteractor<Query.GetUserRequest, Projection.User> _getUser;
-        private readonly IPagedInteractor<Query.GetRestaurantRequest, Projection.User> _getRestaurant;
+        private readonly IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery> _getRestaurant;
         public IdentiterService(ILogger<IdentiterService> logger,
             IInteractor<Query.Login, Projection.User> getLoginUser,
             IInteractor<Query.GetUserRequest, Projection.User> getUser,
-            IPagedInteractor<Query.GetRestaurantRequest, Projection.User> getRestaurant)
+            IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery> getRestaurant)
         {
             _logger = logger;
             _getLoginUser = getLoginUser;
@@ -35,12 +35,14 @@ namespace GrpcService1.Services
             {
                 return await Task.FromResult(new TokenReply
                 {
+                    Id = "",
                     Token = "Hello ",
                     Role = "word"
                 });
             }
             return await Task.FromResult(new TokenReply
             {
+                Id = result.Id,
                 Token = result.Token,
                 Role = result.Role
             });
@@ -61,9 +63,20 @@ namespace GrpcService1.Services
             {
                 Id = request.Id
             };
+
             var channel = GrpcChannel.ForAddress("http://localhost:5061");
             var client = new Accounter.AccounterClient(channel);
             var reply = await client.GetBudgetAccountAsync(input);
+
+            var input1 = new GetListCartRequest
+            {
+                CustomerId = request.Id
+            };
+
+            var channel1 = GrpcChannel.ForAddress("http://localhost:5162");
+            var client1 = new Carter.CarterClient(channel1);
+            var reply1 = await client1.GetQuantityAsync(input1);
+
             return await Task.FromResult(new GetUserReply
             {
                 Id = result.Id,
@@ -72,7 +85,9 @@ namespace GrpcService1.Services
                 Phone = result.Person.Phone,
                 Role = result.Role,
                 Budget = reply.Budget,
-                Image = result.Image
+                Image = result.Image,
+                Cart = reply1.Quantity,
+                Notification = 0
             });
         }
 

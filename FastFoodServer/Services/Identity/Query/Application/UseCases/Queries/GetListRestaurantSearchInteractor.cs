@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
-    public class GetListRestaurantSearchInteractor : IPagedInteractor<Query.GetRestaurantRequest, Projection.User>
+    public class GetListRestaurantSearchInteractor : IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery>
     {
         private readonly IProjectionGateway<Projection.User> _projectionGateway;
         private readonly IElasticClient _elasticClient;
@@ -19,9 +19,9 @@ namespace Application.UseCases.Queries
             _projectionGateway = projectionGateway;
             _elasticClient = elasticClient;
         }
-        public async Task<List<Projection.User>> InteractAsync(Query.GetRestaurantRequest query, CancellationToken cancellationToken)
+        public async Task<List<Projection.UserQuery>> InteractAsync(Query.GetRestaurantRequest query, CancellationToken cancellationToken)
         {
-            var response = await _elasticClient.SearchAsync<Projection.User>(s => s
+            var response = await _elasticClient.SearchAsync<Projection.UserQuery>(s => s
                 .Index("user")
                 .Query(q => q
                     .Bool(b => b
@@ -29,10 +29,6 @@ namespace Application.UseCases.Queries
                             mq => mq.Match(m => m
                                 .Field(f => f.Nation)
                                 .Query(query.Nation)
-                                ),
-                             mq => mq.Match(m => m
-                                .Field(f => f.Role)
-                                .Query("sale")
                                 )
                             )
                         )
@@ -40,6 +36,7 @@ namespace Application.UseCases.Queries
                 .Skip(query.Page * query.Size)
                 .Size(query.Size)
                 );
+            Console.WriteLine(response.Documents.ToList().ToString());
             foreach ( var item in response.Documents.ToList())
             {
                 var result = await _projectionGateway.FindAsync(x => x.Id == item.Id, cancellationToken);

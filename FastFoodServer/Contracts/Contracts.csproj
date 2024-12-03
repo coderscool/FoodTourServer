@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Services\Account\account.proto" />
     <None Remove="Services\Dish\dish.proto" />
@@ -13,7 +11,6 @@
     <None Remove="Services\Restaurant\restaurant.proto" />
     <None Remove="Services\ShoppingCart\cart.proto" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.18.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.40.0" />
@@ -26,13 +23,12 @@
     <PackageReference Include="MongoDB.Bson" Version="2.25.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
-
   <ItemGroup>
+    <Protobuf Include="Abstractions\Abstractions.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Account\account.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Dish\dish.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Identity\identity.proto" GrpcServices="Client" />
     <Protobuf Include="Services\Restaurant\restaurant.proto" GrpcServices="Client" />
     <Protobuf Include="Services\ShoppingCart\cart.proto" GrpcServices="Client" />
   </ItemGroup>
-
 </Project>

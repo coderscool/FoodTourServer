@@ -11,11 +11,10 @@ namespace SignalRNotification.Hubs
         {
             _queueService = queueService;
         }
-        public override Task OnConnectedAsync()
+        public async Task OnConnectedAsync(string id)
         {
-            string userId = Context.GetHttpContext().Request.Query["userId"];
-            _queueService.AppendUserConnection(userId, Context.ConnectionId);
-            return base.OnConnectedAsync();
+            _queueService.AppendUserConnection(id, Context.ConnectionId);
+            Console.WriteLine(Context.ConnectionId);
         }
 
         public override Task OnDisconnectedAsync(Exception exception)

@@ -12,7 +12,7 @@ namespace Infrastructure.EventBus.Consumers
     public class ProjectCartWhenAddCartItemConsumer : Consumer<DomainEvent.CartItemAdd>
     {
 
-        public ProjectCartWhenAddCartItemConsumer(IInteractor<DomainEvent.CartItemAdd> interactor) : base(interactor)
+        public ProjectCartWhenAddCartItemConsumer(IQueryInteractor<DomainEvent.CartItemAdd> interactor) : base(interactor)
         {
 
         }

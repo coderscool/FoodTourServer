@@ -32,5 +32,13 @@ namespace Contracts.Services.Identity
             [BsonElement("Token")]
             public string Token { get; set; } = string.Empty;
         }
+
+        public class UserQuery : IProjection
+        {
+            public string Id { get; set; }
+            public Dto.Person Person { get; set; }
+            public string Image { get; set; }
+            public List<string>? Nation { get; set; }
+        }
     }
 }

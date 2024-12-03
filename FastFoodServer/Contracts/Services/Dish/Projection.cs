@@ -23,7 +23,7 @@ namespace Contracts.Services.Dish
             public string Name { get; set; } = string.Empty;
             [BsonElement("Image")]
             public string Image { get; set; }
-            [BsonElement("Location")]
+            [BsonElement("Category")]
             public List<string>? Category { get; set; }
             [BsonElement("Nation")]
             public List<string>? Nation { get; set; }

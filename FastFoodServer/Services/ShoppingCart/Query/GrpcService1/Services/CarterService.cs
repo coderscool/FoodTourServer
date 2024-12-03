@@ -10,11 +10,14 @@ namespace GrpcService1.Services
     {
         private readonly ILogger<CarterService> _logger;
         private readonly IPagedInteractor<Query.CustomerCartQuery, Projection.Cart> _pagedInteractor;
+        private readonly ICountInteractor<Query.CustomerCartQuery> _countInteractor;
         public CarterService(ILogger<CarterService> logger,
-            IPagedInteractor<Query.CustomerCartQuery, Projection.Cart> pagedInteractor)
+            IPagedInteractor<Query.CustomerCartQuery, Projection.Cart> pagedInteractor,
+            ICountInteractor<Query.CustomerCartQuery> countInteractor)
         {
             _logger = logger;
             _pagedInteractor = pagedInteractor;
+            _countInteractor = countInteractor;
         }
 
         public override async Task<GetListCartReply> ListDishCartQuery(GetListCartRequest request, ServerCallContext context)
@@ -58,6 +61,16 @@ namespace GrpcService1.Services
             return await Task.FromResult(new GetListCartReply
             {
                 List = {list}
+            });
+        }
+
+        public override async Task<GetQuantityReply> GetQuantity(GetListCartRequest request, ServerCallContext context)
+        {
+            var query = new Query.CustomerCartQuery { CustomerId = request.CustomerId };
+            var result = await _countInteractor.InteractAsync(query, context.CancellationToken);
+            return await Task.FromResult(new GetQuantityReply
+            {
+                Quantity = result
             });
         }
     }

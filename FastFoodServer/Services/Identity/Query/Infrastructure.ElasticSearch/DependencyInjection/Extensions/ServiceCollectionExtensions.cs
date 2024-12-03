@@ -31,7 +31,6 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
         private static void AddDefaultMapping(ConnectionSettings settings) 
         {
             settings.DefaultMappingFor<Projection.User>(d => d.Ignore(x => x.Image)
-                                                              .Ignore(x => x.Role)
                                                               .Ignore(x => x.UserName)
                                                               .Ignore(x => x.PassWord)
                                                               .Ignore(x => x.Token));

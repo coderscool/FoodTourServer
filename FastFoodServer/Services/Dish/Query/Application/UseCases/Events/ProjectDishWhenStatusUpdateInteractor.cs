@@ -20,7 +20,7 @@ namespace Application.UseCases.Events
         public async Task InteractAsync(DomainEvent.QuantityUpdate @event, CancellationToken cancellationToken)
         {
             var dish = await _projectionGateway.FindAsync(x => x.Id == @event.AggregateId, cancellationToken);
-            dish.Quantity = @event.Quantity;
+            dish.Quantity += @event.Quantity;
             await _projectionGateway.UpdateFieldAsync(x => x.Id == @event.AggregateId, dish, cancellationToken);
         }
     }

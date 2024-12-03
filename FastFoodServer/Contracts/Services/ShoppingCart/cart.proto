@@ -6,6 +6,7 @@ package cart;
 
 service Carter {
   rpc ListDishCartQuery (GetListCartRequest) returns (GetListCartReply);
+  rpc GetQuantity (GetListCartRequest) returns (GetQuantityReply);
 }
 
 message CartRestaurantReply {
@@ -32,4 +33,8 @@ message GetListCartRequest {
 
 message GetListCartReply {
 	repeated GetCartDetail List = 1;
+}
+
+message GetQuantityReply{
+	int32 Quantity = 1;
 }

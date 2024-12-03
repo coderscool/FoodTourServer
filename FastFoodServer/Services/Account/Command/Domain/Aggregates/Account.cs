@@ -36,7 +36,7 @@ namespace Domain.Aggregates
         }
 
         public void Handle(Command.CreateAccount cmd)
-            => RaiseEvent<DomainEvent.AccountCreate>((version) => new(cmd.Id, 0, version));
+            => RaiseEvent<DomainEvent.AccountCreate>((version) => new(cmd.Id, 10000000, version));
 
         public void Handle(Command.RefundPayment cmd)
         {

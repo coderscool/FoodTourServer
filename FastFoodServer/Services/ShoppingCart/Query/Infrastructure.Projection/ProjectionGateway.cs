@@ -29,5 +29,8 @@ namespace Infrastructure.Projection
 
         public async Task DeleteAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.DeleteManyAsync(predicate, cancellationToken);
+
+        public async Task<int> QuantityAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
+            => await _collection.AsQueryable().Where(predicate).CountAsync();
     }
 }

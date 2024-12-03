@@ -1,41 +1,28 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Services.Notification;
 using Domain.Abstractions.Aggregates;
-using OrderEvent = Contracts.Services.Order.DomainEvent;
-using NotificationEvent = Contracts.Services.Notification.DomainEvent;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Entities;
+using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace Domain.Aggregates
 {
     public class Notification : AggregateRoot
     {
-        public bool IsActive { get; private set; }
-        public string? Title { get; private set; }
-        public string? Description { get; private set; }
+        [JsonProperty]
+        private readonly List<NotificationItem> _items = new();
 
         public override void Handle(ICommand command)
             => Handle(command as dynamic);
 
-        public override void When(IEvent @event)
-            => When(@event as dynamic);
+        public void Handle(Command.NotificationMessage cmd)
+            => RaiseEvent<DomainEvent.MessageNotification>((version) => new(
+                ObjectId.GenerateNewId().ToString(), cmd.PersonId, cmd.Name, cmd.Message, false, DateTime.UtcNow, version));
 
         protected override void Apply(IDomainEvent @event)
-        {
-            throw new NotImplementedException();
-        }
+            => When(@event as dynamic);
 
-        private string Message(string Name, string Dish, int Amount)
-        {
-            var sb = new StringBuilder();
-            sb.Append(Amount);
-            sb.Append(" phần");
-            sb.Append(Dish);
-            sb.Append(" từ");
-            sb.Append(Name);
-            return sb.ToString();
-        }
+        public void When(DomainEvent.MessageNotification @event)
+                => _items.Add(new(@event.AggregateId, @event.PersonId, @event.Name, @event.Message, @event.Check, @event.Date));
     }
 }

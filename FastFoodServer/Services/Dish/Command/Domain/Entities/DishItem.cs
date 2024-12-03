@@ -26,6 +26,6 @@ namespace Domain.Entities
         public int Quantity { get; private set; }
 
         public void UpdateQuantity(int quantity)
-            => Quantity = quantity;
+            => Quantity += quantity;
     }
 }

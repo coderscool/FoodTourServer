@@ -159,3 +159,7 @@
 /FastFoodServer/Services/Statistic/Query/Infrastructure.EventBus/obj
 /FastFoodServer/Services/Statistic/Query/Infrastructure.Projection/bin/Debug/net6.0
 /FastFoodServer/Services/Statistic/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Evaluate/Command/Application/obj
+/FastFoodServer/Services/Evaluate/Command/Domain/obj
+/FastFoodServer/Services/Evaluate/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Evaluate/Command/Infrastructure.EventStore/obj

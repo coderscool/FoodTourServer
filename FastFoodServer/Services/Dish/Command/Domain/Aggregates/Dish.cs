@@ -32,7 +32,7 @@ namespace Domain.Aggregates
             if(item != null)
             {
                 RaiseEvent<DomainEvent.QuantityUpdate>((version) => new(
-                    cmd.Id, item.Quantity + cmd.Quantity, version));
+                    cmd.Id, cmd.Quantity, version));
             }
         }
         protected override void Apply(IDomainEvent @event)

@@ -11,7 +11,7 @@ namespace Infrastructure.EventBus.Consumers
 {
     public class ProjectCartWhenCartItemRemoveConsumer : Consumer<DomainEvent.CartItemRemove>
     {
-        public ProjectCartWhenCartItemRemoveConsumer(IInteractor<DomainEvent.CartItemRemove> interactor) : base(interactor)
+        public ProjectCartWhenCartItemRemoveConsumer(IQueryInteractor<DomainEvent.CartItemRemove> interactor) : base(interactor)
         {
         }
     }

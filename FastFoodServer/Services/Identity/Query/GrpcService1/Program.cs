@@ -20,7 +20,7 @@ builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGatewa
 builder.Services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.RegisterEvent>, ProjectUserWhenCreateUserInteractor>();
 builder.Services.AddScoped<IInteractor<Query.GetUserRequest, Projection.User>, GetUserInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.GetRestaurantRequest, Projection.User>, GetListRestaurantSearchInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery>, GetListRestaurantSearchInteractor>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

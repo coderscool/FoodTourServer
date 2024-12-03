@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Events
 {
-    public class ProjectCartWhenAddCartItemInteractor : IInteractor<DomainEvent.CartItemAdd>
+    public class ProjectCartWhenAddCartItemInteractor : IQueryInteractor<DomainEvent.CartItemAdd>
     {
         private readonly IProjectionGateway<Projection.Cart> _projectionGateway;
 

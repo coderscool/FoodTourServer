@@ -29,8 +29,9 @@ namespace Infrastructure.Hubs
 
         public void RemoveUserConnection(string connectionId)
         {
-            string userId = UserConnections.FirstOrDefault(x => x.Value == connectionId).Key;
-            UserConnections.TryRemove(userId, out connectionId);
+            //string userId = UserConnections.FirstOrDefault(x => x.Value == connectionId).Key;
+            //UserConnections.TryRemove(userId, out connectionId);
+            Console.WriteLine(connectionId);
         }
     }
 }
