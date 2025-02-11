@@ -1,5 +1,8 @@
 ﻿using Application.Abstractions.Gateways;
+using Contracts.Abstractions.Messages;
+using Infrastructure.MessageBus.Consumers;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,11 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
                         h.Password("guest");
                     });
                     bus.ConfigureEndpoints(context);
+
+                    bus.ReceiveEndpoint("register", e =>
+                    {
+                        e.ConfigureConsumer<RegisterUserConsumer>(context);
+                    });
                 });
             });
             return services;

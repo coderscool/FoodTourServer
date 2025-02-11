@@ -30,10 +30,11 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 
         private static void AddDefaultMapping(ConnectionSettings settings) 
         {
-            settings.DefaultMappingFor<Projection.User>(d => d.Ignore(x => x.Image)
-                                                              .Ignore(x => x.UserName)
+            settings.DefaultMappingFor<Projection.User>(d => d.Ignore(x => x.UserName)
                                                               .Ignore(x => x.PassWord)
-                                                              .Ignore(x => x.Token));
+                                                              .Ignore(x => x.Token)
+                                                              .Ignore(x => x.Person.Image));
+
         }
 
         private static void CreateIndex(IElasticClient client, string indexName) 

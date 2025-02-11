@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using Infrastructure.Projection.Abstractions;
+using Infrastructure.Projection.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
@@ -40,5 +42,8 @@ namespace Infrastructure.Projection
 
         public async Task<List<TProjection?>> FindListAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.AsQueryable().Where(predicate).ToListAsync(cancellationToken);
+
+        public async ValueTask<IPagedResult<TProjection>> ListAsync(Paging paging, CancellationToken cancellationToken)
+            => await PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable(), cancellationToken);
     }
 }

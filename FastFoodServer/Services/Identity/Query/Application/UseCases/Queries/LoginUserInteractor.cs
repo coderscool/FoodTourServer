@@ -21,19 +21,13 @@ namespace Application.UseCases.Queries
         }
         public async Task<Projection.User?> InteractAsync(Query.Login query, CancellationToken cancellationToken)
         {
-            var userDetails = await _projectionGateway.FindAsync(user => user.UserName == query.UserName, cancellationToken);
+            var userDetails = await _projectionGateway.FindAsync(user => user.UserName == query.Username, cancellationToken);
             if(userDetails != null) 
             {
                 var token = await GenerateToken(userDetails, cancellationToken);
-                if (userDetails.PassWord == query.PassWord)
+                if (userDetails.PassWord == query.Password)
                 {
-                    var result = new Projection.User
-                    {
-                        Id = userDetails.Id,
-                        Token = token,
-                        Role = userDetails.Role,
-                    };
-                    return result;
+                    return userDetails with { Token = token};
                 }
                 else
                 {

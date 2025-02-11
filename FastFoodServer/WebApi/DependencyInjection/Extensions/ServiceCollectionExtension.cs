@@ -1,9 +1,15 @@
-﻿using MassTransit;
+﻿using Contracts.Services.Identity.Protobuf;
+using Grpc.Core;
+using Grpc.Net.Client.Configuration;
+using GrpcService1;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using WebApi.DependencyInjection.Options;
 
 namespace WebApi.DependencyInjection.Extensions
 {
@@ -78,5 +84,39 @@ namespace WebApi.DependencyInjection.Extensions
                 });
             return services;
         }
+
+        public static OptionsBuilder<IdentityGrpcClientOptions> ConfigureIdentityGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+            => services
+                .AddOptions<IdentityGrpcClientOptions>()
+                .Bind(section);
+
+        public static void AddIdentityGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
+
+
+        private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
+            where TClient : ClientBase
+            where TOptions : class
+            => services.AddGrpcClient<TClient>((provider, client) =>
+            {
+                var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
+                client.Address = new(options.BaseAddress);
+            })
+            .ConfigureChannel(options =>
+            {
+                options.Credentials = ChannelCredentials.Insecure;
+                options.ServiceConfig = new() { LoadBalancingConfigs = { new RoundRobinConfig() } };
+            }
+            )
+            .ConfigurePrimaryHttpMessageHandler(() =>
+                new SocketsHttpHandler
+                {
+                    PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
+                    KeepAlivePingDelay = TimeSpan.FromSeconds(60),
+                    KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
+                    EnableMultipleHttp2Connections = true
+                })
+            .EnableCallContextPropagation(options
+                => options.SuppressContextNotFoundErrors = true);
     }
 }

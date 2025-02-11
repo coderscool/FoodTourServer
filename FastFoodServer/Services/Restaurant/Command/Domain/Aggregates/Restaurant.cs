@@ -1,7 +1,9 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using Contracts.Services.Restaurant;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities.Res;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,18 @@ namespace Domain.Aggregates
         [JsonProperty]
         private readonly List<RestaurantItem> _items = new();
 
+        public Dto.DtoPerson DtoPerson { get; private set; }
+        public Dto.DtoSearch DtoSearch { get; private set; }
+
         public override void Handle(ICommand command)
             => Handle(command as dynamic);
 
         public void Handle(Command.CreateBillRestaurant cmd)
-            => RaiseEvent<DomainEvent.RestaurantCreateBill>((version, AggregateId) => new(cmd.Id, cmd.RestaurantId,
+            => RaiseEvent<DomainEvent.RestaurantCreateBill>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.RestaurantId,
                 cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Quantity, cmd.Time, false, false, cmd.Date, version));
 
+        public void Handle(Command.CreateRestaurant cmd)
+            => RaiseEvent<DomainEvent.RestaurantCreate>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.UserId, cmd.Restaurant, cmd.Search, version));
         public void Handle(Command.ReplyRestaurant cmd)
         {
             var item = _items
@@ -31,7 +38,7 @@ namespace Domain.Aggregates
 
             if (item != null)
             {
-                RaiseEvent<DomainEvent.RestaurantReply>((version, AggregateId) => new(item.Id, item.RestaurantId, item.DishId,
+                RaiseEvent<DomainEvent.RestaurantReply>((version) => new(ObjectId.GenerateNewId().ToString(), item.RestaurantId, item.DishId,
                     item.CustomerId, item.Price, item.Quantity, cmd.Status, version));
             }
         }

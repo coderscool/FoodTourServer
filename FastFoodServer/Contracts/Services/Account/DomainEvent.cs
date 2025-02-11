@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using Contracts.Abstractions.Messages;
 using System;
 using System.Collections.Generic;

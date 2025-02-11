@@ -16,10 +16,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
 builder.Services.AddScoped<IInteractor<DomainEvent.DishCreate>, ProjectDishWhenCreateDishInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.ListDishTredingQuery, Projection.Dish>, GetListDishInteractor>();
-builder.Services.AddScoped<IInteractor<Query.DishDetailQuery, Projection.Dish>, GetDishDetailInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.DishRestaurantQuery, Projection.Dish>, GetListDishRestaurantInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.SearchDishDetail, Projection.Dish>, SearchDishDetailInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.ListDishTredingQuery, Projection.Dishs>, GetListDishInteractor>();
+builder.Services.AddScoped<IInteractor<Query.DishDetailsById, Projection.Dishs>, GetDishDetailInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.DishRestaurantQuery, Projection.Dishs>, GetListDishRestaurantInteractor>();
+builder.Services.AddScoped<IPagedInteractor<Query.SearchDishDetail, Projection.Dishs>, SearchDishDetailInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.QuantityUpdate>, ProjectDishWhenStatusUpdateInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddElasticSearch();

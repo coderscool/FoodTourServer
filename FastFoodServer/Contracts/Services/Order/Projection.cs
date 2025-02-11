@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Contracts.Abstractions.DataTransferObject;
+using Contracts.DataTransferObject;
 
 namespace Contracts.Services.Order
 {
@@ -24,9 +24,9 @@ namespace Contracts.Services.Order
             [BsonElement("DishId")]
             public string DishId { get; set; }
             [BsonElement("Restaurant")]
-            public Dto.Person Restaurant { get; set; }
+            public Dto.DtoPerson Restaurant { get; set; }
             [BsonElement("Customer")]
-            public Dto.Person Customer { get; set; }
+            public Dto.DtoPerson Customer { get; set; }
             [BsonElement("Name")]
             public string Name { get; set; }
             [BsonElement("Price")]

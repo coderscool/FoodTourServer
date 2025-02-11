@@ -12,10 +12,10 @@ namespace Application.UseCases.Events
 {
     public class ProjectDishWhenCreateDishInteractor : IInteractor<DomainEvent.DishCreate>
     {
-        private readonly IProjectionGateway<Projection.Dish> _projectionGateway;
+        private readonly IProjectionGateway<Projection.Dishs> _projectionGateway;
         private readonly IElasticClient _elasticClient;
 
-        public ProjectDishWhenCreateDishInteractor(IProjectionGateway<Projection.Dish> projectionGateway,
+        public ProjectDishWhenCreateDishInteractor(IProjectionGateway<Projection.Dishs> projectionGateway,
             IElasticClient elasticClient)
         {
             _projectionGateway = projectionGateway;
@@ -24,21 +24,10 @@ namespace Application.UseCases.Events
 
         public async Task InteractAsync(DomainEvent.DishCreate @event, CancellationToken cancellationToken)
         {
-            var listAccountUser = new Projection.Dish
-            {
-                Id = @event.AggregateId,
-                PersonId = @event.PersonId,
-                Name = @event.Name,
-                Image = @event.Image,
-                Category = @event.Search.Category,
-                Nation = @event.Search.Nation,
-                Cost = @event.Price,
-                Discount = 0,
-                Quantity = @event.Quantity
-            };
+            var dish = new Projection.Dishs(@event.AggregateId, @event.RestaurantId, @event.Dish, @event.Price, @event.Quantity, @event.Search);
             Console.WriteLine(@event.AggregateId);
-            await _projectionGateway.ReplaceInsertAsync(listAccountUser, cancellationToken);
-            await _elasticClient.IndexDocumentAsync(listAccountUser);
+            await _projectionGateway.ReplaceInsertAsync(dish, cancellationToken);
+            //await _elasticClient.IndexDocumentAsync(dish);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace Application.UseCases.Events
 {
     public class ProjectDishWhenStatusUpdateInteractor : IInteractor<DomainEvent.QuantityUpdate>
     {
-        private readonly IProjectionGateway<Projection.Dish> _projectionGateway;
-        public ProjectDishWhenStatusUpdateInteractor(IProjectionGateway<Projection.Dish> projectionGateway)
+        private readonly IProjectionGateway<Projection.Dishs> _projectionGateway;
+        public ProjectDishWhenStatusUpdateInteractor(IProjectionGateway<Projection.Dishs> projectionGateway)
         {
             _projectionGateway = projectionGateway;
         }

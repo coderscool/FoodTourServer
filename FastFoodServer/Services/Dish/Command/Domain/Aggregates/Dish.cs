@@ -1,9 +1,7 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Dish;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
@@ -24,7 +22,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateDish cmd)
             => RaiseEvent<DomainEvent.DishCreate>((version) => new(
-                ObjectId.GenerateNewId().ToString(), cmd.PersonId, cmd.Name, cmd.Image, cmd.Price, cmd.Quantity, cmd.Search, version));
+                ObjectId.GenerateNewId().ToString(), cmd.RestaurantId, cmd.Dish, cmd.Price, cmd.Quantity, cmd.Search, version));
 
         public void Handle(Command.UpdateQuantity cmd)
         {
@@ -39,7 +37,7 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.DishCreate @event)
-            => _items.Add(new (@event.AggregateId, @event.PersonId, @event.Name, @event.Price, @event.Quantity, @event.Search));
+            => _items.Add(new (@event.AggregateId, @event.RestaurantId, @event.Dish, @event.Price, @event.Quantity, @event.Search));
         
         public void When(DomainEvent.QuantityUpdate @event)
             => _items.Single(item => item.Id == @event.AggregateId).UpdateQuantity(@event.Quantity);

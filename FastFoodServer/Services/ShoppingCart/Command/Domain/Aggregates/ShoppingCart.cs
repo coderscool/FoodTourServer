@@ -1,7 +1,9 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using Contracts.Services.ShoppingCart;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,20 @@ namespace Domain.Aggregates
         [JsonProperty]
         private readonly List<CartItem> _items = new();
 
+        public IEnumerable<CartItem> Items
+        => _items.AsReadOnly();
+
+        public string Id { get; private set; }
+        public string CustomerId { get; private set; }
+        public Dto.DtoPerson Customer { get; private set; }
+        public float Total { get; private set; }
+        public string Description { get; private set; }
+
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
         public void Handle(Command.AddCartItem cmd)
-            => RaiseEvent<DomainEvent.CartItemAdd>((version, AggregateId) => new(AggregateId, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, cmd.Amount, version));
+            => RaiseEvent<DomainEvent.CartItemAdd>((version) => new(cmd.CartId, ObjectId.GenerateNewId().ToString(), cmd.Restaurant, cmd.Dish, cmd.Price, cmd.Quantity, version));
 
         public void Handle(Command.CheckAndRemoveDishCart cmd)
         {
@@ -30,7 +41,7 @@ namespace Domain.Aggregates
                 .FirstOrDefault();
             if(item != null)
             {
-                RaiseEvent<DomainEvent.CartItemRemove>((Version, AggregateId) => new(cmd.Id, Version));
+                RaiseEvent<DomainEvent.CartItemRemove>((Version) => new(cmd.Id, Version));
             }
             else
             {
@@ -39,17 +50,26 @@ namespace Domain.Aggregates
         }
 
         public void Handle(Command.IncreaseQuantityCart cmd)
-            => RaiseEvent<DomainEvent.CartIncreaseQuantity>((Version, AggregateId) => new(cmd.Id, cmd.Quantity, Version));
+            => RaiseEvent<DomainEvent.CartIncreaseQuantity>((Version) => new(cmd.Id, cmd.Quantity, Version));
+
+        public void Handle(Command.CreateCart cmd)
+            => RaiseEvent<DomainEvent.CartCreate>((Version) => new(ObjectId.GenerateNewId().ToString(), cmd.CustomerId, cmd.Customer, 0, cmd.Description, Version));
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.CartItemAdd @event)
-            => _items.Add(new(@event.AggregateId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Amount));
+            => _items.Add(new(@event.AggregateId, @event.ItemId, @event.Restaurant, @event.Dish, @event.Price, @event.Quantity));
 
         public void When(DomainEvent.CartItemRemove @event)
             => _items.RemoveAll(item => item.Id == @event.AggregateId);
 
+        public void When(DomainEvent.CartCreate @event)
+            => (Id, CustomerId, Customer, Total, Description, _) = @event;
+
         private void When(DomainEvent.CartIncreaseQuantity @event)
             => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Quantity);
+
+        public implicit operator Dto.DtoShoppingCart(ShoppingCart cart)
+            => new(cart.Id, cart.CustomerId, cart.Customer, cart.Total, cart.Items.Select(item => (Dto.CartItem)item));
     }
 }

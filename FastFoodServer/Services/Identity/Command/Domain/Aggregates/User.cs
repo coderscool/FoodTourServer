@@ -22,12 +22,12 @@ namespace Domain.Aggregates
 
         public void Handle(Command.Register cmd)
             => RaiseEvent<DomainEvent.RegisterEvent>((version) => new(
-                 ObjectId.GenerateNewId().ToString(), cmd.UserName, cmd.PassWord, cmd.Person, cmd.Nation, cmd.Image, cmd.Role, version));
+                 ObjectId.GenerateNewId().ToString(), cmd.UserName, cmd.PassWord, cmd.Person, cmd.Role, version));
 
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.RegisterEvent @event)
-            => _items.Add(new(@event.AggregateId, @event.UserName, @event.PassWord, @event.Person, @event.Nation, @event.Role));
+            => _items.Add(new(@event.AggregateId, @event.UserName, @event.PassWord, @event.Person, @event.Role));
     }
 }

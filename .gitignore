@@ -163,3 +163,5 @@
 /FastFoodServer/Services/Evaluate/Command/Domain/obj
 /FastFoodServer/Services/Evaluate/Command/Infrastructure.MessageBus/obj
 /FastFoodServer/Services/Evaluate/Command/Infrastructure.EventStore/obj
+/FastFoodServer/WebApplication1/bin/Debug
+/FastFoodServer/WebApplication1/obj

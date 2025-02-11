@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcService1";
+package Contracts.Services.Restaurant.Protobuf;
 
-package restaurant;
+import "Abstractions/Abstractions.proto";
 
 service Restauranter {
   rpc GetListOrder (GetOrderRequest) returns (GetOrderReply);
@@ -31,4 +31,11 @@ message PersonDetail {
 	string name = 1;
 	string Address = 2;
 	string Phone = 3;
+}
+
+message RestaurantDetails {
+	string Id = 1;
+	string UserId = 2;
+	Abstractions.Protobuf.Person Restaurant = 3;
+	Abstractions.Protobuf.Search Search = 4;
 }

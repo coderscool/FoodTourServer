@@ -13,6 +13,6 @@ namespace Application.Abstractions
     public interface IElasticSearchGateway<TProjection>
         where TProjection : IProjection
     {
-        Task<TProjection?> FindAsync(Func<QueryContainerDescriptor<Projection.Dish>, QueryContainer> predicate, CancellationToken cancellationToken);
+        Task<TProjection?> FindAsync(Func<QueryContainerDescriptor<Projection.Dishs>, QueryContainer> predicate, CancellationToken cancellationToken);
     }
 }

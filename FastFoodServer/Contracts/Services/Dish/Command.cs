@@ -1,5 +1,5 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Contracts.Services.Dish
 {
     public static class Command
     {
-        public record CreateDish(string PersonId, string Name, string Image, long Price, int Quantity, Dto.Search Search) : Message, ICommand;
+        public record CreateDish(string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search) : Message, ICommand;
         public record UpdateQuantity(string Id, int Quantity) : Message, ICommand;
     }
 }

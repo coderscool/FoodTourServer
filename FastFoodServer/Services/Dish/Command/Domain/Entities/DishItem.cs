@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +9,20 @@ namespace Domain.Entities
 {
     public class DishItem
     {
-        public DishItem(string id, string personId, string name, long price, int quantity, Dto.Search search) 
+        public DishItem(string id, string restaurantId, Dto.DtoDish dish, Dto.DtoPrice price, int quantity, Dto.DtoSearch search) 
         { 
             Id = id;
-            PersonId = personId;
-            Name = name;
+            RestaurantId = restaurantId;
+            Dish = dish;
             Price = price;
             Search = search;
             Quantity = quantity;
         }
         public string Id { get; }
-        public string PersonId { get; }
-        public string Name { get; }
-        public long Price { get; }
-        public Dto.Search Search { get; }
+        public string RestaurantId { get; }
+        public Dto.DtoDish Dish { get; }
+        public Dto.DtoPrice Price { get; }
+        public Dto.DtoSearch Search { get; }
         public int Quantity { get; private set; }
 
         public void UpdateQuantity(int quantity)

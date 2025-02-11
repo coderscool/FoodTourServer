@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -10,20 +10,18 @@ namespace Domain.Entities
 {
     public class UserItem
     {
-        public UserItem(string id, string userName, string passWord, Dto.Person person, List<string> nation, string role) 
+        public UserItem(string id, string userName, string passWord, Dto.DtoPerson person, string role) 
         { 
             Id = id;
             UserName = userName;
             PassWord = passWord;
             Person = person;
-            Nation = nation;
             Role = role;
         }
         public string Id { get; }
         public string UserName { get; }
         public string PassWord { get; } 
-        public Dto.Person Person { get; }
-        public List<string> Nation { get; }
+        public Dto.DtoPerson Person { get; }
         public string Role { get; } 
     }
 }

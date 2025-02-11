@@ -1,5 +1,5 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;

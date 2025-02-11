@@ -1,5 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts.DataTransferObject;
 
 namespace Contracts.Services.Restaurant
 {
@@ -24,7 +24,7 @@ namespace Contracts.Services.Restaurant
             [BsonElement("DishId")]
             public string DishId { get; set; }
             [BsonElement("Customer")]
-            public Dto.Person Customer { get; set; }
+            public Dto.DtoPerson Customer { get; set; }
             [BsonElement("Name")]
             public string Name { get; set; }
             [BsonElement("Price")]
@@ -40,6 +40,5 @@ namespace Contracts.Services.Restaurant
             [BsonElement("Date")]
             public DateTime Date { get; set; }
         }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 
 namespace Contracts.Services.Statistic
 {

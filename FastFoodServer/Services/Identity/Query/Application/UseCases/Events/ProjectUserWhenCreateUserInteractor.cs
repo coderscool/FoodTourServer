@@ -13,31 +13,17 @@ namespace Application.UseCases.Events
     public class ProjectUserWhenCreateUserInteractor : IInteractor<DomainEvent.RegisterEvent>
     {
         private readonly IProjectionGateway<Projection.User> _projectionGateway;
-        private readonly IElasticClient _elasticClient;
 
-        public ProjectUserWhenCreateUserInteractor(IProjectionGateway<Projection.User> projectionGateway,
-            IElasticClient elasticClient)
+        public ProjectUserWhenCreateUserInteractor(IProjectionGateway<Projection.User> projectionGateway)
         {
             _projectionGateway = projectionGateway;
-            _elasticClient = elasticClient;
         }
 
         public async Task InteractAsync(DomainEvent.RegisterEvent @event, CancellationToken cancellationToken)
         {
-            var user = new Projection.User
-            {
-                Id = @event.AggregateId,
-                UserName = @event.UserName,
-                PassWord = @event.PassWord,
-                Person = @event.Person,
-                Image = @event.Image, 
-                Role = @event.Role,
-                Nation = @event.Nation,
-                Token = ""
-            };
-            Console.WriteLine("123456789");
+            var user = new Projection.User(@event.AggregateId, @event.UserName, @event.PassWord, @event.Person, @event.Role, "");
+            Console.WriteLine(user);
             await _projectionGateway.ReplaceInsertAsync(user, cancellationToken);
-            await _elasticClient.IndexDocumentAsync(user);
         }
     }
 }

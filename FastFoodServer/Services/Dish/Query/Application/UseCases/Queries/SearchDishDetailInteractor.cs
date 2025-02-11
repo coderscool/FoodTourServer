@@ -11,20 +11,20 @@ using Application.Abstractions.Gateways;
 
 namespace Application.UseCases.Queries
 {
-    public class SearchDishDetailInteractor : IPagedInteractor<Query.SearchDishDetail, Projection.Dish>
+    public class SearchDishDetailInteractor : IPagedInteractor<Query.SearchDishDetail, Projection.Dishs>
     {
         //private readonly IElasticSearchGateway<Projection.Dish> _elasticSearchGateway;
-        private readonly IProjectionGateway<Projection.Dish> _gateway;  
+        private readonly IProjectionGateway<Projection.Dishs> _gateway;  
         private readonly IElasticClient _client;
-        public SearchDishDetailInteractor( IElasticClient client, IProjectionGateway<Projection.Dish> gateway) 
+        public SearchDishDetailInteractor( IElasticClient client, IProjectionGateway<Projection.Dishs> gateway) 
         {
             //_elasticSearchGateway = elasticSearchGateway;
             _gateway = gateway;
             _client = client;
         }
-        public async Task<List<Projection.Dish?>> InteractAsync(Query.SearchDishDetail query, CancellationToken cancellationToken)
+        public async Task<List<Projection.Dishs?>> InteractAsync(Query.SearchDishDetail query, CancellationToken cancellationToken)
         {
-            var response = await _client.SearchAsync<Projection.Dish>(s => s
+            var response = await _client.SearchAsync<Projection.Dishs>(s => s
                 .Index("dish") 
                 .Query(q => q
                     .Bool(b => b

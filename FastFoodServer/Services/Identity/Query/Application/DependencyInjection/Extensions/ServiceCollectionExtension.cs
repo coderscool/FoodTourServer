@@ -14,6 +14,6 @@ namespace Application.DependencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IInteractor<Query.Login, Projection.User>, LoginUserInteractor>()
-                       .AddScoped<IInteractor<Query.GetUserRequest, Projection.User>, GetUserInteractor>();
+                       .AddScoped<IPagedInteractor<Query.ListRestaurantItems, Projection.User>, GetListRestaurantItemsInteractor>();
     }
 }

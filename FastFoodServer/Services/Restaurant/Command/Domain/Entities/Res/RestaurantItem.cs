@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Domain.Entities.Res
     public class RestaurantItem
     {
         public RestaurantItem(string id, string restaurantId, string customerId, string dishId,
-            Dto.Person customer, string name, long price, int quantity, int time, bool status, bool active, DateTime date)
+            Dto.DtoPerson customer, string name, long price, int quantity, int time, bool status, bool active, DateTime date)
         {
             Id = id;
             RestaurantId = restaurantId;

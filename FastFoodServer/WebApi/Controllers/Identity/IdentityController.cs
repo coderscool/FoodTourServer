@@ -1,4 +1,5 @@
 ﻿using Contracts.Services.Identity;
+using Contracts.Services.Identity.Protobuf;
 using Grpc.Net.Client;
 using GrpcService1;
 using MassTransit;
@@ -30,21 +31,6 @@ namespace WebApi.Controllers.Identity
             await _publishEndpoint.Publish(request);
             return Ok("Success");
         }
-        [HttpPost("login")]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] Query.Login request)
-        {
-            var input = new LoginRequest
-            {
-                UserName = request.UserName,
-                PassWord = request.PassWord
-            };
-            var channel = GrpcChannel.ForAddress("http://localhost:5123");
-            var client = new Identiter.IdentiterClient(channel);
-            var reply = await client.LoginAsync(input);
-            return Ok(reply);
-        }
-
         [HttpGet("user")]
         [Authorize(Roles = "user")]
         public IActionResult GetUser()

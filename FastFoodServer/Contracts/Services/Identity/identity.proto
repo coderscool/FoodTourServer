@@ -1,15 +1,14 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcService1";
+package Contracts.Services.Identity.Protobuf;
 
-package identity;
+import "Abstractions/Abstractions.proto";
 
 // The greeting service definition.
 service Identiter {
   // Sends a greeting
-  rpc Login (LoginRequest) returns (TokenReply);
-  rpc GetUser (GetUserRequest) returns (GetUserReply);
-  rpc GetListRestaurant (StoreRequest) returns (ListStoreReply);
+  rpc Login (LoginRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc ListRestaurantItems (ListRestaurantItemsRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
 // The request message containing the user's name.
@@ -18,46 +17,17 @@ message LoginRequest {
   string PassWord = 2;
 }
 
-// The response message containing the greetings.
-message TokenReply {
-  string Id = 1;
-  string Token = 2;
-  string Role = 3;
-}
-
-message GetUserRequest {
+message UserDetails {
 	string Id = 1;
-}
-
-message GetUserReply {
-	string Id = 1;
-	string Name = 2;
-	string Address = 3;
-	string Phone = 4;
+	string UserName = 2;
+	string PassWord = 3;
+	Abstractions.Protobuf.Person Person = 4;
 	string Role = 5;
-	int64 Budget = 6;
-	string Image = 7;
-	int32 Cart = 8;
-	int32 Notification = 9;
+	string Token = 6;
 }
 
-message StoreReply {
-	string Id = 1;
-	string Name = 2;
-	string Image = 3;
-	string Address = 4;
-}
-
-message ListStoreReply {
-	repeated StoreReply list = 1;
-}
-
-message StoreRequest {
-	string Key = 1;
-	string Nation = 2;
-	string Location = 3;
-	int32 Page = 4;
-	int32 Size = 5;
+message ListRestaurantItemsRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
 }
 
 

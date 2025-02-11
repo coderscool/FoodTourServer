@@ -22,6 +22,7 @@ namespace Application.DepedencyInjection.Extensions
                        .AddScoped<IInteractor<Order.DomainEvent.OrderConfirm>, RequestRestaurantWhenOrderConfirmInteractor>()
                        .AddScoped<IInteractor<DomainEvent.ExpireOrderRestaurant>, CancelOrderWhenExpireRestaurant>()
                        .AddScoped<IInteractor<Command.ReplyRestaurant>, ReplyRestaurantInteractor>()
+                       .AddScoped<IInteractor<Command.CreateRestaurant>, CreateRestaurantInteractor>()
                        .AddScoped<IScheduleNotification, ScheduleNotification>();
     }
 }

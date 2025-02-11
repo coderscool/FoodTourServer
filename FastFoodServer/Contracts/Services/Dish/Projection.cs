@@ -1,4 +1,4 @@
-﻿using Contracts.Abstractions.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using Contracts.Abstractions.Messages;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -12,27 +12,18 @@ namespace Contracts.Services.Dish
 {
     public static class Projection
     {
-        public class Dish : IProjection 
+        public record Dishs(string Id, string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search) : IProjection
         {
-            [BsonId]
-            [BsonRepresentation(BsonType.ObjectId)]
-            public string Id { get; set; }
-            [BsonElement("PersonId")]
-            public string PersonId { get; set; } = string.Empty;
-            [BsonElement("Name")]
-            public string Name { get; set; } = string.Empty;
-            [BsonElement("Image")]
-            public string Image { get; set; }
-            [BsonElement("Category")]
-            public List<string>? Category { get; set; }
-            [BsonElement("Nation")]
-            public List<string>? Nation { get; set; }
-            [BsonElement("Cost")]
-            public long Cost { get; set; } 
-            [BsonElement("Discount")]
-            public float Discount { get; set; }
-            [BsonElement("Quantity")]
-            public int Quantity { get; set; }
+            public static implicit operator Protobuf.DishDetails(Dishs dish)
+                => new()
+                {
+                    Id = dish.Id,
+                    RestaurantId = dish.RestaurantId,
+                    Dish = dish.Dish,
+                    Price = dish.Price,
+                    Quantity = dish.Quantity,
+                    Search = dish.Search
+                };
         }
     }
 }

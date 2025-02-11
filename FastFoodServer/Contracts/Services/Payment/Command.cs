@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Contracts.Services.Payment
 {
-    internal class Command
+    public class Command
     {
+        public record CreateUserPayment();
     }
 }

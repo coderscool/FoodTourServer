@@ -1,5 +1,5 @@
-﻿using Contracts.Abstractions.DataTransferObject;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using Contracts.Services.Order;
 using Domain.Abstractions.Aggregates;
 using Domain.Entities;

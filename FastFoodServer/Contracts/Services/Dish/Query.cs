@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Services.Dish.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,10 @@ namespace Contracts.Services.Dish
 
         }
 
-        public class DishDetailQuery: IQuery
+        public record DishDetailsById(string Id) : IQuery
         {
-            public string Id { get; set; }
+            public static implicit operator DishDetailsById(DishDetailsByIdRequest request)
+                => new( request.Id );
         }
 
         public class ListDishTredingQuery : IQuery

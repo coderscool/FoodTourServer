@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Gateways;
+using Infrastructure.MessageBus.Consumers;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,6 +28,11 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
                         h.Password("guest");
                     });
                     bus.ConfigureEndpoints(context);
+
+                    bus.ReceiveEndpoint("dish-create", e =>
+                    {
+                        e.ConfigureConsumer<AddDishConsumer>(context);
+                    });
                 });
             });
             return services;

@@ -1,8 +1,12 @@
 using Application.Abstractions;
 using Contracts.Services.Identity;
+using Contracts.Services.Identity.Protobuf;
+using Contracts.Abstractions.Protobuf;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcService1;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GrpcService1.Services
 {
@@ -10,114 +14,37 @@ namespace GrpcService1.Services
     {
         private readonly ILogger<IdentiterService> _logger;
         private readonly IInteractor<Query.Login, Projection.User> _getLoginUser;
-        private readonly IInteractor<Query.GetUserRequest, Projection.User> _getUser;
-        private readonly IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery> _getRestaurant;
+        private readonly IPagedInteractor<Query.ListRestaurantItems, Projection.User> _listRestaurants;
         public IdentiterService(ILogger<IdentiterService> logger,
             IInteractor<Query.Login, Projection.User> getLoginUser,
-            IInteractor<Query.GetUserRequest, Projection.User> getUser,
-            IPagedInteractor<Query.GetRestaurantRequest, Projection.UserQuery> getRestaurant)
+            IPagedInteractor<Query.ListRestaurantItems, Projection.User> listRestaurants)
         {
             _logger = logger;
             _getLoginUser = getLoginUser;
-            _getUser = getUser;
-            _getRestaurant = getRestaurant;
+            _listRestaurants = listRestaurants;
         }
 
-        public override async Task<TokenReply> Login(LoginRequest request, ServerCallContext context)
+        public override async Task<GetResponse> Login(LoginRequest request, ServerCallContext context)
         {
-            var query = new Query.Login
+            var userDetails = await _getLoginUser.InteractAsync(request, context.CancellationToken);
+            return userDetails is null
+            ? new() { NotFound = new() }
+            : new() { Projection = Any.Pack((UserDetails)userDetails) };
+        }
+
+        public override async Task<ListResponse> ListRestaurantItems(ListRestaurantItemsRequest request, ServerCallContext context)
+        {
+            var pagedResult = await _listRestaurants.InteractAsync(request, context.CancellationToken);
+            return pagedResult.Items.Any()
+            ? new()
             {
-                UserName = request.UserName,
-                PassWord = request.PassWord,
-            };
-            var result = await _getLoginUser.InteractAsync(query, context.CancellationToken);
-            if(result == null)
-            {
-                return await Task.FromResult(new TokenReply
+                PagedResult = new()
                 {
-                    Id = "",
-                    Token = "Hello ",
-                    Role = "word"
-                });
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((UserDetails)item)) },
+                    Page = pagedResult.Page
+                }
             }
-            return await Task.FromResult(new TokenReply
-            {
-                Id = result.Id,
-                Token = result.Token,
-                Role = result.Role
-            });
-        }
-
-        public override async Task<GetUserReply> GetUser(GetUserRequest request, ServerCallContext context)
-        {
-            var query = new Query.GetUserRequest
-            {
-                Id = request.Id,
-            };
-            var result = await _getUser.InteractAsync(query, context.CancellationToken);
-            if (result == null)
-            {
-                return null;
-            }
-            var input = new AccountRequest
-            {
-                Id = request.Id
-            };
-
-            var channel = GrpcChannel.ForAddress("http://localhost:5061");
-            var client = new Accounter.AccounterClient(channel);
-            var reply = await client.GetBudgetAccountAsync(input);
-
-            var input1 = new GetListCartRequest
-            {
-                CustomerId = request.Id
-            };
-
-            var channel1 = GrpcChannel.ForAddress("http://localhost:5162");
-            var client1 = new Carter.CarterClient(channel1);
-            var reply1 = await client1.GetQuantityAsync(input1);
-
-            return await Task.FromResult(new GetUserReply
-            {
-                Id = result.Id,
-                Name = result.Person.Name,
-                Address = result.Person.Address,
-                Phone = result.Person.Phone,
-                Role = result.Role,
-                Budget = reply.Budget,
-                Image = result.Image,
-                Cart = reply1.Quantity,
-                Notification = 0
-            });
-        }
-
-        public override async Task<ListStoreReply> GetListRestaurant(StoreRequest request, ServerCallContext context)
-        {
-            var query = new Query.GetRestaurantRequest
-            {
-                Key = request.Key,
-                Nation = request.Nation,
-                Location = request.Location,
-                Page = request.Page,
-                Size = request.Size,
-            };
-            var result = await _getRestaurant.InteractAsync(query, context.CancellationToken);
-            if (result == null)
-            {
-                return null;
-            }
-
-            var list = result.Select(x => new StoreReply
-            {
-                Id = x.Id,
-                Name = x.Person.Name,
-                Image = x.Image,
-                Address = x.Person.Address,
-            });
-            return await Task.FromResult(new ListStoreReply
-            {
-                List = { list }
-            });
+            : new() { NoContent = new() };
         }
     }
 }
