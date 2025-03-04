@@ -12,9 +12,9 @@ namespace Contracts.Services.Restaurant
     {
         public record CreateRestaurant(string UserId, Dto.DtoPerson Restaurant, Dto.DtoSearch Search) : Message, ICommand;
         public record CreateBillRestaurant(string Id, string RestaurantId, string CustomerId, string DishId, Dto.DtoPerson Customer,
-            string Name, long Price, int Quantity, int Time, DateTime Date) : Message, ICommand;
+            Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, string Note, int Time, DateTime Date) : Message, ICommand;
 
-        public record ReplyRestaurant(string Id, bool Status) : Message, ICommand;
+        public record ReplyRestaurant(string Id, string Status) : Message, ICommand;
 
     }
 }

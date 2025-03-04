@@ -32,7 +32,8 @@ namespace Domain.Aggregates
         => Handle(command as dynamic);
 
         public void Handle(Command.AddCartItem cmd)
-            => RaiseEvent<DomainEvent.CartItemAdd>((version) => new(cmd.CartId, ObjectId.GenerateNewId().ToString(), cmd.Restaurant, cmd.Dish, cmd.Price, cmd.Quantity, version));
+            => RaiseEvent<DomainEvent.CartItemAdd>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.RestaurantId, cmd.DishId, cmd.Restaurant, 
+                cmd.Dish, cmd.Price, cmd.Quantity, cmd.Time, cmd.Note, version));
 
         public void Handle(Command.CheckAndRemoveDishCart cmd)
         {
@@ -58,7 +59,7 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.CartItemAdd @event)
-            => _items.Add(new(@event.AggregateId, @event.ItemId, @event.Restaurant, @event.Dish, @event.Price, @event.Quantity));
+            => _items.Add(new(@event.ItemId, @event.RestaurantId, @event.DishId, @event.Restaurant, @event.Dish, @event.Quantity, @event.Price, @event.Time, @event.Note));
 
         public void When(DomainEvent.CartItemRemove @event)
             => _items.RemoveAll(item => item.Id == @event.AggregateId);
@@ -67,9 +68,9 @@ namespace Domain.Aggregates
             => (Id, CustomerId, Customer, Total, Description, _) = @event;
 
         private void When(DomainEvent.CartIncreaseQuantity @event)
-            => _items.Single(item => item.Id == @event.AggregateId).Increase(@event.Quantity);
+            => _items.Single(item => item.ItemId == @event.AggregateId).Increase(@event.Quantity);
 
-        public implicit operator Dto.DtoShoppingCart(ShoppingCart cart)
+        public static implicit operator Dto.DtoShoppingCart(ShoppingCart cart)
             => new(cart.Id, cart.CustomerId, cart.Customer, cart.Total, cart.Items.Select(item => (Dto.CartItem)item));
     }
 }

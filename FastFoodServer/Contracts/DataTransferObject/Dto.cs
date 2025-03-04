@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,13 @@ namespace Contracts.DataTransferObject
                     Discount = price.Discount
                 };
         }
-        public record DtoAddress(string Address, List<int> Location)
+        public record DtoAddress(string Location, List<float> Center)
         {
             public static implicit operator Abstractions.Protobuf.Address(DtoAddress address)
                 => new()
                 {
-                    Address_ = address.Address,
-                    Location = { address.Location }
+                    Location = address.Location,
+                    Center = { address.Center }
                 };
         }
         public record DtoSearch(List<string> Nation, List<string> Category)
@@ -59,11 +60,21 @@ namespace Contracts.DataTransferObject
                 };
         }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
-        public record CartItem(string Id, DtoDish Dish, ushort Quantity, DtoPrice Price);
-        public record OrderItem(string Id, DtoDish Product, ushort Quantity, DtoPrice UnitPrice)
+        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, DtoPrice Price, ushort Time, string Note);
+        public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,
+            DtoPrice Price, ushort Time, string Status)
         {
             public static implicit operator OrderItem(CartItem item)
-                => new(Guid.NewGuid().ToString(), item.Dish, item.Quantity, item.Price);
+                => new(ObjectId.GenerateNewId().ToString(),
+                       item.RestaurantId,
+                       item.DishId,
+                       item.Restaurant,
+                       item.Dish,
+                       item.Quantity,
+                       item.Note,
+                       item.Price,
+                       item.Time,
+                       "Pendding");
         }
         public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, float Total, IEnumerable<CartItem> Items);
     }

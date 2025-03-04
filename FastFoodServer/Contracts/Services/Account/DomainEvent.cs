@@ -12,7 +12,7 @@ namespace Contracts.Services.Account
     {
         public record PaymentRequest(string AggregateId, string OrderId, long Price, int Quantity, long Version) : Message, IDomainEvent;
 
-        public record AccountCreate(string AggregateId, long Budget, long Version) : Message, IDomainEvent;
+        public record AccountCreate(string UserId, Dto.DtoPerson Person, long Version) : Message, IDomainEvent;
 
         public record PaymentRefund(string AggregateId, string OrderId, long Price, int Quantity, long Version) : Message, IDomainEvent;
     }

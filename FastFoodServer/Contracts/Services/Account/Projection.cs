@@ -6,18 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts.DataTransferObject;
 
 namespace Contracts.Services.Account
 {
     public static class Projection 
     {
-        public class Account : IProjection
+        public record Accounts(string Id, Dto.DtoPerson Person) : IProjection
         {
-            [BsonId]
-            [BsonRepresentation(BsonType.ObjectId)]
-            public string Id { get; set; }
-            [BsonElement("Budget")]
-            public long Budget { get; set; }
+            public static implicit operator Protobuf.AccountDetail(Accounts account)
+                => new()
+                {
+                    Id = account.Id,
+                    Person = account.Person,
+                };
         }
     }
 }

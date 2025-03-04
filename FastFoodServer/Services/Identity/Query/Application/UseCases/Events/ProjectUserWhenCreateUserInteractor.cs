@@ -21,7 +21,7 @@ namespace Application.UseCases.Events
 
         public async Task InteractAsync(DomainEvent.RegisterEvent @event, CancellationToken cancellationToken)
         {
-            var user = new Projection.User(@event.AggregateId, @event.UserName, @event.PassWord, @event.Person, @event.Role, "");
+            var user = new Projection.User(@event.Id, @event.UserName, @event.PassWord, @event.Role, "");
             Console.WriteLine(user);
             await _projectionGateway.ReplaceInsertAsync(user, cancellationToken);
         }

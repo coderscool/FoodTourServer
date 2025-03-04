@@ -21,9 +21,8 @@ message UserDetails {
 	string Id = 1;
 	string UserName = 2;
 	string PassWord = 3;
-	Abstractions.Protobuf.Person Person = 4;
-	string Role = 5;
-	string Token = 6;
+	string Role = 4;
+	string Token = 5;
 }
 
 message ListRestaurantItemsRequest {

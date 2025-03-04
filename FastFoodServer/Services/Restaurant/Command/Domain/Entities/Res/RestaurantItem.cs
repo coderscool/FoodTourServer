@@ -9,39 +9,27 @@ namespace Domain.Entities.Res
 {
     public class RestaurantItem
     {
-        public RestaurantItem(string id, string restaurantId, string customerId, string dishId,
-            Dto.DtoPerson customer, string name, long price, int quantity, int time, bool status, bool active, DateTime date)
+        public RestaurantItem(string id, string restaurantId, string customerId, string dishId, Dto.DtoPrice price, int quantity, string status)
         {
             Id = id;
             RestaurantId = restaurantId;
             CustomerId = customerId;
             DishId = dishId;
-            Customer = new PersonDetail(customer.Name, customer.Phone, customer.Address);
-            Name = name;
             Price = price;
             Quantity = quantity;
-            Time = time;
             Status = status;
-            Active = active;
-            Date = date;
         }
         public string Id { get; }
         public string RestaurantId { get; }
         public string CustomerId { get; }
         public string DishId { get; }
-        public PersonDetail Customer { get; }
-        public string Name { get; }
-        public long Price { get; }
+        public Dto.DtoPrice Price { get; }
         public int Quantity { get; }
-        public int Time { get; }
-        public bool Status { get; private set; }
-        public bool Active { get; private set; }
-        public DateTime Date { get; }
+        public string Status { get; private set; }
 
-        public void UpdateStatus(bool status)
+        public void UpdateStatus(string status)
         {
             Status = status;
-            Active = true;
         }
     }
 }

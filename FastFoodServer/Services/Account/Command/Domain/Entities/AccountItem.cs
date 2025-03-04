@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contracts.DataTransferObject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +9,12 @@ namespace Domain.Entities
 {
     public class AccountItem
     {
-        public AccountItem(string id, long budget) 
+        public AccountItem(string id, Dto.DtoPerson person) 
         { 
             Id = id;
-            Budget = budget;
+            Person = person;
         }
         public string Id { get; }
-        public long Budget { get; private set; }
-
-        public void Decrease(int quantity, long price) 
-        {
-            Budget -= quantity * price;
-        }
-
-        public void Increase(int quantity, long price)
-        {
-            Budget += quantity * price;
-        }
+        public Dto.DtoPerson Person { get; }
     }
 }

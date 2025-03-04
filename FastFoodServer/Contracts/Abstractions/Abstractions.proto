@@ -64,7 +64,7 @@ message Search {
 }
 
 message Address {
-    string Address = 1;
-    repeated int32 Location = 2;
+    string Location = 1;
+    repeated float Center = 2;
 }
 

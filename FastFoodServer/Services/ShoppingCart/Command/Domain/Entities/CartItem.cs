@@ -9,32 +9,38 @@ namespace Domain.Entities
 {
     public class CartItem
     {
-        public CartItem(string id, string userId, Dto.DtoPerson restaurant, Dto.DtoDish dish, Dto.DtoPrice price, int quantity) 
+        public CartItem(string itemId, string restaurantId, string dishId, Dto.DtoPerson restaurant, Dto.DtoDish dish, ushort quantity, Dto.DtoPrice price, ushort time, string note) 
         {
-            Id = id;
-            UserId = userId;
+            ItemId = itemId;
+            RestaurantId = restaurantId;
+            DishId = dishId;
             Restaurant = restaurant;
             Dish = dish;
-            Price = price;
             Quantity = quantity;
+            Price = price;
+            Time = time;
+            Note = note;
         }
-        public string Id { get;}
-        public string UserId { get; }
+        public string ItemId { get; }
+        public string RestaurantId { get; }
+        public string DishId { get; }
         public Dto.DtoPerson Restaurant { get; }
         public Dto.DtoDish Dish { get; }
+        public ushort Quantity { get; private set; }
         public Dto.DtoPrice Price { get; }
-        public int Quantity { get; private set; }
+        public ushort Time { get; }
+        public string Note { get; }
 
-        public void Increase(int quantity)
+        public void Increase(ushort quantity)
         => Quantity += quantity;
 
-        public void Decrease(int quantity)
+        public void Decrease(ushort quantity)
             => Quantity += quantity;
 
         public static implicit operator CartItem(Dto.CartItem item)
-        => new(item.Id, item.Product, item.Quantity, item.UnitPrice);
+            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Price, item.Time, item.Note);
 
         public static implicit operator Dto.CartItem(CartItem item)
-            => new(item.Id, item.Product, item.Quantity, item.UnitPrice);
+            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Price, item.Time, item.Note);
     }
 }

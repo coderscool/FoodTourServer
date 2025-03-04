@@ -165,3 +165,5 @@
 /FastFoodServer/Services/Evaluate/Command/Infrastructure.EventStore/obj
 /FastFoodServer/WebApplication1/bin/Debug
 /FastFoodServer/WebApplication1/obj
+/FastFoodServer/Services/Payment/Command/Application/obj
+/FastFoodServer/Services/Payment/Command/Domain/obj

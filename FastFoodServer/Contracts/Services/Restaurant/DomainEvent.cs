@@ -10,11 +10,10 @@ namespace Contracts.Services.Restaurant
 {
     public static class DomainEvent
     {
-        public record RestaurantCreateBill(string AggregateId, string RestaurantId, string CustomerId, string DishId, 
-            Dto.DtoPerson Customer, string Name, long Price, int Quantity, int Time, bool Status, bool Active, DateTime Date, long Version) : Message, IDomainEvent;
+        public record RestaurantCreateBill(string Id, string RestaurantId, string CustomerId, string DishId, Dto.DtoPerson Customer,
+            Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, string Note, string Status, int Time, DateTime Date, long Version) : Message, IDomainEvent;
         public record RestaurantCreate(string AggregateId, string UserId, Dto.DtoPerson Restaurant, Dto.DtoSearch Search, long Version) : Message, IDomainEvent;
         public record ExpireOrderRestaurant(string AggregateId, long Version) : Message, IDomainEvent;
-        public record RestaurantReply(string AggregateId, string RestaurantId, string CustomerId, string DishId, long Price, int Quantity, bool Status, long Version) : Message, IDomainEvent;
-
+        public record RestaurantReply(string Id, string RestaurantId, string CustomerId, string DishId, Dto.DtoPrice Price, int Quantity, string Status, long Version) : Message, IDomainEvent;
     }
 }

@@ -18,15 +18,12 @@ namespace Domain.Aggregates
         [JsonProperty]
         private readonly List<RestaurantItem> _items = new();
 
-        public Dto.DtoPerson DtoPerson { get; private set; }
-        public Dto.DtoSearch DtoSearch { get; private set; }
-
         public override void Handle(ICommand command)
             => Handle(command as dynamic);
 
         public void Handle(Command.CreateBillRestaurant cmd)
-            => RaiseEvent<DomainEvent.RestaurantCreateBill>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.RestaurantId,
-                cmd.CustomerId, cmd.DishId, cmd.Customer, cmd.Name, cmd.Price, cmd.Quantity, cmd.Time, false, false, cmd.Date, version));
+            => RaiseEvent<DomainEvent.RestaurantCreateBill>((version) => new(cmd.Id, cmd.RestaurantId, cmd.CustomerId, cmd.DishId, 
+                cmd.Customer, cmd.Dish, cmd.Price, cmd.Quantity, cmd.Note, "Pendding", cmd.Time, cmd.Date, version));
 
         public void Handle(Command.CreateRestaurant cmd)
             => RaiseEvent<DomainEvent.RestaurantCreate>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.UserId, cmd.Restaurant, cmd.Search, version));
@@ -38,7 +35,7 @@ namespace Domain.Aggregates
 
             if (item != null)
             {
-                RaiseEvent<DomainEvent.RestaurantReply>((version) => new(ObjectId.GenerateNewId().ToString(), item.RestaurantId, item.DishId,
+                RaiseEvent<DomainEvent.RestaurantReply>((version) => new(item.Id, item.RestaurantId, item.DishId,
                     item.CustomerId, item.Price, item.Quantity, cmd.Status, version));
             }
         }
@@ -47,10 +44,9 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.RestaurantCreateBill @event)
-            => _items.Add(new(@event.AggregateId, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Customer,
-                @event.Name, @event.Price, @event.Quantity, @event.Time, false, false, @event.Date));
+            => _items.Add(new(@event.Id, @event.RestaurantId, @event.CustomerId, @event.DishId, @event.Price, @event.Quantity, @event.Status));
 
         public void When(DomainEvent.RestaurantReply @event)
-            => _items.Single(item => item.Id == @event.AggregateId).UpdateStatus(@event.Status);
+            => _items.Single(item => item.Id == @event.Id).UpdateStatus(@event.Status);
     }
 }

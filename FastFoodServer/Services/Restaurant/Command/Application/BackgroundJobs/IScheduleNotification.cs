@@ -10,7 +10,7 @@ namespace Application.BackgroundJobs
 {
     public interface IScheduleNotification
     {
-        Task AddScheduleNotification(string id, int time, CancellationToken cancellationToken);
+        Task AddScheduleNotification(string id, ushort time, CancellationToken cancellationToken);
         Task RemoveSchedule(string id);
     }
 }

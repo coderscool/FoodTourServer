@@ -21,9 +21,9 @@ namespace Application.UseCases.Commands
 
         public async Task InteractAsync(Command.CreateDish command, CancellationToken cancellationToken)
         {
-            Dish account = new Dish();
-            account.Handle(command);
-            await _applicationService.AppendEventsAsync(account, cancellationToken);
+            Dish dish = new Dish();
+            dish.Handle(command);
+            await _applicationService.AppendEventsAsync(dish, cancellationToken);
         }
     }
 }

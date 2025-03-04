@@ -28,6 +28,6 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.RegisterEvent @event)
-            => _items.Add(new(@event.AggregateId, @event.UserName, @event.PassWord, @event.Person, @event.Role));
+            => _items.Add(new(@event.Id, @event.UserName, @event.PassWord, @event.Person, @event.Role));
     }
 }

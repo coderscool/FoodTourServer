@@ -10,7 +10,7 @@ namespace Contracts.Services.Dish
 {
     public static class Command
     {
-        public record CreateDish(string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search) : Message, ICommand;
+        public record CreateDish(string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, Dto.DtoSearch Search) : Message, ICommand;
         public record UpdateQuantity(string Id, int Quantity) : Message, ICommand;
     }
 }

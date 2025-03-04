@@ -11,19 +11,15 @@ namespace Application.UseCases.Events
 {
     public class ProjectAccountWhenRegisterInteractor : IInteractor<DomainEvent.AccountCreate>
     {
-        private readonly IProjectionGateway<Projection.Account> _projectionGateway;
-        public ProjectAccountWhenRegisterInteractor(IProjectionGateway<Projection.Account> projectionGateway)
+        private readonly IProjectionGateway<Projection.Accounts> _projectionGateway;
+        public ProjectAccountWhenRegisterInteractor(IProjectionGateway<Projection.Accounts> projectionGateway)
         {
             _projectionGateway = projectionGateway;
         }
 
         public async Task InteractAsync(DomainEvent.AccountCreate @event, CancellationToken cancellationToken)
         {
-            var account = new Projection.Account
-            {
-                Id = @event.AggregateId,
-                Budget = @event.Budget,
-            };
+            var account = new Projection.Accounts(@event.UserId, @event.Person);
             await _projectionGateway.ReplaceInsertAsync(account, cancellationToken);
         }
     }

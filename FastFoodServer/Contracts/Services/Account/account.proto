@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcService1";
+package Contracts.Services.Account.Protobuf;
 
-package account;
+import "Abstractions/Abstractions.proto";
 
 // The greeting service definition.
 service Accounter {
@@ -17,4 +17,9 @@ message AccountRequest {
 message AccountReply {
 	string Id = 1;
 	int64 Budget = 2;
+}
+
+message AccountDetail {
+	string Id = 1;
+	Abstractions.Protobuf.Person Person = 2;
 }

@@ -9,41 +9,41 @@ namespace Domain.Entities
 {
     public class OrderItem
     {
-        public OrderItem(string id, string restaurantId, string customerId, string dishId, Dto.Person restaurant,
-            Dto.Person customer, string name, long price, int quantity, int time, bool status, bool active, DateTime date) 
+        public OrderItem(string itemId, string restaurantId, string dishId, Dto.DtoPerson restaurant,
+            Dto.DtoDish dish, ushort quantity, string note, Dto.DtoPrice price, ushort time, string status) 
         {
-            Id = id;
-            RestaurantId = restaurantId; 
-            CustomerId = customerId; 
+            ItemId = itemId;
+            RestaurantId = restaurantId;
             DishId = dishId;
-            Restaurant = new PersonDetail(restaurant.Name, restaurant.Phone, restaurant.Address);
-            Customer = new PersonDetail(restaurant.Name, restaurant.Phone, restaurant.Address);
-            Name = name;
-            Price = price;
+            Restaurant = restaurant;
+            Dish = dish;
             Quantity = quantity;
+            Note = note;
+            Price = price;
             Time = time;
             Status = status;
-            Active = active;
-            Date = date;
         }
-        public string Id { get; }
+        public string ItemId { get; }
         public string RestaurantId { get; }
-        public string CustomerId { get; }
         public string DishId { get; }
-        public PersonDetail Restaurant { get; }
-        public PersonDetail Customer { get; }
-        public string Name { get; }
-        public long Price { get; }
-        public int Quantity { get; }
-        public int Time { get; }
-        public bool Status { get; private set; }
-        public bool Active { get; private set; }
-        public DateTime Date { get; }
+        public Dto.DtoPerson Restaurant { get; }
+        public Dto.DtoDish Dish { get; }
+        public ushort Quantity { get; }
+        public string Note { get; }
+        public Dto.DtoPrice Price { get; }
+        public ushort Time { get; }
+        public string Status { get; private set; }
 
         public void UpdateStatus(bool status)
         {
-            Status = status;
-            Active = true;
         }
+
+        public static implicit operator OrderItem(Dto.OrderItem item)
+            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Note, item.Price,
+                item.Time, item.Status);
+
+        public static implicit operator Dto.OrderItem(OrderItem item)
+            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Note, item.Price,
+                item.Time, item.Status);
     }
 }

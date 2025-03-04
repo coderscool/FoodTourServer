@@ -20,7 +20,7 @@ namespace Application.BackgroundJobs
         {
             _interactor = interactor;
         }
-        public async Task AddScheduleNotification(string id, int time, CancellationToken cancellationToken)
+        public async Task AddScheduleNotification(string id, ushort time, CancellationToken cancellationToken)
         {
             var @event = new DomainEvent.ExpireOrderRestaurant(id, 1);
             Console.WriteLine(@event);

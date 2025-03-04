@@ -18,7 +18,6 @@ namespace Application.DependencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
-                       .AddScoped<IInteractor<Command.AddItemOrder>, AddItemOrderInteractor>()
                        .AddScoped<IInteractor<Account.DomainEvent.PaymentRequest>, ConfirmOrderWhenPaymentRequestInteractor>()
                        .AddScoped<IInteractor<Restaurant.DomainEvent.RestaurantReply>, UpdateStatusWhenRestaurantReply>();
     }

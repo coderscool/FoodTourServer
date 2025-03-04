@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class DishItem
     {
-        public DishItem(string id, string restaurantId, Dto.DtoDish dish, Dto.DtoPrice price, int quantity, Dto.DtoSearch search) 
+        public DishItem(string id, string restaurantId, Dto.DtoDish dish, Dto.DtoPrice price, ushort quantity, Dto.DtoSearch search) 
         { 
             Id = id;
             RestaurantId = restaurantId;
@@ -23,9 +23,9 @@ namespace Domain.Entities
         public Dto.DtoDish Dish { get; }
         public Dto.DtoPrice Price { get; }
         public Dto.DtoSearch Search { get; }
-        public int Quantity { get; private set; }
+        public ushort Quantity { get; private set; }
 
-        public void UpdateQuantity(int quantity)
+        public void UpdateQuantity(ushort quantity)
             => Quantity += quantity;
     }
 }
