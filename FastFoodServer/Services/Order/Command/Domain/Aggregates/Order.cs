@@ -22,20 +22,21 @@ namespace Domain.Aggregates
         public string CustomerId { get; private set; }
         public Dto.DtoPerson Customer { get; private set; }
         public string Status { get; private set; }
-        public float Total { get; private set; }
+        public ulong Total { get; private set; }
 
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
         public void Handle(Command.ConfirmOrder cmd)
         {
-            var item = _items
-                .Where(orderItem => orderItem.ItemId == cmd.Id)
-                .FirstOrDefault();
-
-            if(item != null && item.Active == false)
+            if(cmd.Status == true)
             {
-                RaiseEvent<DomainEvent.OrderConfirmSuccess>((version) => new(OrderId, CustomerId, Customer, _items.Select(item => (Dto.OrderItem)item), DateTime.UtcNow, version));
+                RaiseEvent<DomainEvent.OrderConfirmSuccess>((version) => new(OrderId, CustomerId, Customer,
+                    _items.Select(item => (Dto.OrderItem)item), DateTime.UtcNow, version));
+            }
+            else
+            {
+                RaiseEvent<DomainEvent.OrderConfirmError>((version) => new(OrderId, version));
             }
         }
 
@@ -47,6 +48,7 @@ namespace Domain.Aggregates
                 cmd.Total,
                 cmd.Items.Select(cartItem => (Dto.OrderItem)cartItem),
                 cmd.Status, version));
+
         public void Handle(Command.UpdateStatus cmd)
             => RaiseEvent<DomainEvent.StatusUpdate>((version) => new(cmd.Id, cmd.Status, version));
 
@@ -56,7 +58,16 @@ namespace Domain.Aggregates
         public void When(DomainEvent.OrderConfirmSuccess @event)
             => Status = "Success";
 
+        public void When(DomainEvent.OrderConfirmError @event)
+            => Status = "Error";
+
         public void When(DomainEvent.StatusUpdate @event)
-            => _items.Single(x => x.ItemId == @event.AggregateId).UpdateStatus(@event.Status);
+            => _items.Single(x => x.ItemId == @event.Id).UpdateStatus(@event.Status);
+
+        public void When(DomainEvent.OrderPlaced @event)
+        {
+            (OrderId, CustomerId, Customer, Total, var items, Status, _) = @event;
+            _items.AddRange(items.Select(item => (OrderItem)item));
+        }
     }
 }

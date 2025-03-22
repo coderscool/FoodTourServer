@@ -34,7 +34,7 @@ namespace Domain.Entities
         public ushort Time { get; }
         public string Status { get; private set; }
 
-        public void UpdateStatus(bool status)
+        public void UpdateStatus(string status)
         {
         }
 

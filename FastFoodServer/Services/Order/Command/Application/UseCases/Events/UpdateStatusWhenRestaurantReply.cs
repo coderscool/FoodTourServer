@@ -20,8 +20,8 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(Restaurant.DomainEvent.RestaurantReply @event, CancellationToken cancellationToken)
         {
-            var order = await _applicationService.LoadAggregateAsync<Order>(@event.AggregateId, cancellationToken);
-            order.Handle(new Command.UpdateStatus(@event.AggregateId, @event.Status));
+            var order = await _applicationService.LoadAggregateAsync<Order>(@event.Id, cancellationToken);
+            order.Handle(new Command.UpdateStatus(@event.Id, @event.Status));
             await _applicationService.AppendEventsAsync(order, cancellationToken);
         }
     }

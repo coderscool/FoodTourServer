@@ -76,6 +76,6 @@ namespace Contracts.DataTransferObject
                        item.Time,
                        "Pendding");
         }
-        public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, float Total, IEnumerable<CartItem> Items);
+        public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, ulong Total, IEnumerable<CartItem> Items);
     }
 }

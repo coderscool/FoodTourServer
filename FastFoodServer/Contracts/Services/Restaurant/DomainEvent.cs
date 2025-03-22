@@ -14,6 +14,6 @@ namespace Contracts.Services.Restaurant
             Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, string Note, string Status, int Time, DateTime Date, long Version) : Message, IDomainEvent;
         public record RestaurantCreate(string AggregateId, string UserId, Dto.DtoPerson Restaurant, Dto.DtoSearch Search, long Version) : Message, IDomainEvent;
         public record ExpireOrderRestaurant(string AggregateId, long Version) : Message, IDomainEvent;
-        public record RestaurantReply(string Id, string RestaurantId, string CustomerId, string DishId, Dto.DtoPrice Price, int Quantity, string Status, long Version) : Message, IDomainEvent;
+        public record RestaurantReply(string Id, string RestaurantId, string CustomerId, string DishId, Dto.DtoPrice Price, uint Quantity, bool Status, long Version) : Message, IDomainEvent;
     }
 }
