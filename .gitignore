@@ -192,3 +192,11 @@
 /FastFoodServer/Services/ShoppingCart/Query/GrpcService1/bin/Debug/net9.0
 /FastFoodServer/Services/ShoppingCart/Query/Infrastructure.EventBus/bin/Debug/net9.0
 /FastFoodServer/Services/ShoppingCart/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/Services/Notification/Command/Domain/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/Domain/bin/Debug/net9.0
+/FastFoodServer/Services/Statistic/Query/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Statistic/Query/GrpcService1/bin/Debug/net9.0
+/FastFoodServer/Services/Statistic/Query/Infrastructure.EventBus/bin/Debug/net9.0
+/FastFoodServer/Services/Statistic/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/FastFoodServer.slnLaunch.user
