@@ -10,5 +10,6 @@ namespace Contracts.Services.Payment
     public static class DomainEvent
     {
         public record PaymentRequest(string Id, string OrderId, ulong Total, bool Status, long Version) : Message, IDomainEvent;
+        public record PaymentCreate(string Id, ulong Budget, long Version) : Message, IDomainEvent;
     }
 }

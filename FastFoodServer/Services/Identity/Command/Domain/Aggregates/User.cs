@@ -22,7 +22,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.Register cmd)
             => RaiseEvent<DomainEvent.RegisterEvent>((version) => new(
-                 ObjectId.GenerateNewId().ToString(), cmd.UserName, cmd.PassWord, cmd.Person, cmd.Role, version));
+                 ObjectId.GenerateNewId().ToString(), cmd.UserName, cmd.PassWord, cmd.Person, cmd.Nation, cmd.Role, version));
 
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);

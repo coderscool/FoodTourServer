@@ -7,7 +7,7 @@ namespace Contracts.Services.Identity
 {
     public static class Projection
     {
-        public record User(string Id, string UserName, string PassWord, string Role, string Token) : IProjection
+        public record User(string Id, string UserName, string PassWord, string Role, string Token, long Version) : IProjection
         {
             public static implicit operator Protobuf.UserDetails(User userDetails)
                 => new()

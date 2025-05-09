@@ -12,7 +12,7 @@ namespace Contracts.Services.Dish
 {
     public static class Projection
     {
-        public record Dishs(string Id, string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search) : IProjection
+        public record Dishs(string Id, string RestaurantId, Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search, long Version) : IProjection
         {
             public static implicit operator Protobuf.DishDetails(Dishs dish)
                 => new()

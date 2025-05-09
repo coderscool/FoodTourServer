@@ -17,6 +17,6 @@ namespace Contracts.Services.Order
 
         public record UpdateStatus(string Id, string Status) : Message, ICommand;
 
-        public record PlaceOrder(string CartId, string CustomerId, Dto.DtoPerson Customer, ulong Total, IEnumerable<Dto.CartItem> Items, string Status) : Message, ICommand;
+        public record PlaceOrder(string CartId, string CustomerId, Dto.DtoPerson Customer, ulong Total, string Description, IEnumerable<Dto.CartItem> Items, string Status) : Message, ICommand;
     }
 }

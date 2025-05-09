@@ -1,32 +1,31 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using Contracts.Services.Account;
 using Domain.Abstractions.Aggregates;
-using Domain.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Aggregates
 {
-    public class Account : AggregateRoot
+    public class Account : AggregateRoot<AccountValidator>
     {
-        [JsonProperty]
-        private readonly List<AccountItem> _items = new();
+        public Dto.DtoPerson Person { get; private set; }
 
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
 
         public void Handle(Command.CreateAccount cmd)
-            => RaiseEvent<DomainEvent.AccountCreate>((version) => new(cmd.Id, cmd.Person, version));
+            => RaiseEvent<DomainEvent.AccountCreate>((version) => new(cmd.Id, cmd.Person, cmd.Nation, version));
+
+        public void Handlle(Command.ChangedAccount cmd)
+            => RaiseEvent<DomainEvent.AccountChanged>((version) => new(Id, cmd.Person, version));
 
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.AccountCreate @event)
-            => _items.Add(new(@event.UserId, @event.Person));
+            => (Id, Person, _, _) = @event;
+
+        public void When(DomainEvent.AccountChanged @event)
+            => (Id, Person, _) = @event;
 
     }
 }

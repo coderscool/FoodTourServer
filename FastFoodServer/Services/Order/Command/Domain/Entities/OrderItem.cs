@@ -1,4 +1,5 @@
 ﻿using Contracts.DataTransferObject;
+using Domain.Abstractions.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class OrderItem
+    public class OrderItem : Entity<OrderItemValidator>
     {
         public OrderItem(string itemId, string restaurantId, string dishId, Dto.DtoPerson restaurant,
             Dto.DtoDish dish, ushort quantity, string note, Dto.DtoPrice price, ushort time, string status) 
         {
-            ItemId = itemId;
+            Id = itemId;
             RestaurantId = restaurantId;
             DishId = dishId;
             Restaurant = restaurant;
@@ -23,7 +24,6 @@ namespace Domain.Entities
             Time = time;
             Status = status;
         }
-        public string ItemId { get; }
         public string RestaurantId { get; }
         public string DishId { get; }
         public Dto.DtoPerson Restaurant { get; }
@@ -43,7 +43,7 @@ namespace Domain.Entities
                 item.Time, item.Status);
 
         public static implicit operator Dto.OrderItem(OrderItem item)
-            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Note, item.Price,
+            => new(item.Id, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Quantity, item.Note, item.Price,
                 item.Time, item.Status);
     }
 }

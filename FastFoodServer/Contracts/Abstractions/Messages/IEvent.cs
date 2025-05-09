@@ -25,5 +25,5 @@ namespace Contracts.Abstractions.Messages
     }
 
     [ExcludeFromTopology]
-    public interface ISummaryEvent : IVersionedEvent { }
+    public interface ISummaryEvent : IDomainEvent { }
 }

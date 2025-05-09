@@ -1,4 +1,5 @@
 using Application.Abstractions;
+using Contracts.Services.Cart.Protobuf;
 using Contracts.Services.ShoppingCart;
 using Grpc.Core;
 using Grpc.Net.Client;
@@ -9,69 +10,10 @@ namespace GrpcService1.Services
     public class CarterService : Carter.CarterBase
     {
         private readonly ILogger<CarterService> _logger;
-        private readonly IPagedInteractor<Query.CustomerCartQuery, Projection.Cart> _pagedInteractor;
-        private readonly ICountInteractor<Query.CustomerCartQuery> _countInteractor;
-        public CarterService(ILogger<CarterService> logger,
-            IPagedInteractor<Query.CustomerCartQuery, Projection.Cart> pagedInteractor,
-            ICountInteractor<Query.CustomerCartQuery> countInteractor)
+        
+        public CarterService(ILogger<CarterService> logger)
         {
             _logger = logger;
-            _pagedInteractor = pagedInteractor;
-            _countInteractor = countInteractor;
-        }
-
-        public override async Task<GetListCartReply> ListDishCartQuery(GetListCartRequest request, ServerCallContext context)
-        {
-            var list = new List<GetCartDetail>();
-            var result = await _pagedInteractor.InteractAsync(new Query.CustomerCartQuery { CustomerId = request.CustomerId }, context.CancellationToken);
-            if(result == null)
-            {
-                return null;
-            }
-            foreach(var item in result)
-            {
-                var input1 = new GetDishDetailRequest
-                {
-                    Id = item.DishId
-                };
-                var channel1 = GrpcChannel.ForAddress("http://localhost:5286");
-                var client1 = new Disher.DisherClient(channel1);
-                var dish = await client1.GetDishDetailAsync(input1);
-                var res = new CartRestaurantReply
-                {
-                    Name = dish.Restaurant.Name,
-                    Address = dish.Restaurant.Address,
-                    Phone = dish.Restaurant.Phone,
-                };
-                var cart = new GetCartDetail
-                {
-                    Id = item.Id,
-                    RestaurantId = item.RestaurantId,
-                    CustomerId = item.CustomerId,
-                    DishId = item.DishId,
-                    Restaurant = res,
-                    Name = dish.Dish.Name,
-                    Image = dish.Dish.Image,
-                    Price = dish.Dish.Price,
-                    Quantity = item.Amount
-                };
-                Console.WriteLine(cart);
-                list.Add(cart);
-            }
-            return await Task.FromResult(new GetListCartReply
-            {
-                List = {list}
-            });
-        }
-
-        public override async Task<GetQuantityReply> GetQuantity(GetListCartRequest request, ServerCallContext context)
-        {
-            var query = new Query.CustomerCartQuery { CustomerId = request.CustomerId };
-            var result = await _countInteractor.InteractAsync(query, context.CancellationToken);
-            return await Task.FromResult(new GetQuantityReply
-            {
-                Quantity = result
-            });
         }
     }
 }

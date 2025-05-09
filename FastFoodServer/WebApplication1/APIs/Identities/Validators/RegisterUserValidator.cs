@@ -9,6 +9,7 @@ namespace WebApplication1.APIs.Identities.Validators
             RuleFor(request => request.Payload)
                 .SetValidator(new SignUpPayloadValidator())
                 .OverridePropertyName(string.Empty);
+
         }
     }
 }

@@ -1,24 +1,22 @@
 ﻿using Contracts.Abstractions.Messages;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Contracts.DataTransferObject;
+using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Contracts.Services.Account
 {
     public static class Projection 
     {
-        public record Accounts(string Id, Dto.DtoPerson Person) : IProjection
+        public record AccountDetails(string Id, string Name, string Image, string Phone, string Address, 
+            GeoJsonPoint<GeoJson2DGeographicCoordinates> Location, List<string> Nation, long Version) : IProjection
         {
-            public static implicit operator Protobuf.AccountDetail(Accounts account)
+            public static implicit operator Protobuf.AccountDetails(AccountDetails account)
                 => new()
                 {
                     Id = account.Id,
-                    Person = account.Person,
+                    Name = account.Name,
+                    Image = account.Image,
+                    Phone = account.Phone,
+                    Address = account.Address
                 };
         }
     }

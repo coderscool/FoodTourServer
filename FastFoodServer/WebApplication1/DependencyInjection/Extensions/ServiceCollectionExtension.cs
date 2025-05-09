@@ -3,7 +3,6 @@ using Contracts.Services.Identity.Protobuf;
 using CorrelationId.Abstractions;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
-using GrpcService1;
 using MassTransit;
 using MassTransit.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

@@ -39,6 +39,7 @@ namespace Contracts.Services.Restaurant
             public int Time { get; set; }
             [BsonElement("Date")]
             public DateTime Date { get; set; }
+            public long Version { get; set; }
         }
     }
 }

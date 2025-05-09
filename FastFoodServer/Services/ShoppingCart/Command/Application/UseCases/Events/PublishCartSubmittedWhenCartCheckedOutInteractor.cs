@@ -21,7 +21,7 @@ namespace Application.UseCases.Events
         {
             var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
             SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, shoppingCart.Version);
-            await _applicationService.AppendEventsAsync(cartSubmitted, cancellationToken);
+            await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
         }
     }
 }

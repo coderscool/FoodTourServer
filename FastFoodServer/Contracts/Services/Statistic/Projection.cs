@@ -29,6 +29,7 @@ namespace Contracts.Services.Statistic
             public int NumberRate { get; set; }
             [BsonElement("EvaluateAvg")]
             public Dto.EvaluateAvg EvaluateAvg { get; set; }
+            public long Version { get; set; }
         }
     }
 }

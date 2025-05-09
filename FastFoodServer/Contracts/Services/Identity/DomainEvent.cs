@@ -10,6 +10,6 @@ namespace Contracts.Services.Identity
 {
     public static class DomainEvent
     {
-        public record RegisterEvent(string Id, string UserName, string PassWord, Dto.DtoPerson Person, string Role, long Version) : Message, IDomainEvent;
+        public record RegisterEvent(string Id, string UserName, string PassWord, Dto.DtoPerson Person, List<string> Nation, string Role, long Version) : Message, IDomainEvent;
     }
 }

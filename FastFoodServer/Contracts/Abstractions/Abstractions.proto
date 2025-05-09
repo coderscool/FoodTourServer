@@ -41,7 +41,7 @@ message Paging {
 }
 
 message Price{
-  string Cost = 1;
+  float Cost = 1;
   float Discount = 2;
 }
 
@@ -64,7 +64,8 @@ message Search {
 }
 
 message Address {
-    string Location = 1;
-    repeated float Center = 2;
+    double Latitude = 1;
+    double Longitude = 2;
+    string Address = 3;
 }
 

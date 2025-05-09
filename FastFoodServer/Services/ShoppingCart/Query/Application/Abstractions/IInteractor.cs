@@ -32,4 +32,10 @@ namespace Application.Abstractions
     {
         Task<int> InteractAsync(TQuery query, CancellationToken cancellationToken);
     }
+
+    public interface IInteractor<in TEvent>
+    where TEvent : IEvent
+    {
+        Task InteractAsync(TEvent @event, CancellationToken cancellationToken);
+    }
 }

@@ -24,7 +24,7 @@ namespace Application.UseCases.Queries
         }
         public async Task<List<Projection.Dishs?>> InteractAsync(Query.SearchDishDetail query, CancellationToken cancellationToken)
         {
-            var response = await _client.SearchAsync<Projection.Dishs>(s => s
+            /*var response = await _client.SearchAsync<Projection.Dishs>(s => s
                 .Index("dish") 
                 .Query(q => q
                     .Bool(b => b
@@ -59,7 +59,7 @@ namespace Application.UseCases.Queries
                     item.Image = result.Image;
                 }
             }
-            return response.Documents.ToList();
+            return response.Documents.ToList();*/
         }
     }
 }

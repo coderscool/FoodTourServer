@@ -4,6 +4,6 @@ namespace WebApplication1.APIs.Dish
 {
     public class Payloads
     {
-        public record CreateDish(Dto.DtoDish Dish, Dto.DtoPrice Price, int Quantity, Dto.DtoSearch Search);
+        public record CreateDish(Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, Dto.DtoSearch Search);
     }
 }

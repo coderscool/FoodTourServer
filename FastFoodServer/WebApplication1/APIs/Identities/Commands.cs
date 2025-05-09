@@ -11,7 +11,7 @@ namespace WebApplication1.APIs.Identities
         : Validatable<RegisterUserValidator>, ICommand<Command.Register>
         {
             public Command.Register Command
-                => new(Payload.UserName, Payload.PassWord, Payload.Person, Payload.Role);
+                => new(Payload.UserName, Payload.PassWord, Payload.Person, Payload.Nation, Payload.Role);
         }
     }
 }

@@ -3,12 +3,7 @@ using Contracts.Abstractions.Messages;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Projection
 {
@@ -32,5 +27,14 @@ namespace Infrastructure.Projection
 
         public async Task<int> QuantityAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
             => await _collection.AsQueryable().Where(predicate).CountAsync();
+
+        public Task UpdateFieldAsync<TField, TId>(TId id, long version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken)
+        => _collection.UpdateOneAsync(
+            filter: projection => projection.Id.Equals(id) && projection.Version < version,
+            update: new ObjectUpdateDefinition<TProjection>(new()).Set(field, value),
+            cancellationToken: cancellationToken);
+
+        public Task DeleteAsync<TId>(TId id, CancellationToken cancellationToken)
+            => _collection.DeleteOneAsync(projection => projection.Id.Equals(id), cancellationToken);
     }
 }

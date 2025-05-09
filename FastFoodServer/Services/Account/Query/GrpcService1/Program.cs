@@ -3,11 +3,8 @@ using Infrastructure.Projection;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
 using Infrastructure.EventBus.DependencyInjection.Extensions;
-using Contracts.Services.Account;
-using Application.Abstractions;
 using Application.UseCases.Events;
 using Application.Abstractions.Gateways;
-using Application.UseCases.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IInteractor<DomainEvent.AccountCreate>, ProjectAccountWhenRegisterInteractor>();
-builder.Services.AddScoped<IInteractor<DomainEvent.PaymentRequest>, ProjectAccountWhenPaymentRequestInteractor>();
-builder.Services.AddScoped<IInteractor<DomainEvent.PaymentRefund>, ProjectAccountWhenPaymentRefundInteractor>();
-builder.Services.AddScoped<IInteractor<Query.GetAccountId, Projection.Account>, GetBudgetAccountInteractor>();
+builder.Services.AddScoped<IProjectAccountWhenAccountChangedInteractor, ProjectAccountWhenAccountChangedInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

@@ -13,5 +13,7 @@ namespace Contracts.Services.Payment
         public record RequestPayment(string Id, string OrderId, ulong Total) : Message, ICommand;
 
         public record RefundPayment(string Id, Dto.DtoPrice Price, uint Quantity) : Message, ICommand;
+
+        public record CreatePayment(string Id) : Message, ICommand;
     }
 }

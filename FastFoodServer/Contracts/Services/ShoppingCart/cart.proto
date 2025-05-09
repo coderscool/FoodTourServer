@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcService1";
+package Contracts.Services.Cart.Protobuf;
 
-package cart;
+import "Abstractions/Abstractions.proto";
 
 service Carter {
   rpc ListDishCartQuery (GetListCartRequest) returns (GetListCartReply);
@@ -37,4 +37,24 @@ message GetListCartReply {
 
 message GetQuantityReply{
 	int32 Quantity = 1;
+}
+
+message CartDetails{
+	string Id = 1;
+	string CustomerId = 2;
+	Abstractions.Protobuf.Person Customer = 3;
+	string Description = 4;
+	double Total = 5;
+}
+
+message CartItems{
+	string Id = 1;
+	string CartId = 2;
+	string RestaurantId = 3;
+	string DishId = 4; 
+	Abstractions.Protobuf.Person Restaurant = 5;
+	Abstractions.Protobuf.Dish Dish = 6; 
+	Abstractions.Protobuf.Price Price = 7;
+	int32 Quantity = 8;
+	string Note = 9;
 }

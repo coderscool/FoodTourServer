@@ -8,6 +8,13 @@ import "Abstractions/Abstractions.proto";
 service Accounter {
   // Sends a greeting
   rpc GetBudgetAccount (AccountRequest) returns (AccountReply);
+  rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+message LocationRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
+	double Latitude = 2;
+	double Longitude = 3;
 }
 
 message AccountRequest {
@@ -19,7 +26,10 @@ message AccountReply {
 	int64 Budget = 2;
 }
 
-message AccountDetail {
+message AccountDetails {
 	string Id = 1;
-	Abstractions.Protobuf.Person Person = 2;
+	string Name = 2;
+	string Image = 3;
+	string Phone = 4;
+	string Address = 5;
 }

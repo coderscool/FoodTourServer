@@ -23,7 +23,7 @@ namespace Application.UseCases.Events
             if(@event.Role == "sale")
             {
                 Statistic statistic = new();
-                statistic.Handle(new Command.CreateStatistic(@event.AggregateId));
+                statistic.Handle(new Command.CreateStatistic(@event.Id));
                 await _applicationService.AppendEventsAsync(statistic, cancellationToken);
             }
         }

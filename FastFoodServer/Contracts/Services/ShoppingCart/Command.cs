@@ -10,9 +10,12 @@ namespace Contracts.Services.ShoppingCart
 {
     public class Command
     {
-        public record AddCartItem(string CartId, string RestaurantId, string DishId, Dto.DtoPerson Restaurant, Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, ushort Time, string Note): Message, ICommand;
-        public record CheckAndRemoveDishCart(string Id) : Message, ICommand;
-        public record IncreaseQuantityCart(string Id, int Quantity) : Message, ICommand;
+        public record AddCartItem(string CartId, string RestaurantId, string DishId, Dto.DtoPerson Restaurant, Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, string Note): Message, ICommand;
+        public record CheckAndRemoveDishCart(string Id, string CartId) : Message, ICommand;
+        public record RemoveCart(string CartId) : Message, ICommand;
+        public record ChangedQuantityItemCart(string ItemId, string CartId, ushort Quantity) : Message, ICommand;
         public record CreateCart(string CustomerId, Dto.DtoPerson Customer, string Description) : Message, ICommand;
+        public record ChangeDescriptionCart(string Id, string Description) : Message, ICommand;
+        public record ChangeCustomerCart(string Id, Dto.DtoPerson Customer) : Message, ICommand;
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
+using MongoDB.Driver.GeoJsonObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace Application.Abstractions.Gateways
     where TProjection : IProjection
     {
         ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken);
+        Task<List<TProjection>> ListAsync(Paging paging, GeoJsonPoint<GeoJson2DGeographicCoordinates> Point, CancellationToken cancellationToken);
         Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken);
         Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
         Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken);

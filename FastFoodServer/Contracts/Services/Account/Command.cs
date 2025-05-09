@@ -10,10 +10,7 @@ namespace Contracts.Services.Account
 {
     public static class Command
     {
-        public record RequestPayment(string Id, string OrderId) : Message, ICommand;
-
-        public record CreateAccount(string Id, Dto.DtoPerson Person) : Message, ICommand;
-
-        public record RefundPayment(string Id, string OrderId, long Price, int Quantity) : Message, ICommand;
+        public record CreateAccount(string Id, Dto.DtoPerson Person, List<string> Nation) : Message, ICommand;
+        public record ChangedAccount(string Id, Dto.DtoPerson Person) : Message, ICommand;
     }
 }

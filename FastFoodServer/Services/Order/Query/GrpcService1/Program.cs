@@ -1,4 +1,4 @@
-using Application.Abstractions;
+﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.Order;
 using GrpcService1.Services;
@@ -15,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IInteractor<DomainEvent.OrderAddItem>, ProjectOrderWhenOrderInteractor>();
-builder.Services.AddScoped<IInteractor<DomainEvent.StatusUpdate>, ProjectOrderWhenStatusUpdateInteractor>();
+builder.Services.AddScoped<IInteractor<DomainEvent.OrderAddItem>, ProjectOrderWhenOrderChangedInteractor>();
+builder.Services.AddScoped<IInteractor<DomainEvent.StatusUpdate>, ProjectOrderItemWhenOrderChangedInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

@@ -2,6 +2,7 @@ using WebApi.DependencyInjection.Extensions;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.APIs;
 using WebApplication1.APIs.Restaurants;
+using WebApplication1.APIs.ShoppingCart;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,7 @@ var summaries = new[]
 
 app.MapIdentityApiV1();
 app.MapRestaurantApiV1();
+app.MapShoppingCartApiV1();
 
 if (app.Environment.IsDevelopment())
 {
