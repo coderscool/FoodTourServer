@@ -13,7 +13,7 @@ namespace Infrastructure.Projection.Abstractions
         private readonly IMongoDatabase _database;
         protected MongoDbContext(IConfiguration configuration, IMongoClient mongoClient)
         {
-            _database = mongoClient.GetDatabase("Message-clone");
+            _database = mongoClient.GetDatabase("FoodTour");
         }
 
         public IMongoCollection<T> GetCollection<T>()

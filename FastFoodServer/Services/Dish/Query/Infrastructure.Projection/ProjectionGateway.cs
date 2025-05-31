@@ -1,14 +1,11 @@
 ﻿using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using Infrastructure.Projection.Abstractions;
+using Infrastructure.Projection.Pagination;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Projection
 {
@@ -24,7 +21,7 @@ namespace Infrastructure.Projection
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
             => await _collection.InsertOneAsync(replacement);
 
-        public async Task<List<TProjection?>> FindSellAsync(CancellationToken cancellationToken)
+        public async Task<List<TProjection?>> ListAsync(CancellationToken cancellationToken)
             => await _collection.Find(x => true).Sort(Builders<TProjection>.Sort.Descending("Sell")).Limit(10).ToListAsync(cancellationToken);
 
         public async Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken)
@@ -35,5 +32,8 @@ namespace Infrastructure.Projection
 
         public async Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken)
             => await _collection.ReplaceOneAsync(predicate, projection);
+
+        public async ValueTask<IPagedResult<TProjection>> ListAsync(Expression<Func<TProjection, bool>> predicate, Paging paging, CancellationToken cancellationToken)
+            => await PagedResult<TProjection>.CreateAsync(paging, _collection.AsQueryable().Where(predicate), cancellationToken);
     }
 }

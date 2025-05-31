@@ -1,8 +1,11 @@
 using WebApi.DependencyInjection.Extensions;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.APIs;
+using WebApplication1.APIs.Account;
+using WebApplication1.APIs.Dish;
 using WebApplication1.APIs.Restaurants;
 using WebApplication1.APIs.ShoppingCart;
+using WebApplication1.DependencyInjection.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,17 +16,17 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddConfigurationJwtBeerer(builder.Configuration);
 
     services.AddIdentityGrpcClient();
+    services.AddAccountGrpcClient();
+    services.AddDishGrpcClient();
 
     services.ConfigureIdentityGrpcClientOptions(
             context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
 
-    services
-        .AddApiVersioning(options => options.ReportApiVersions = true)
-        .AddApiExplorer(options =>
-        {
-            options.GroupNameFormat = "'v'VVV";
-            options.SubstituteApiVersionInUrl = true;
-        });
+    services.ConfigureAccountGrpcClientOptions(
+            context.Configuration.GetSection(nameof(AccountGrpcClientOptions)));
+
+    services.ConfigureDishGrpcClientOptions(
+            context.Configuration.GetSection(nameof(DishGrpcClientOptions)));
 
     services.AddSwaggerGen();
 });
@@ -38,7 +41,8 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-
+app.MapDishApiV1();
+app.MapAccountApiV1();
 app.MapIdentityApiV1();
 app.MapRestaurantApiV1();
 app.MapShoppingCartApiV1();

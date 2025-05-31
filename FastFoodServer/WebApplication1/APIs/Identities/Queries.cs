@@ -1,6 +1,4 @@
-﻿using Contracts.Abstractions.Messages;
-using Contracts.Abstractions.Paging;
-using Contracts.Services.Identity.Protobuf;
+﻿using Contracts.Services.Identity.Protobuf;
 using WebApplication1.Abstractions;
 using WebApplication1.APIs.Identities.Validators;
 

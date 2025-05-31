@@ -1,21 +1,17 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.DataTransferObject;
 using Contracts.Services.Identity;
 using Domain.Abstractions.Aggregates;
-using Domain.Entities;
 using MongoDB.Bson;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Aggregates
 {
-    public class User : AggregateRoot
+    public class User : AggregateRoot<UserValidator>
     {
-        [JsonProperty]
-        private readonly List<UserItem> _items = new();
+        public string UserName { get; private set; }
+        public string PassWord { get; private set; }
+        public Dto.DtoPerson Person { get; private set; }
+        public string Role { get; private set; }
 
         public override void Handle(ICommand command)
         => Handle(command as dynamic);
@@ -28,6 +24,6 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.RegisterEvent @event)
-            => _items.Add(new(@event.Id, @event.UserName, @event.PassWord, @event.Person, @event.Role));
+            => (Id, UserName, PassWord, Person, _, Role, _) = @event;
     }
 }

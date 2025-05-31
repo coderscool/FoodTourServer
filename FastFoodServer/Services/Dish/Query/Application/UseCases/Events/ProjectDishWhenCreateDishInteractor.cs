@@ -13,21 +13,27 @@ namespace Application.UseCases.Events
     public class ProjectDishWhenCreateDishInteractor : IInteractor<DomainEvent.DishCreate>
     {
         private readonly IProjectionGateway<Projection.Dishs> _projectionGateway;
-        private readonly IElasticClient _elasticClient;
+        private readonly IElasticSearchGateway<Projection.Dishs> _elasticSearchGateway;
 
         public ProjectDishWhenCreateDishInteractor(IProjectionGateway<Projection.Dishs> projectionGateway,
-            IElasticClient elasticClient)
+            IElasticSearchGateway<Projection.Dishs> elasticSearchGateway)
         {
             _projectionGateway = projectionGateway;
-            _elasticClient = elasticClient;
+            _elasticSearchGateway = elasticSearchGateway;
         }
 
         public async Task InteractAsync(DomainEvent.DishCreate @event, CancellationToken cancellationToken)
         {
-            var dish = new Projection.Dishs(@event.AggregateId, @event.RestaurantId, @event.Dish, @event.Price, @event.Quantity, @event.Search);
-            Console.WriteLine(@event.AggregateId);
+            Projection.Dishs dish = new (
+                @event.Id, 
+                @event.RestaurantId, 
+                @event.Dish, 
+                @event.Price, 
+                @event.Quantity, 
+                @event.Search, 
+                @event.Version);
             await _projectionGateway.ReplaceInsertAsync(dish, cancellationToken);
-            //await _elasticClient.IndexDocumentAsync(dish);
+            await _elasticSearchGateway.InsertDocumentAsync(dish);
         }
     }
 }

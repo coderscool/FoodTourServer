@@ -30,9 +30,7 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 
         private static void AddDefaultMapping(ConnectionSettings settings) 
         {
-            settings.DefaultMappingFor<Projection.Dishs>(d => d.Ignore(x => x.Dish.Image)
-                                                              .Ignore(x => x.Quantity)
-                                                              .Ignore(x => x.Price));
+            settings.DefaultMappingFor<Projection.Dishs>(d => d.Ignore(x => x.Quantity));
         }
 
         private static void CreateIndex(IElasticClient client, string indexName) 

@@ -7,18 +7,10 @@ import "Abstractions/Abstractions.proto";
 // The greeting service definition.
 service Disher {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply);
   rpc GetDishDetailsById (DishDetailsByIdRequest) returns (Abstractions.Protobuf.GetResponse);
-}
-
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
-}
-
-// The response message containing the greetings.
-message HelloReply {
-  string message = 1;
+  rpc GetListDishByRestaurantId (RestaurantIdRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc SearchListDish (SearchDishRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc FindDishTrending (FindDishRequest) returns (Abstractions.Protobuf.FindResponse);
 }
 
 message DishDetails {
@@ -34,3 +26,17 @@ message DishDetailsByIdRequest {
 	string Id = 1;
 }
 
+message RestaurantIdRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
+	string Id = 2;
+}
+
+message SearchDishRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
+	string Keyword = 2;
+	string Category = 3;
+	string Nation = 4;
+}
+
+message FindDishRequest {
+}

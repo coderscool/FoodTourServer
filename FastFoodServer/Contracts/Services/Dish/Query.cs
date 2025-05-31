@@ -1,22 +1,15 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using Contracts.Services.Dish.Protobuf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Contracts.Services.Dish
 {
     public static class Query
     {
-        public class SearchDishDetail : IQuery
+        public record SearchListDish(Paging Paging, string Keyword, string Category, string Nation) : IQuery
         {
-            public string Name { get; set; } = string.Empty;
-            public string Category { get; set; } = string.Empty;
-            public string Nation { get; set; } = string.Empty;
-            public int Page { get; set; }
-            public int Size { get; set; }
+            public static implicit operator SearchListDish(SearchDishRequest request)
+                => new(request.Paging, request.Keyword, request.Category, request.Nation);
 
         }
 
@@ -26,15 +19,16 @@ namespace Contracts.Services.Dish
                 => new( request.Id );
         }
 
-        public class ListDishTredingQuery : IQuery
+        public record ListDishTredingQuery() : IQuery
         {
+            public static implicit operator ListDishTredingQuery(FindDishRequest request)
+                => new();
         }
 
-        public class DishRestaurantQuery : IQuery
+        public record DishRestaurantQuery(Paging Paging, string Id) : IQuery
         {
-            public string Id { get; set; }
-            public int Page { get; set; }
-            public int Size { get; set; }
+            public static implicit operator DishRestaurantQuery(RestaurantIdRequest request)
+                 => new(request.Paging, request.Id);
         }
     }
 }

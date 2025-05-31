@@ -19,9 +19,20 @@ message ListResponse{
   }
 }
 
+message FindResponse{
+  oneof OneOf{
+    FindResult FindResult = 1;
+    NotFound NoContent = 2;
+  }
+}
+
 message PagedResult{
   repeated google.protobuf.Any Projections = 1;
   Page page = 2;
+}
+
+message FindResult{
+  repeated google.protobuf.Any Projections = 1;
 }
 
 message Page{
@@ -67,5 +78,13 @@ message Address {
     double Latitude = 1;
     double Longitude = 2;
     string Address = 3;
+}
+
+message Rate {
+    double Quality = 1;
+    double Cost = 2;
+    double Position = 3;
+    double Space = 4;
+    double Service = 5;
 }
 

@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Protobuf Include="Abstractions\Abstractions.proto" GrpcServices="Both" />
-    <Protobuf Include="Services\Account\account.proto" GrpcServices="Client" />
+    <Protobuf Include="Services\Account\account.proto" />
     <Protobuf Include="Services\Dish\dish.proto" GrpcServices="Both" />
     <Protobuf Include="Services\Identity\identity.proto" GrpcServices="Both" />
     <Protobuf Include="Services\Order\order.proto">

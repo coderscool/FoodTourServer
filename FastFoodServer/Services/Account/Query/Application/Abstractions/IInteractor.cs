@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Abstractions.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,13 @@ namespace Application.Abstractions
     }
 
     public interface IPagedInteractor<in TQuery, TProjection>
+    where TQuery : IQuery
+    where TProjection : IProjection
+    {
+        ValueTask<IPagedResult<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
+    }
+
+    public interface IFindInteractor<in TQuery, TProjection>
     where TQuery : IQuery
     where TProjection : IProjection
     {

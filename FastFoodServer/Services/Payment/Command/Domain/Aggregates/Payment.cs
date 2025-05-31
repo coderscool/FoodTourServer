@@ -1,17 +1,11 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.Services.Payment;
 using Domain.Abstractions.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Aggregates
 {
-    public class Payment : AggregateRoot
+    public class Payment : AggregateRoot<PaymentValidator>
     {
-        public string Id { get; private set; }
         public ulong Budget { get; private set; }
         public override void Handle(ICommand command)
             => Handle(command as dynamic);

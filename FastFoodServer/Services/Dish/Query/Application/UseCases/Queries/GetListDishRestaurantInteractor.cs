@@ -1,11 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
+using Contracts.Abstractions.Paging;
 using Contracts.Services.Dish;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
@@ -16,7 +12,7 @@ namespace Application.UseCases.Queries
         {
             _projectionGateway = projectionGateway;
         }
-        public async Task<List<Projection.Dishs?>> InteractAsync(Query.DishRestaurantQuery query, CancellationToken cancellationToken)
-            => await _projectionGateway.FindPaginatonAsync(x => x.PersonId == query.Id, query.Page, query.Size, cancellationToken);
+        public async ValueTask<IPagedResult<Projection.Dishs>> InteractAsync(Query.DishRestaurantQuery query, CancellationToken cancellationToken)
+            => await _projectionGateway.ListAsync(x => x.RestaurantId == query.Id, query.Paging, cancellationToken);
     }
 }

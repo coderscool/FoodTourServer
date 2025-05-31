@@ -31,7 +31,7 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
 
                     bus.ReceiveEndpoint("dish-create", e =>
                     {
-                        e.ConfigureConsumer<AddDishConsumer>(context);
+                        e.ConfigureConsumer<CreateDishConsumer>(context);
                     });
                 });
             });

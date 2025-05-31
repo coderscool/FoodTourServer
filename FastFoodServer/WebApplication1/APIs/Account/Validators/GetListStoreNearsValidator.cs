@@ -6,6 +6,13 @@ namespace WebApplication1.APIs.Account.Validators
     {
         public GetListStoreNearsValidator()
         {
+            RuleFor(request => request.Latitude)
+                .NotNull()
+                .NotEmpty();
+
+            RuleFor(request => request.Longitude)
+                .NotNull()
+                .NotEmpty();
 
         }
     }

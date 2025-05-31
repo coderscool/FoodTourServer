@@ -9,7 +9,8 @@ namespace Contracts.Services.Evaluate
 {
     public static class Command
     {
-        public record AddRate(string Id, string RestaurantId, string CustomerId, int[] Rate, string type) : Message, ICommand;
-
+        public record AddRateRestaurant(string Id, string RestaurantId, string CustomerId, int[] Rate, string type) : Message, ICommand;
+        public record AddRateDish(string Id);
+             
     }
 }

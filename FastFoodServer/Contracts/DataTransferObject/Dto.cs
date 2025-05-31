@@ -58,6 +58,19 @@ namespace Contracts.DataTransferObject
                     Description = dish.Description
                 };
         }
+
+        public record DtoRate(ulong Quality, ulong Cost, ulong Position, ulong Space, ulong Service)
+        {
+            public static implicit operator Abstractions.Protobuf.Rate(DtoRate rate)
+                => new()
+                {
+                    Quality = rate.Quality,
+                    Cost = rate.Cost,
+                    Position = rate.Position,
+                    Space = rate.Space,
+                    Service = rate.Service
+                };
+        }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
         public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note);
         public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,

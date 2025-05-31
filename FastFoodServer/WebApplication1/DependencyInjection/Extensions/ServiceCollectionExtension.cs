@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Services.Account.Protobuf;
+using Contracts.Services.Dish.Protobuf;
 using Contracts.Services.Identity.Protobuf;
 using CorrelationId.Abstractions;
 using Grpc.Core;
@@ -12,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using WebApi.DependencyInjection.Options;
+using WebApplication1.DependencyInjection.Options;
 
 namespace WebApi.DependencyInjection.Extensions
 {
@@ -93,9 +96,24 @@ namespace WebApi.DependencyInjection.Extensions
                 .AddOptions<IdentityGrpcClientOptions>()
                 .Bind(section);
 
+        public static OptionsBuilder<AccountGrpcClientOptions> ConfigureAccountGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+            => services
+                .AddOptions<AccountGrpcClientOptions>()
+                .Bind(section);
+
+        public static OptionsBuilder<DishGrpcClientOptions> ConfigureDishGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+            => services
+                .AddOptions<DishGrpcClientOptions>()
+                .Bind(section);
+
         public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
 
+        public static void AddAccountGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Accounter.AccounterClient, AccountGrpcClientOptions>();
+
+        public static void AddDishGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Disher.DisherClient, DishGrpcClientOptions>();
 
         private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase
@@ -103,7 +121,7 @@ namespace WebApi.DependencyInjection.Extensions
             => services.AddGrpcClient<TClient>((provider, client) =>
             {
                 var options = provider.GetRequiredService<IOptionsMonitor<TOptions>>().CurrentValue as dynamic;
-                client.Address = new("http://127.0.0.1:5123");
+                client.Address = new(options.BaseAddress);
             })
             .ConfigureChannel(options =>
             {

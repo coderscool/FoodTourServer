@@ -1,4 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
+using Domain.Abstractions.Entities;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public abstract class AggregateRoot : IAggregateRoot
+    public abstract class AggregateRoot<TValidator> : Entity<TValidator>, IAggregateRoot
+        where TValidator : IValidator, new()
     {
         private readonly List<IDomainEvent> _events = new();
 

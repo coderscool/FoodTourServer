@@ -2,11 +2,6 @@
 using Contracts.Abstractions.Paging;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Projection.Pagination
 {
@@ -23,15 +18,15 @@ namespace Infrastructure.Projection.Pagination
         }
 
         public IReadOnlyList<TProjection> Items
-            => _items.Take(_paging.Limit).ToList().AsReadOnly();
-
+            => _items.ToList().AsReadOnly();
+        
         public Page Page
             => new()
             {
-                Current = _paging.Offset + 1,
-                Size = Items.Count,
-                HasNext = _items.Count > _paging.Limit,
-                HasPrevious = _paging.Offset > 0
+                Current =  1,
+                Size = 2,
+                HasNext = true,
+                HasPrevious = true
             };
 
         public static async ValueTask<IPagedResult<TProjection>> CreateAsync(Paging paging, IQueryable<TProjection> source, CancellationToken cancellationToken)

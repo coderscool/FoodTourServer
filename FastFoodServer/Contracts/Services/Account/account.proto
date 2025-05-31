@@ -7,23 +7,8 @@ import "Abstractions/Abstractions.proto";
 // The greeting service definition.
 service Accounter {
   // Sends a greeting
-  rpc GetBudgetAccount (AccountRequest) returns (AccountReply);
-  rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.ListResponse);
-}
-
-message LocationRequest {
-	Abstractions.Protobuf.Paging Paging = 1;
-	double Latitude = 2;
-	double Longitude = 3;
-}
-
-message AccountRequest {
-	string Id = 1;
-}
-
-message AccountReply {
-	string Id = 1;
-	int64 Budget = 2;
+  rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.FindResponse);
+  rpc SearchListStore (SearchRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
 message AccountDetails {
@@ -33,3 +18,16 @@ message AccountDetails {
 	string Phone = 4;
 	string Address = 5;
 }
+
+message LocationRequest {
+	double Longitude = 2;
+	double Latitude = 3;
+}
+
+message SearchRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
+	string Keyword = 2;
+	string Nation = 3;
+	string City = 4;
+}
+

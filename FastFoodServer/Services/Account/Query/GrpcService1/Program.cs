@@ -3,8 +3,13 @@ using Infrastructure.Projection;
 using Infrastructure.Projection.Abstractions;
 using MongoDB.Driver;
 using Infrastructure.EventBus.DependencyInjection.Extensions;
-using Application.UseCases.Events;
 using Application.Abstractions.Gateways;
+using Infrastructure.ElasticSearch.DependencyInjection.Extensions;
+using Application.UseCases.Events;
+using Infrastructure.ElasticSearch;
+using Application.Abstractions;
+using Contracts.Services.Account;
+using Application.UseCases.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +18,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
+builder.Services.AddScoped(typeof(IElasticSearchGateway<>), typeof(ElasticSearchGateway<>));
 builder.Services.AddScoped<IProjectAccountWhenAccountChangedInteractor, ProjectAccountWhenAccountChangedInteractor>();
+builder.Services.AddScoped<IFindInteractor<Query.PositionStore, Projection.Account>, GetListStoreNear>();
+builder.Services.AddScoped<IPagedInteractor<Query.SearchQuery, Projection.AccountES>, SearchListStore>();
 builder.Services.AddConfigurationMasstransit();
+builder.Services.AddElasticSearch();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
 builder.Services.AddGrpc();

@@ -13,6 +13,22 @@ namespace WebApplication1.APIs.Dish
             builder.MapPost("/create-dish", ([AsParameters] Commands.CreateDish command)
                 => ApplicationApi.SendCommandAsync(command));
 
+            builder.MapGet("/api/dish/detail", ([AsParameters] Queries.DishDetailsById query)
+                => ApplicationApi.GetAsync<Disher.DisherClient, DishDetails>
+                    (query, (client, ct) => client.GetDishDetailsByIdAsync(query, cancellationToken: ct)));
+
+            builder.MapGet("/api/dish/search", ([AsParameters] Queries.SearchListDish query)
+                => ApplicationApi.ListAsync<Disher.DisherClient, DishDetails>
+                    (query, (client, ct) => client.SearchListDishAsync(query, cancellationToken: ct)));
+
+            builder.MapGet("/api/dish/restaurant", ([AsParameters] Queries.DishRestaurant query)
+                => ApplicationApi.ListAsync<Disher.DisherClient, DishDetails>
+                    (query, (client, ct) => client.GetListDishByRestaurantIdAsync(query, cancellationToken: ct)));
+
+            builder.MapGet("/api/dish/trending", ([AsParameters] Queries.ListDishTrending query)
+                => ApplicationApi.FindAsync<Disher.DisherClient, DishDetails>
+                    (query, (client, ct) => client.FindDishTrendingAsync(query, cancellationToken: ct)));
+
             return builder;
         }
     }

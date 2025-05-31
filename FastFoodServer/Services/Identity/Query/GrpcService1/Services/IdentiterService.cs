@@ -4,9 +4,6 @@ using Contracts.Services.Identity.Protobuf;
 using Contracts.Abstractions.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Grpc.Net.Client;
-using GrpcService1;
-using System.Reflection.Metadata.Ecma335;
 
 namespace GrpcService1.Services
 {

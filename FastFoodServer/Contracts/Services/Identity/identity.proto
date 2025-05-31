@@ -9,6 +9,7 @@ service Identiter {
   // Sends a greeting
   rpc Login (LoginRequest) returns (Abstractions.Protobuf.GetResponse);
   rpc ListRestaurantItems (ListRestaurantItemsRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc GetListStoreNear1 (LocationRequest1) returns (Abstractions.Protobuf.ListResponse);
 }
 
 // The request message containing the user's name.
@@ -27,6 +28,12 @@ message UserDetails {
 
 message ListRestaurantItemsRequest {
 	Abstractions.Protobuf.Paging Paging = 1;
+}
+
+message LocationRequest1 {
+	Abstractions.Protobuf.Paging Paging = 1;
+	//double Longitude = 2;
+	//double Latitude = 3;
 }
 
 

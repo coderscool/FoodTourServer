@@ -46,6 +46,26 @@ namespace WebApplication1.Abstractions
             }
         }
 
+        public static async Task<Results<Ok<FindResult<TResponse>>, NoContent, ValidationProblem, Problem>> FindAsync<TClient, TResponse>
+        (IQuery<TClient> query, Func<TClient, CancellationToken, AsyncUnaryCall<FindResponse>> listAsync)
+        where TClient : ClientBase<TClient>
+        where TResponse : IMessage, new()
+        {
+            return query.IsValid(out var errors) ? await ResponseAsync() : ValidationProblem(errors);
+
+            async Task<Results<Ok<FindResult<TResponse>>, NoContent, ValidationProblem, Problem>> ResponseAsync()
+            {
+                var response = await listAsync(query.Client, query.CancellationToken);
+
+                return response.OneOfCase switch
+                {
+                    FindResponse.OneOfOneofCase.NoContent => NoContent(),
+                    FindResponse.OneOfOneofCase.FindResult => Ok<FindResult<TResponse>>(response.FindResult),
+                    _ => new Problem()
+                };
+            }
+        }
+
         public static async Task<Results<Ok<PagedResult<TResponse>>, NoContent, ValidationProblem, Problem>> ListAsync<TClient, TResponse>
         (IQuery<TClient> query, Func<TClient, CancellationToken, AsyncUnaryCall<ListResponse>> listAsync)
         where TClient : ClientBase<TClient>
