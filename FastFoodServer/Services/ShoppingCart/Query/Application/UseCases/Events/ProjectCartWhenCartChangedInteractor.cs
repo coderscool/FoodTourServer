@@ -1,11 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.ShoppingCart;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Events
 {
@@ -14,7 +9,8 @@ namespace Application.UseCases.Events
           IInteractor<DomainEvent.CartChangeCustomer>,
           IInteractor<DomainEvent.CartChangeDescription>,
           IInteractor<DomainEvent.CartItemAdd>,
-          IInteractor<DomainEvent.CartRemove>{ }
+          IInteractor<DomainEvent.CartRemove>,
+          IInteractor<DomainEvent.CartItemChangedQuantity>{ }
     public class ProjectCartWhenCartChangedInteractor : IProjectCartWhenCartChangedInteractor
     {
         private readonly IProjectionGateway<Projection.Cart> _projectionGateway;
@@ -30,6 +26,7 @@ namespace Application.UseCases.Events
                 @event.Customer,
                 @event.Description,
                 @event.Total,
+                @event.Status,
                 @event.Version
             );
 
@@ -54,13 +51,21 @@ namespace Application.UseCases.Events
 
         public async Task InteractAsync(DomainEvent.CartItemAdd @event, CancellationToken cancellationToken)
             => await _projectionGateway.UpdateFieldAsync(
-                id: @event.ItemId,
+                id: @event.CartId,
                 version: @event.Version,
-                field: cart => cart.Total,
-                value: @event.Total,
+                field: cart => cart.Status,
+                value: @event.Status,
                 cancellationToken: cancellationToken);
 
         public async Task InteractAsync(DomainEvent.CartRemove @event, CancellationToken cancellationToken)
             => await _projectionGateway.DeleteAsync(@event.CartId, cancellationToken);
+
+        public async Task InteractAsync(DomainEvent.CartItemChangedQuantity @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.CartId,
+                version: @event.Version,
+                field: cart => cart.Total,
+                value: @event.Total,
+                cancellationToken: cancellationToken);
     }
 }

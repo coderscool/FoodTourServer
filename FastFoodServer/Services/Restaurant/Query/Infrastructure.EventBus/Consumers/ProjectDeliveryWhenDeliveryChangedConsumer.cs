@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EventBus.Consumers
 {
-    public class ProjectRestaurantWhenRestaurantCreateConsumer : Consumer<DomainEvent.RestaurantCreate>
+    public class ProjectDeliveryWhenDeliveryChangedConsumer : Consumer<DomainEvent.RestaurantReply>
     {
-        public ProjectRestaurantWhenRestaurantCreateConsumer(IInteractor<DomainEvent.RestaurantCreate> interactor) : base(interactor)
+        public ProjectDeliveryWhenDeliveryChangedConsumer(IInteractor<DomainEvent.RestaurantReply> interactor) : base(interactor)
         {
         }
     }

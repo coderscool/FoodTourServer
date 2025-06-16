@@ -2,11 +2,6 @@
 using Application.Services;
 using Contracts.Services.ShoppingCart;
 using Domain.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Events
 {
@@ -19,9 +14,12 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(DomainEvent.CartCheckedOut @event, CancellationToken cancellationToken)
         {
-            var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
-            SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, shoppingCart.Version);
-            await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
+            if(@event.IsSuccess == true)
+            {
+                var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
+                SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, shoppingCart.Version);
+                await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
+            }
         }
     }
 }

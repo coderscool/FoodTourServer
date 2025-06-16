@@ -45,6 +45,7 @@ message CartDetails{
 	Abstractions.Protobuf.Person Customer = 3;
 	string Description = 4;
 	double Total = 5;
+	string Status = 6;
 }
 
 message CartItems{
@@ -57,4 +58,6 @@ message CartItems{
 	Abstractions.Protobuf.Price Price = 7;
 	int32 Quantity = 8;
 	string Note = 9;
+	bool Choose = 10;
+	bool CheckOut = 11;
 }

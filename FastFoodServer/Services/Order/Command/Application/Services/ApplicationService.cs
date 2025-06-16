@@ -28,7 +28,7 @@ namespace Application.Services
             where TAggregate : IAggregateRoot, new()
             => await _eventStoreGateway.LoadAggregateAsync<TAggregate>(id, cancellationToken);
 
-        public async Task PublishEventAsync(IAggregateRoot aggregate, CancellationToken cancellationToken)
-            => await _eventBusGateway.PublishAsync(aggregate.UncommittedEvents, cancellationToken);
+        public async Task PublishEventAsync(IDomainEvent @event, CancellationToken cancellationToken)
+            => await _eventBusGateway.PublishAsync(@event, cancellationToken);
     }
 }

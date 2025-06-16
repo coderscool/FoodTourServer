@@ -72,7 +72,7 @@ namespace Contracts.DataTransferObject
                 };
         }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
-        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note);
+        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note, bool Choose, bool CheckOut);
         public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,
             DtoPrice Price, string Status)
         {
@@ -87,8 +87,8 @@ namespace Contracts.DataTransferObject
                        item.Price,
                        "Pendding");
         }
-        public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, ulong Total, string Description, IEnumerable<CartItem> Items);
-        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, string Description, string Status, IEnumerable<OrderItem> Items);
+        public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, ulong Total, string PaymentMethod, string Description, IEnumerable<CartItem> Items);
+        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, string Description, string Status, OrderItem Item);
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Account;
+using Contracts.Services.ShoppingCart;
 using Infrastructure.MessageBus.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class ConfirmOrderWhenPaymentRequestConsumer : Consumer<DomainEvent.PaymentRequest>
+    public class PlaceOrderWhenCartSubmittedConsumer : Consumer<SummaryEvent.CartSubmitted>
     {
-        public ConfirmOrderWhenPaymentRequestConsumer(IInteractor<DomainEvent.PaymentRequest> interactor) : base(interactor)
+        public PlaceOrderWhenCartSubmittedConsumer(IInteractor<SummaryEvent.CartSubmitted> interactor) : base(interactor)
         {
         }
     }

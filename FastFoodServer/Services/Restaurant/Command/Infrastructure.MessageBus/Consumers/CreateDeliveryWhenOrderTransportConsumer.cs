@@ -1,5 +1,5 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Restaurant;
+using Contracts.Services.Delivery;
 using Infrastructure.MessageBus.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class CreateRestaurantConsumer : Consumer<Command.CreateRestaurant>
+    public class CreateDeliveryWhenOrderTransportConsumer : Consumer<Command.CreateDelivery>
     {
-        public CreateRestaurantConsumer(IInteractor<Command.CreateRestaurant> interactor) : base(interactor)
+        public CreateDeliveryWhenOrderTransportConsumer(IInteractor<Command.CreateDelivery> interactor) : base(interactor)
         {
         }
     }

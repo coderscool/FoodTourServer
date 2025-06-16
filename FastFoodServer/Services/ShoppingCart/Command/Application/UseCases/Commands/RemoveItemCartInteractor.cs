@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands
 {
-    public class RemoveDishCartInteractor : IInteractor<Command.CheckAndRemoveDishCart>
+    public class RemoveItemCartInteractor : IInteractor<Command.CheckAndRemoveDishCart>
     {
         private readonly IApplicationService _applicationService;
-        public RemoveDishCartInteractor(IApplicationService applicationService) 
+        public RemoveItemCartInteractor(IApplicationService applicationService) 
         {
             _applicationService = applicationService;
         }

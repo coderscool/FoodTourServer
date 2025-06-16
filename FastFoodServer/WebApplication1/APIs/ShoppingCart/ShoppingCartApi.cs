@@ -27,6 +27,12 @@ namespace WebApplication1.APIs.ShoppingCart
             builder.MapPost("api/shoppingcart/changed-quantity", ([AsParameters] Commands.ChangedQuantityItemCart command)
                 => ApplicationApi.SendCommandAsync(command));
 
+            builder.MapPost("api/shoppingcart/choose", ([AsParameters] Commands.ChooseItemCart command)
+                => ApplicationApi.SendCommandAsync(command));
+
+            builder.MapPost("api/shoppingcart/changed-payment", ([AsParameters] Commands.ChangedPaymentCart command)
+                => ApplicationApi.SendCommandAsync(command));
+
             return builder;
         }
     }

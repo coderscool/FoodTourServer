@@ -23,9 +23,9 @@ namespace Application.UseCases.Events
                 @event.Cart.CustomerId,
                 @event.Cart.Customer,
                 @event.Cart.Total,
+                @event.Cart.PaymentMethod,
                 @event.Cart.Description,
-                @event.Cart.Items,
-                "Pendding");
+                @event.Cart.Items);
 
             order.Handle(command);
 

@@ -1,5 +1,4 @@
-﻿using Contracts.Abstractions.Messages;
-using Contracts.DataTransferObject;
+﻿using Contracts.DataTransferObject;
 using Contracts.Services.ShoppingCart;
 using MassTransit;
 using WebApplication1.Abstractions;
@@ -50,6 +49,18 @@ namespace WebApplication1.APIs.ShoppingCart
             : Validatable<ChangeCustomerCartValidator>, ICommand<Command.ChangeCustomerCart>
         {
             public Command.ChangeCustomerCart Command => new(Id, Customer);
+        }
+
+        public record ChooseItemCart(IBus Bus, string CartId, string ItemId, bool Choose, CancellationToken CancellationToken)
+            : Validatable<ChangedPaymentCartValidator>, ICommand<Command.ChooseItemCart>
+        {
+            public Command.ChooseItemCart Command => new(CartId, ItemId, Choose);
+        }
+
+        public record ChangedPaymentCart(IBus Bus, string CartId, string Payment, CancellationToken CancellationToken)
+            : Validatable<ChangedPaymentCartValidator>, ICommand<Command.ChangedPaymentCart>
+        {
+            public Command.ChangedPaymentCart Command => new(CartId, Payment);
         }
     }
 }

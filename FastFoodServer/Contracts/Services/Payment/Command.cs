@@ -10,7 +10,7 @@ namespace Contracts.Services.Payment
 {
     public static class Command
     {
-        public record RequestPayment(string Id, string OrderId, ulong Total) : Message, ICommand;
+        public record RequestPayment(string OrderId, Dto.DtoPrice Price, ushort Quantity, string PaymentMethod) : Message, ICommand;
 
         public record RefundPayment(string Id, Dto.DtoPrice Price, uint Quantity) : Message, ICommand;
 

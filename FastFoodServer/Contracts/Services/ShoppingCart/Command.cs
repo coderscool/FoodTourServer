@@ -17,5 +17,8 @@ namespace Contracts.Services.ShoppingCart
         public record CreateCart(string CustomerId, Dto.DtoPerson Customer, string Description) : Message, ICommand;
         public record ChangeDescriptionCart(string Id, string Description) : Message, ICommand;
         public record ChangeCustomerCart(string Id, Dto.DtoPerson Customer) : Message, ICommand;
+        public record ChooseItemCart(string Id, string CartId, bool Choose) : Message, ICommand;
+        public record ChangedPaymentCart(string CartId, string Payment) : Message, ICommand;
+        public record CheckOutCart(string CartId) : Message, ICommand;
     }
 }

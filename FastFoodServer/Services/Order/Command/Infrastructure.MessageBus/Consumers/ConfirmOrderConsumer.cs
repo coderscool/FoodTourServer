@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class RequestRestaurantWhenPaymentRequestConsumer : Consumer<DomainEvent.OrderConfirm>
+    public class ConfirmOrderConsumer : Consumer<Command.ConfirmOrder?>
     {
-        public RequestRestaurantWhenPaymentRequestConsumer(IInteractor<DomainEvent.OrderConfirm> interactor) : base(interactor)
+        public ConfirmOrderConsumer(IInteractor<Command.ConfirmOrder?> interactor) : base(interactor)
         {
         }
     }

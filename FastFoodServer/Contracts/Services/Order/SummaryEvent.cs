@@ -10,6 +10,6 @@ namespace Contracts.Services.Order
 {
     public static class SummaryEvent
     {
-        public record OrderConfrimSuccess(Dto.DtoOrder Order, long Version) : Message, ISummaryEvent;
+        public record OrderTransport(Dto.DtoOrder Order, long Version) : Message, ISummaryEvent;
     }
 }

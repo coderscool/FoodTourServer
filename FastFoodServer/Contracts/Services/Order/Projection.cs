@@ -1,5 +1,4 @@
 ﻿using Contracts.Abstractions.Messages;
-using Contracts.DataTransferObject;
 using Contracts.Services.Order.Protobuf;
 using static Contracts.DataTransferObject.Dto;
 
@@ -19,8 +18,9 @@ namespace Contracts.Services.Order
                 };
         }
 
-        public record OrderItem(string Id, string OrderId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,
-            DtoPrice Price, ushort Time, string Status, long Version) : IProjection
+        public record OrderItem(string Id, string OrderId, string RestaurantId, string CustomerId, string DishId, 
+            DtoPerson Restaurant, DtoPerson Customer, DtoDish Dish, ushort Quantity, DtoPrice Price, string Note,
+            string Status, DateTime Date, long Version) : IProjection
         {
             public static implicit operator OrderItems(OrderItem order)
                 => new()

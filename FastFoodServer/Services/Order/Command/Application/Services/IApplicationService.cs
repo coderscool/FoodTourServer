@@ -12,6 +12,6 @@ namespace Application.Services
     {
         Task AppendEventsAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
         Task<TAggregate> LoadAggregateAsync<TAggregate>(string id, CancellationToken cancellationToken) where TAggregate : IAggregateRoot, new();
-        Task PublishEventAsync(IAggregateRoot aggregate, CancellationToken cancellationToken);
+        Task PublishEventAsync(IDomainEvent @event, CancellationToken cancellationToken);
     }
 }

@@ -14,5 +14,6 @@ namespace Application.Abstractions.Gateways
         ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken);
         Task<TProjection?> FindAsync(Expression<Func<TProjection, bool>> predicate, CancellationToken cancellationToken);
         Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken);
+        Task UpdateFieldAsync<TField, TId>(TId id, long version, Expression<Func<TProjection, TField>> field, TField value, CancellationToken cancellationToken);
     }
 }
