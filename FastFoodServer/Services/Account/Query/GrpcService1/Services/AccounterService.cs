@@ -9,10 +9,10 @@ namespace GrpcService1.Services
 {
     public class AccounterService : Accounter.AccounterBase
     {
-        private readonly IFindInteractor<Query.PositionStore, Projection.Account> _findPositionInteractor;
-        private readonly IPagedInteractor<Query.SearchQuery, Projection.AccountES> _pagedInteractor;
-        public AccounterService(IFindInteractor<Query.PositionStore, Projection.Account> findPositionInteractor,
-            IPagedInteractor<Query.SearchQuery, Projection.AccountES> pagedInteractor)
+        private readonly IFindInteractor<Query.PositionStore, Projection.AccountSeller> _findPositionInteractor;
+        private readonly IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES> _pagedInteractor;
+        public AccounterService(IFindInteractor<Query.PositionStore, Projection.AccountSeller> findPositionInteractor,
+            IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES> pagedInteractor)
         {
             _findPositionInteractor = findPositionInteractor;
             _pagedInteractor = pagedInteractor;
@@ -25,7 +25,7 @@ namespace GrpcService1.Services
             {
                 FindResult = new()
                 {
-                    Projections = { findResult.Select(item => Any.Pack((AccountDetails)item)) },
+                    Projections = { findResult.Select(item => Any.Pack((AccountSellerDetail)item)) },
                 }
             }
             : new() { NoContent = new() };
@@ -38,7 +38,7 @@ namespace GrpcService1.Services
             {
                 PagedResult = new()
                 {
-                    Projections = { pagedResult.Items.Select(item => Any.Pack((AccountDetails)item)) },
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((AccountSellerESDetail)item)) },
                     Page = pagedResult.Page
                 }
             }

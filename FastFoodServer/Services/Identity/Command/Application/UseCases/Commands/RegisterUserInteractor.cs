@@ -2,15 +2,10 @@
 using Application.Services;
 using Contracts.Services.Identity;
 using Domain.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands
 {
-    public class RegisterUserInteractor : IInteractor<Command.Register>
+    public class RegisterUserInteractor : IInteractor<Command.RegisterUser>
     {
         private readonly IApplicationService _applicationService;
         public RegisterUserInteractor(IApplicationService applicationService)
@@ -18,9 +13,9 @@ namespace Application.UseCases.Commands
             _applicationService = applicationService;
         }
 
-        public async Task InteractAsync(Command.Register command, CancellationToken cancellationToken)
+        public async Task InteractAsync(Command.RegisterUser command, CancellationToken cancellationToken)
         {
-            User user = new();
+            Identity user = new();
             user.Handle(command);
             await _applicationService.AppendEventsAsync(user, cancellationToken);
         }

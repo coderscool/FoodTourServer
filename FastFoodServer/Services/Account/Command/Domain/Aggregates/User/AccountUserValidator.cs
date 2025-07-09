@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Aggregates
+namespace Domain.Aggregates.User
 {
-    public class AccountValidator : AbstractValidator<Account>
+    public class AccountUserValidator : AbstractValidator<AccountUser>
     {
-        public AccountValidator()
+        public AccountUserValidator()
         {
             RuleFor(account => account.Id)
                 .NotEmpty();

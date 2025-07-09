@@ -1,18 +1,9 @@
 ﻿using Application.Abstractions;
-using Application.Abstractions.Gateways;
 using Application.Services;
 using Application.UseCases.Events;
-using Contracts.Services.Dish;
-using Contracts.Services.Account;
 using Microsoft.Extensions.DependencyInjection;
-using Order = Contracts.Services.Order;
-using Identify = Contracts.Services.Identity;
-using Restaurant = Contracts.Services.Restaurant;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Identity = Contracts.Services.Identity;
+
 
 namespace Application.DepedencyInjection.Extensions
 {
@@ -20,6 +11,8 @@ namespace Application.DepedencyInjection.Extensions
     {
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
             => services.AddScoped<IApplicationService, ApplicationService>()
-                       .AddScoped<IInteractor<Identify.DomainEvent.RegisterEvent>, CreateAccountWhenRegisterInteractor>();
+                       .AddScoped<IInteractor<Identity.DomainEvent.UserRegister>, CreateAccountUserWhenUserRegisterInteractor>()
+                       .AddScoped<IInteractor<Identity.DomainEvent.SellerRegister>, CreateAccountSellerWhenSellerRegisterInteractor>()
+                       .AddScoped<IInteractor<Identity.DomainEvent.ShipperRegister>, CreateAccountShipperWhenShipperRegisterInteractor>();
     }
 }

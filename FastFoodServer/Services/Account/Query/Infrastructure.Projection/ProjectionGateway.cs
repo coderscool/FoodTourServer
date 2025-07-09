@@ -12,15 +12,13 @@ using System.Linq.Expressions;
 namespace Infrastructure.Projection
 {
     public class ProjectionGateway<TProjection> : IProjectionGateway<TProjection>
-        where TProjection : IPositionProjection
+        where TProjection : IProjection
     {
         private readonly IMongoCollection<TProjection> _collection;
         private const int pageSize = 2;
         public ProjectionGateway(IMongoDbContext context)
         {
             _collection = context.GetCollection<TProjection>();
-
-            CreateIndexesAsync().GetAwaiter().GetResult();
         }
 
         public async ValueTask ReplaceInsertAsync(TProjection replacement, CancellationToken cancellationToken)
@@ -32,6 +30,20 @@ namespace Infrastructure.Projection
         public async Task UpdateFieldAsync(Expression<Func<TProjection, bool>> predicate, TProjection projection, CancellationToken cancellationToken)
             => await _collection.ReplaceOneAsync(predicate, projection);
            
+    }
+
+    public class PositionProjectionGateway<TProjection> : IPositionProjectionGateway<TProjection>
+    where TProjection : IPositionProjection
+    {
+        private readonly IMongoCollection<TProjection> _collection;
+        private const int pageSize = 2;
+        public PositionProjectionGateway(IMongoDbContext context)
+        {
+            _collection = context.GetCollection<TProjection>();
+
+            CreateIndexesAsync().GetAwaiter().GetResult();
+        }
+
         private async Task CreateIndexesAsync()
         {
             var indexKeys = Builders<TProjection>.IndexKeys.Geo2DSphere(s => s.Location);

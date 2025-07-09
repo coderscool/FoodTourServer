@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Aggregates
 {
-    public class UserValidator : AbstractValidator<User>
+    public class IdentityValidator : AbstractValidator<Identity>
     {
-        public UserValidator()
+        public IdentityValidator()
         {
 
         }

@@ -18,12 +18,10 @@ message LoginRequest {
   string PassWord = 2;
 }
 
-message UserDetails {
+message IdentityDetails {
 	string Id = 1;
-	string UserName = 2;
-	string PassWord = 3;
-	string Role = 4;
-	string Token = 5;
+	string Role = 2;
+	string Token = 3;
 }
 
 message ListRestaurantItemsRequest {

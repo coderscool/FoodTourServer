@@ -58,9 +58,8 @@ message Price{
 
 message Person {
   string Name = 1;
-  string Image = 2;
-  string Address = 3;
-  string Phone = 4;
+  string Address = 2;
+  string Phone = 3;
 }
 
 message Dish {
@@ -86,5 +85,10 @@ message Rate {
     double Position = 3;
     double Space = 4;
     double Service = 5;
+}
+
+message TimeActiveDetail {
+    int32 Start = 1;
+    int32 End = 2;
 }
 

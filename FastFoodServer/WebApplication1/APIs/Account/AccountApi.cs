@@ -1,8 +1,7 @@
 ﻿using Contracts.Services.Account.Protobuf;
 using WebApplication1.Abstractions;
-using WebApplication1.APIs.Account;
 
-namespace WebApplication1.APIs
+namespace WebApplication1.APIs.Account
 {
     public static class AccountApi
     {
@@ -12,11 +11,11 @@ namespace WebApplication1.APIs
                 => ApplicationApi.SendCommandAsync(command));
 
             builder.MapGet("/api/account/store-near", ([AsParameters] Queries.GetListStoreNears query)
-                => ApplicationApi.FindAsync<Accounter.AccounterClient, AccountDetails>
+                => ApplicationApi.FindAsync<Accounter.AccounterClient, AccountSellerDetail>
                     (query, (client, ct) => client.GetListStoreNearAsync(query, cancellationToken: ct)));
 
             builder.MapGet("/api/account/search", ([AsParameters] Queries.SearchListStore query)
-                => ApplicationApi.ListAsync<Accounter.AccounterClient, AccountDetails>
+                => ApplicationApi.ListAsync<Accounter.AccounterClient, AccountSellerDetail>
                     (query, (client, ct) => client.SearchListStoreAsync(query, cancellationToken: ct)));
 
             return builder;

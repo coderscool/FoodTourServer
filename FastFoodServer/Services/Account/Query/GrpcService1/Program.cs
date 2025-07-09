@@ -13,15 +13,14 @@ using Application.UseCases.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-
-// Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
+builder.Services.AddScoped(typeof(IPositionProjectionGateway<>), typeof(PositionProjectionGateway<>));
 builder.Services.AddScoped(typeof(IElasticSearchGateway<>), typeof(ElasticSearchGateway<>));
-builder.Services.AddScoped<IProjectAccountWhenAccountChangedInteractor, ProjectAccountWhenAccountChangedInteractor>();
-builder.Services.AddScoped<IFindInteractor<Query.PositionStore, Projection.Account>, GetListStoreNear>();
-builder.Services.AddScoped<IPagedInteractor<Query.SearchQuery, Projection.AccountES>, SearchListStore>();
+builder.Services.AddScoped<IProjectAccountUserWhenAccountUserChangedInteractor, ProjectAccountUserWhenAccountUserChangedInteractor>();
+builder.Services.AddScoped<IProjectAccountShipperWhenAccountShipperChangedInteractor, ProjectAccountShipperWhenAccountShipperChangedInteractor>();
+builder.Services.AddScoped<IProjectAccountSellerWhenAccountSellerChangedInteractor, ProjectAccountSellerWhenAccountSellerChangedInteractor>();
+builder.Services.AddScoped<IFindInteractor<Query.PositionStore, Projection.AccountSeller>, GetListStoreNear>();
+builder.Services.AddScoped<IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES>, SearchListStore>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddElasticSearch();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();

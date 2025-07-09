@@ -4,19 +4,39 @@ package Contracts.Services.Account.Protobuf;
 
 import "Abstractions/Abstractions.proto";
 
-// The greeting service definition.
 service Accounter {
-  // Sends a greeting
   rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.FindResponse);
   rpc SearchListStore (SearchRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
-message AccountDetails {
+message AccountUserDetail {
 	string Id = 1;
 	string Name = 2;
 	string Image = 3;
-	string Phone = 4;
-	string Address = 5;
+}
+
+message AccountSellerDetail {
+	string Id = 1;
+	Abstractions.Protobuf.Person Seller = 2;
+	string Image = 3;
+	string Nation = 4;
+	Abstractions.Protobuf.TimeActiveDetail TimeActive = 5;
+	bool Status = 6;
+}
+
+message AccountSellerESDetail {
+	string Id = 1;
+	string Name = 2;
+	string Address = 3;
+	string Image = 4;
+	string Nation = 5;
+}
+
+message AccountShipperDetail {
+	string Id = 1;
+	Abstractions.Protobuf.Person Shipper = 2;
+	string Image = 3;
+	bool Status = 4;
 }
 
 message LocationRequest {

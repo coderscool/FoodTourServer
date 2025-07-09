@@ -10,7 +10,9 @@ namespace Contracts.Services.Account
 {
     public static class Command
     {
-        public record CreateAccount(string Id, Dto.DtoPerson Person, List<string> Nation) : Message, ICommand;
+        public record CreateAccountUser(string Id, string Name, string Image) : Message, ICommand;
+        public record CreateAccountSeller(string Id, Dto.DtoPerson Seller, string Image, string Nation, Dto.TimeActive TimeActive) : Message, ICommand;
+        public record CreateAccountShipper(string Id, Dto.DtoPerson Shipper, string Image) : Message, ICommand;
         public record ChangedAccount(string Id, Dto.DtoPerson Person) : Message, ICommand;
     }
 }

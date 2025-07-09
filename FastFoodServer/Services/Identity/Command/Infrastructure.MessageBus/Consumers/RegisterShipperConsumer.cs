@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class CreateAccountWhenRegisterConsumer : Consumer<DomainEvent.RegisterEvent>
+    public class RegisterShipperConsumer : Consumer<Command.RegisterShipper>
     {
-        public CreateAccountWhenRegisterConsumer(IInteractor<DomainEvent.RegisterEvent> interactor) : base(interactor)
+        public RegisterShipperConsumer(IInteractor<Command.RegisterShipper> interactor) : base(interactor)
         {
         }
     }

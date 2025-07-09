@@ -19,7 +19,7 @@ namespace Infrastructure.EventStore.DependencyInjection.Extensions
 
         public static IServiceCollection AddConfigurationStoreEvent(this IServiceCollection services)
         {
-            var conn = "Server=DESKTOP-5HKSODD\\SQLEXPRESS01; Database=User; User id=sa; Password=123456; TrustServercertificate=true";
+            var conn = "Server=localhost; Database=User; User id=sa; Password=123456; TrustServercertificate=true";
             services.AddDbContext<EventStoreDbContext>(options =>
                 options.UseSqlServer(conn, b => b.MigrationsAssembly("WorkerService1")));
             return services;

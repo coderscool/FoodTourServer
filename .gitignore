@@ -223,3 +223,10 @@
 /FastFoodServer/Services/Identity/Query/Infrastructure.EventBus/bin/Debug/net9.0
 /FastFoodServer/Services/Identity/Query/Infrastructure.Projection/bin/Debug/net9.0
 /FastFoodServer/Services/Payment/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Order/Query/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Query/Infrastructure.EventBus/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/Infrastructure.MessageBus/bin/Debug/net9.0
+/FastFoodServer/Services/Restaurant/Query/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Restaurant/Query/Infrastructure.EventBus/bin/Debug/net9.0
+/FastFoodServer/Services/Restaurant/Query/Infrastructure.Projection/bin/Debug/net9.0

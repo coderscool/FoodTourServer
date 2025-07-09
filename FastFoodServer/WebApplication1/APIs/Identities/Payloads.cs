@@ -4,6 +4,10 @@ namespace WebApplication1.APIs.Identities
 {
     public class Payloads
     {
-        public record SignUp(string UserName, string PassWord, Dto.DtoPerson Person, List<string> Nation, string Role);
+        public record SignUpUser(string UserName, string PassWord, string Name, string Image, string Role);
+        public record SignUpSeller(string UserName, string PassWord, Dto.DtoPerson Seller, string Image, string Nation,
+            Dto.TimeActive TimeActive, string Role);
+        public record SignUpShipper(string UserName, string PassWord, Dto.DtoPerson Shipper, string Image, string Role);
+
     }
 }

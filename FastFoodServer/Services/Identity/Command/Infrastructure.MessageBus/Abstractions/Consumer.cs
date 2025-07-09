@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.MessageBus.Abstractions
 {
-    public abstract class Consumers<TMessage> : IConsumer<TMessage>
+    public abstract class Consumer<TMessage> : IConsumer<TMessage>
     where TMessage : class, IMessage
     {
         private readonly IInteractor<TMessage> _interactor;
 
-        protected Consumers(IInteractor<TMessage> interactor)
+        protected Consumer(IInteractor<TMessage> interactor)
             => _interactor = interactor;
 
         public async Task Consume(ConsumeContext<TMessage> context)

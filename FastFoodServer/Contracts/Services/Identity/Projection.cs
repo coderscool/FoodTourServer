@@ -1,22 +1,17 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using Contracts.DataTransferObject;
-using MongoDB.Bson;
-using Contracts.Abstractions.Messages;
+﻿using Contracts.Abstractions.Messages;
 
 namespace Contracts.Services.Identity
 {
     public static class Projection
     {
-        public record User(string Id, string UserName, string PassWord, string Role, string Token, long Version) : IProjection
+        public record Identity(string Id, string UserName, string PassWord, string Role, string Token, long Version) : IProjection
         {
-            public static implicit operator Protobuf.UserDetails(User userDetails)
+            public static implicit operator Protobuf.IdentityDetails(Identity identityDetails)
                 => new()
                 {
-                    Id = userDetails.Id,
-                    UserName = userDetails.UserName,
-                    PassWord = userDetails.PassWord,
-                    Role = userDetails.Role,
-                    Token = userDetails.Token
+                    Id = identityDetails.Id,
+                    Role = identityDetails.Role,
+                    Token = identityDetails.Token
                 };
         }
     }

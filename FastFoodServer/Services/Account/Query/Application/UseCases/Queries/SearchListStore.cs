@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
-    public class SearchListStore : IPagedInteractor<Query.SearchQuery, Projection.AccountES>
+    public class SearchListStore : IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES>
     {
-        private readonly IElasticSearchGateway<Projection.AccountES> _elasticSearchGateway;
-        public SearchListStore(IElasticSearchGateway<Projection.AccountES> elasticSearchGateway)
+        private readonly IElasticSearchGateway<Projection.AccountSellerES> _elasticSearchGateway;
+        public SearchListStore(IElasticSearchGateway<Projection.AccountSellerES> elasticSearchGateway)
         {
             _elasticSearchGateway = elasticSearchGateway;
         }
-        public async ValueTask<IPagedResult<Projection.AccountES>> InteractAsync(Query.SearchQuery query, CancellationToken cancellationToken)
+        public async ValueTask<IPagedResult<Projection.AccountSellerES>> InteractAsync(Query.SearchQuery query, CancellationToken cancellationToken)
         {
-            var queryES = new Func<QueryContainerDescriptor<Projection.AccountES>, QueryContainer>(q =>
+            var queryES = new Func<QueryContainerDescriptor<Projection.AccountSellerES>, QueryContainer>(q =>
                 q.Bool(b => b
                     .Must(
                         m => m.Match(mq => mq.Field(f => f.Name).Query(query.Keyword)),

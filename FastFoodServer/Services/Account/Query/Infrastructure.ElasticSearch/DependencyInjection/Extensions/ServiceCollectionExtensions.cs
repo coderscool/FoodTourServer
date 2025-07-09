@@ -23,27 +23,27 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
             return services;
         }
 
-        private static void AddDefaultMapping(ConnectionSettings settings) 
+        private static void AddDefaultMapping(ConnectionSettings settings)
         {
-            settings.DefaultMappingFor<Projection.Account>(d => d.Ignore(x => x.Image));
+            settings.DefaultMappingFor<Projection.AccountSellerES>(m => m);
         }
 
-        private static void CreateIndex(IElasticClient client, string indexName) 
+        private static void CreateIndex(IElasticClient client, string indexName)
         {
             client.Indices.Create(indexName, i => i
-                    .Map<Projection.Account>(x => x
-        .Properties(p => p
-            .Keyword(k => k.Name("id"))
-            .Text(t => t.Name("name"))
-            .Text(t => t.Name("image"))
-            .Text(t => t.Name("phone"))
-            .Text(t => t.Name("address"))
-            .GeoPoint(g => g.Name("location")) // Elasticsearch expects lat/lon format
-            .Keyword(k => k.Name("nation")) // List<string> ánh xạ kiểu keyword array
-            .Number(n => n.Name("version").Type(NumberType.Long))
-        )
-    )
-);
+                .Map<Projection.AccountSeller>(x => x
+                    .Properties(p => p
+                        .Keyword(k => k.Name("id"))
+                        .Text(t => t.Name("name"))
+                        .Text(t => t.Name("image"))
+                        .Text(t => t.Name("phone"))
+                        .Text(t => t.Name("address"))
+                        .GeoPoint(g => g.Name("location")) // Elasticsearch expects lat/lon format  
+                        .Keyword(k => k.Name("nation")) // List<string> maps as keyword array  
+                        .Number(n => n.Name("version").Type(NumberType.Long))
+                    )
+                )
+            );
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace WebApplication1.APIs.Identities.Validators
 {
-    public class SignUpPayloadValidator : AbstractValidator<Payloads.SignUp>
+    public class SignUpPayloadValidator : AbstractValidator<Payloads.SignUpUser>
     {
         public SignUpPayloadValidator()
         {

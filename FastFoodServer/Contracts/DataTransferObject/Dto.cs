@@ -1,11 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver.GeoJsonObjectModel;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Contracts.DataTransferObject
 {
@@ -24,7 +18,16 @@ namespace Contracts.DataTransferObject
         public record DtoAddress(string Address, double Latitude, double Longitude);
 
         public record DtoAddressMongo(string Address, GeoJsonPoint<GeoJson2DGeographicCoordinates> Location);
-        
+
+        public record TimeActive(int Start, int End)
+        {
+            public static implicit operator Abstractions.Protobuf.TimeActiveDetail(TimeActive timeActive)
+                => new()
+                {
+                    Start = timeActive.Start,
+                    End = timeActive.End
+                };
+        }
        
         public record DtoSearch(List<string> Nation, List<string> Category)
         {
@@ -42,7 +45,6 @@ namespace Contracts.DataTransferObject
                 => new()
                 {
                     Name = person.Name,
-                    Image = person.Image,
                     Address = person.Address.Address,
                     Phone = person.Phone,
                 };
