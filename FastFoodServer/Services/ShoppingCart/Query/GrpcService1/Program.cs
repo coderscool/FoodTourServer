@@ -16,9 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IPagedInteractor<Query.CustomerCartQuery, Projection.Cart>, GetListDishCartInteractor>();
-builder.Services.AddScoped<ICountInteractor<Query.CustomerCartQuery>, GetQuantityDishCartInteractor>();
-builder.Services.AddScoped<IProjectCartWhenCartChangedInteractor, ProjectCartWhenCartChangedInteractor>();
 builder.Services.AddScoped<IProjectCartItemWhenCartItemChangedInteractor, ProjectCartItemWhenCartItemChangedInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();

@@ -31,5 +31,12 @@ namespace WebApplication1.APIs.Account
                     City = request.City
                 };
         }
+
+        public record GetAccountSeller(Accounter.AccounterClient Client, string Id, CancellationToken CancellationToken)
+            : Validatable<GetAccountSellerValidator>, IQuery<Accounter.AccounterClient>
+        {
+            public static implicit operator AccountIdRequest(GetAccountSeller request)
+                => new() { Id = request.Id };
+        }
     }
 }

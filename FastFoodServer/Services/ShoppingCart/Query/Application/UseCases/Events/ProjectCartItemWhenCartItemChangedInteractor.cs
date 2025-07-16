@@ -7,7 +7,6 @@ namespace Application.UseCases.Events
     public interface IProjectCartItemWhenCartItemChangedInteractor :
         IInteractor<DomainEvent.CartItemAdd>,
         IInteractor<DomainEvent.CartItemRemove>,
-        IInteractor<DomainEvent.CartRemove>,
         IInteractor<DomainEvent.CartItemChangedQuantity>{ }
     public class ProjectCartItemWhenCartItemChangedInteractor : IProjectCartItemWhenCartItemChangedInteractor
     {
@@ -21,7 +20,7 @@ namespace Application.UseCases.Events
         {
             Projection.CartItem shoppingCartItem = new(
                 @event.ItemId,
-                @event.CartId,
+                @event.CustomerId,
                 @event.RestaurantId,
                 @event.DishId,
                 @event.Restaurant,
@@ -29,7 +28,6 @@ namespace Application.UseCases.Events
                 @event.Price,
                 @event.Quantity,
                 @event.Note,
-                @event.Choose,
                 @event.CheckOut,
                 @event.Version
             );
@@ -39,12 +37,9 @@ namespace Application.UseCases.Events
         public Task InteractAsync(DomainEvent.CartItemRemove @event, CancellationToken cancellationToken)
             => _projectionGateway.DeleteAsync(@event.Id, cancellationToken);
 
-        public Task InteractAsync(DomainEvent.CartRemove @event, CancellationToken cancellationToken)
-            => _projectionGateway.DeleteAsync(x => x.Id == @event.CartId, cancellationToken);
-
         public async Task InteractAsync(DomainEvent.CartItemChangedQuantity @event, CancellationToken cancellationToken)
             => await _projectionGateway.UpdateFieldAsync(
-                id: @event.Id,
+                id: @event.ItemId,
                 version: @event.Version,
                 field: cartItem => cartItem.Quantity,
                 value: @event.Quantity,

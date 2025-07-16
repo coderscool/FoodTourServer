@@ -7,6 +7,7 @@ import "Abstractions/Abstractions.proto";
 service Accounter {
   rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.FindResponse);
   rpc SearchListStore (SearchRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc GetAccountSeller (AccountIdRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
 message AccountUserDetail {
@@ -49,5 +50,9 @@ message SearchRequest {
 	string Keyword = 2;
 	string Nation = 3;
 	string City = 4;
+}
+
+message AccountIdRequest {
+	string Id = 1;
 }
 

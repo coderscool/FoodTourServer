@@ -11,11 +11,21 @@ namespace GrpcService1.Services
     {
         private readonly IFindInteractor<Query.PositionStore, Projection.AccountSeller> _findPositionInteractor;
         private readonly IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES> _pagedInteractor;
+        private readonly IInteractor<Query.GetAccountId, Projection.AccountSeller> _getAccountSellerInteractor;
         public AccounterService(IFindInteractor<Query.PositionStore, Projection.AccountSeller> findPositionInteractor,
-            IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES> pagedInteractor)
+            IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES> pagedInteractor,
+            IInteractor<Query.GetAccountId, Projection.AccountSeller> getAccountSellerInteractor)
         {
             _findPositionInteractor = findPositionInteractor;
             _pagedInteractor = pagedInteractor;
+            _getAccountSellerInteractor = getAccountSellerInteractor;
+        }
+        public override async Task<GetResponse> GetAccountSeller(AccountIdRequest request, ServerCallContext context)
+        {
+            var account = await _getAccountSellerInteractor.InteractAsync(new Query.GetAccountId(request.Id), context.CancellationToken);
+            return account is null
+            ? new() { NotFound = new() }
+            : new() { Projection = Any.Pack((AccountSellerDetail)account) };
         }
         public override async Task<FindResponse> GetListStoreNear(LocationRequest request, ServerCallContext context)
         {

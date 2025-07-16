@@ -6,15 +6,13 @@ namespace Contracts.Services.Order
 {
     public static class Projection
     {
-        public record Order(string Id, string CustomerId, DtoPerson Customer, ulong Total, string Description, string Status, long Version) : IProjection
+        public record Order(string Id, string CustomerId, DtoPerson Customer, ulong Total, long Version) : IProjection
         {
             public static implicit operator OrderDetails(Order order)
                 => new()
                 {
                     Id = order.Id,
                     Total = order.Total,
-                    Description = order.Description,
-                    Status = order.Status
                 };
         }
 

@@ -230,3 +230,15 @@
 /FastFoodServer/Services/Restaurant/Query/Application/bin/Debug/net9.0
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.EventBus/bin/Debug/net9.0
 /FastFoodServer/Services/Restaurant/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/Application/obj
+/FastFoodServer/Services/Delivery/Command/Domain/obj
+/FastFoodServer/Services/Delivery/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Delivery/Command/Infrastructure.MessageBus/obj
+/FastFoodServer/Services/Delivery/Command/WorkerService1/obj
+/FastFoodServer/Services/Delivery/Query/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Query/Application/obj
+/FastFoodServer/Services/Delivery/Query/GrpcService1/obj
+/FastFoodServer/Services/Delivery/Query/Infrastructure.EventBus/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/Delivery/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Query/Infrastructure.Projection/obj

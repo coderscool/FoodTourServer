@@ -6,9 +6,10 @@ namespace Contracts.Services.Account
 {
     public static class Query
     {
-        public class GetAccountId : IQuery
+        public record GetAccountId(string Id) : IQuery
         {
-            public string Id { get; set; }
+           public static implicit operator GetAccountId(AccountIdRequest store)
+                => new( store.Id );
         }
         public record SearchQuery(Paging Paging, string Keyword, string Nation, string City) : IQuery
         {

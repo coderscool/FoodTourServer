@@ -1,18 +1,13 @@
-﻿using Contracts.Abstractions.Messages;
-using Contracts.Services.Account.Protobuf;
+﻿using Contracts.Services.Account.Protobuf;
 using Contracts.Services.Dish.Protobuf;
 using Contracts.Services.Identity.Protobuf;
-using CorrelationId.Abstractions;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
-using MassTransit.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.DependencyInjection.Options;
 

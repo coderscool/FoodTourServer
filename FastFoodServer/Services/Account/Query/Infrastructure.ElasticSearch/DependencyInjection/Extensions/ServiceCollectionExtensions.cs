@@ -30,20 +30,7 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 
         private static void CreateIndex(IElasticClient client, string indexName)
         {
-            client.Indices.Create(indexName, i => i
-                .Map<Projection.AccountSeller>(x => x
-                    .Properties(p => p
-                        .Keyword(k => k.Name("id"))
-                        .Text(t => t.Name("name"))
-                        .Text(t => t.Name("image"))
-                        .Text(t => t.Name("phone"))
-                        .Text(t => t.Name("address"))
-                        .GeoPoint(g => g.Name("location")) // Elasticsearch expects lat/lon format  
-                        .Keyword(k => k.Name("nation")) // List<string> maps as keyword array  
-                        .Number(n => n.Name("version").Type(NumberType.Long))
-                    )
-                )
-            );
+            client.Indices.Create(indexName, i => i.Map<Projection.AccountSellerES>(x => x.AutoMap()));
         }
     }
 }

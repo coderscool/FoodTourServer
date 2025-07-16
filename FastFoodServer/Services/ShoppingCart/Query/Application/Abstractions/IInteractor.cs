@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Abstractions
 {
-    public interface IQueryInteractor<in TEvent>
-    where TEvent : IDomainEvent
-    {
-        Task InteractAsync(TEvent @event, CancellationToken cancellationToken);
-    }
 
     public interface IInteractor<in TQuery, TProjection>
         where TQuery : IQuery
@@ -27,10 +22,11 @@ namespace Application.Abstractions
         Task<List<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
     }
 
-    public interface ICountInteractor<in TQuery>
-        where TQuery : IQuery
+    public interface IFindInteractor<in TQuery, TProjection>
+    where TQuery : IQuery
+    where TProjection : IProjection
     {
-        Task<int> InteractAsync(TQuery query, CancellationToken cancellationToken);
+        Task<List<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
     }
 
     public interface IInteractor<in TEvent>

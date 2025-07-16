@@ -1,4 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
+using Contracts.Services.Cart.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace Contracts.Services.ShoppingCart
 {
     public static class Query
     {
-        public class CustomerCartQuery : IQuery
+        public record CustomerCartQuery(string CustomerId) : IQuery
         {
-            public string CustomerId { get; set; }
+            public static implicit operator CustomerCartQuery(GetListCartRequest request)
+                => new CustomerCartQuery(request.CustomerId);
         }
     }
 }

@@ -18,6 +18,10 @@ namespace WebApplication1.APIs.Account
                 => ApplicationApi.ListAsync<Accounter.AccounterClient, AccountSellerDetail>
                     (query, (client, ct) => client.SearchListStoreAsync(query, cancellationToken: ct)));
 
+            builder.MapGet("/api/account/seller", ([AsParameters] Queries.GetAccountSeller query)
+                => ApplicationApi.GetAsync<Accounter.AccounterClient, AccountSellerDetail>
+                    (query, (client, ct) => client.GetAccountSellerAsync(query, cancellationToken: ct)));
+
             return builder;
         }
     }

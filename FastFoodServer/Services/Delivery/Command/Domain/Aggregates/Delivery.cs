@@ -18,7 +18,6 @@ namespace Domain.Aggregates
         public Dto.DtoPerson Shipper { get; private set; }
         public ushort Quantity { get; private set; }
         public Dto.DtoPrice Price { get; private set; }
-        public Dto.DtoAddress PositionOrder { get; private set; }
         public string OrderStatus { get; private set; }
         public string Status { get; private set; } = DeliveryStatus.Pendding;
 
@@ -75,7 +74,7 @@ namespace Domain.Aggregates
             => (_, ShipperId, Shipper, Status, _) = @event;
 
         public void When(DomainEvent.DeliveryUpdateOrder @event)
-            => Status = @event.Status;
+            => OrderStatus = @event.Status;
 
         public void When(DomainEvent.DeliveryReceiveDish @event)
             => OrderStatus = @event.Status;

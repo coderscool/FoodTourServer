@@ -14,12 +14,9 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(DomainEvent.CartCheckedOut @event, CancellationToken cancellationToken)
         {
-            if(@event.IsSuccess == true)
-            {
-                var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
-                SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, shoppingCart.Version);
-                await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
-            }
+            var shoppingCart = await _applicationService.LoadAggregateAsync<ShoppingCart>(@event.CartId, cancellationToken);
+            SummaryEvent.CartSubmitted cartSubmitted = new(shoppingCart, @event.Customer, @event.Total, @event.PaymentMethod, shoppingCart.Version);
+            await _applicationService.PublishEventAsync(cartSubmitted, cancellationToken);
         }
     }
 }

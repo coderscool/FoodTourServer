@@ -10,15 +10,10 @@ namespace Contracts.Services.ShoppingCart
 {
     public class Command
     {
-        public record AddCartItem(string CartId, string RestaurantId, string DishId, Dto.DtoPerson Restaurant, Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, string Note): Message, ICommand;
+        public record AddCartItem(string CustomerId, string RestaurantId, string DishId, Dto.DtoPerson Restaurant, Dto.DtoDish Dish, Dto.DtoPrice Price, ushort Quantity, string Note): Message, ICommand;
         public record CheckAndRemoveDishCart(string Id, string CartId) : Message, ICommand;
-        public record RemoveCart(string CartId) : Message, ICommand;
-        public record ChangedQuantityItemCart(string ItemId, string CartId, ushort Quantity) : Message, ICommand;
-        public record CreateCart(string CustomerId, Dto.DtoPerson Customer, string Description) : Message, ICommand;
-        public record ChangeDescriptionCart(string Id, string Description) : Message, ICommand;
-        public record ChangeCustomerCart(string Id, Dto.DtoPerson Customer) : Message, ICommand;
-        public record ChooseItemCart(string Id, string CartId, bool Choose) : Message, ICommand;
-        public record ChangedPaymentCart(string CartId, string Payment) : Message, ICommand;
-        public record CheckOutCart(string CartId) : Message, ICommand;
+        public record ChangedQuantityItemCart(string CustomerId, string ItemId, ushort Quantity) : Message, ICommand;
+        public record CreateCart(string Id) : Message, ICommand;
+        public record CheckOutCart(string CartId, List<string> ChooseId, Dto.DtoPerson Customer, ulong Total, string PaymentMethod, bool IsSuccess) : Message, ICommand;
     }
 }

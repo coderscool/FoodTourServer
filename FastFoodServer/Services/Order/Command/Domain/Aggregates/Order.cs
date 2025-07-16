@@ -22,7 +22,6 @@ namespace Domain.Aggregates
         public Dto.DtoPerson Customer { get; private set; }
         public OrderStatus OrderStatus { get; private set; } = OrderStatus.Pendding;
         public ulong Total { get; private set; }
-        public string Description { get; private set; }
         public string PaymentMethod { get; private set; }
 
 
@@ -36,7 +35,6 @@ namespace Domain.Aggregates
                 cmd.Customer,
                 cmd.Total,
                 cmd.PaymentMethod,
-                cmd.Description,
                 cmd.Items.Select(cartItem => (Dto.OrderItem)cartItem),
                 OrderStatus,
                 DateTime.UtcNow,
@@ -86,7 +84,7 @@ namespace Domain.Aggregates
 
         public void When(DomainEvent.OrderPlaced @event)
         {
-            (Id, CustomerId, Customer, Total, PaymentMethod, Description, var items, OrderStatus, _, _) = @event;
+            (Id, CustomerId, Customer, Total, PaymentMethod, var items, OrderStatus, _, _) = @event;
             _items.AddRange(items.Select(item => (OrderItem)item));
         }
 
@@ -94,6 +92,6 @@ namespace Domain.Aggregates
             => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
 
         public static implicit operator Dto.DtoOrder(Order order)
-           => new(order.Id, order.CustomerId, order.Customer, order.Total, order.Description, order.OrderStatus, order.Items.Single(x => x.Id == order.ItemId));
+           => new(order.Id, order.CustomerId, order.Customer, order.Total, order.Items.Single(x => x.Id == order.ItemId));
     }
 }

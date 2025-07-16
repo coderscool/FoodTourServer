@@ -19,7 +19,7 @@ namespace Application.UseCases.Commands
         }
         public async Task InteractAsync(Command.ChangedQuantityItemCart command, CancellationToken cancellationToken)
         {
-            var cart = await _applicationService.LoadAggregateAsync<ShoppingCart>(command.CartId, cancellationToken);
+            var cart = await _applicationService.LoadAggregateAsync<ShoppingCart>(command.CustomerId, cancellationToken);
             cart.Handle(command);
             await _applicationService.AppendEventsAsync(cart, cancellationToken);
         }

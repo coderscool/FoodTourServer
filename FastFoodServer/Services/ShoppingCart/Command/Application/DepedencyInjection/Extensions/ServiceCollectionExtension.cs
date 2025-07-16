@@ -2,12 +2,9 @@
 using Application.Services;
 using Application.UseCases.Commands;
 using Contracts.Services.ShoppingCart;
+using Identity = Contracts.Services.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Application.UseCases.Events;
 
 namespace Application.DepedencyInjection.Extensions
 {
@@ -17,10 +14,8 @@ namespace Application.DepedencyInjection.Extensions
             => services.AddScoped<IApplicationService, ApplicationService>()
                        .AddScoped<IInteractor<Command.AddCartItem>, AddCartItemInteractor>()
                        .AddScoped<IInteractor<Command.CheckAndRemoveDishCart>, RemoveItemCartInteractor>()
-                       .AddScoped<IInteractor<Command.CreateCart>, CreateCartInteractor>()
-                       .AddScoped<IInteractor<Command.ChangeCustomerCart>, ChangeCustomerCartInteractor>()
-                       .AddScoped<IInteractor<Command.ChangeDescriptionCart>, ChangeDescriptionCartInteractor>()
                        .AddScoped<IInteractor<Command.ChangedQuantityItemCart>, ChangedQuantityItemCartInteractor>()
-                       .AddScoped<IInteractor<Command.RemoveCart>, RemoveCartInteractor>();
+                       .AddScoped<IInteractor<DomainEvent.CartCheckedOut>, PublishCartSubmittedWhenCartCheckedOutInteractor>()
+                       .AddScoped<IInteractor<Identity.DomainEvent.UserRegister>, CreateCartWhenUserRegisterInteracor>();
     }
 }

@@ -19,12 +19,10 @@ namespace Application.UseCases.Events
             Order order = new();
 
             var command = new Command.PlaceOrder(
-                @event.Cart.CartId,
                 @event.Cart.CustomerId,
-                @event.Cart.Customer,
-                @event.Cart.Total,
-                @event.Cart.PaymentMethod,
-                @event.Cart.Description,
+                @event.Customer,
+                @event.Total,
+                @event.PaymentMethod,
                 @event.Cart.Items);
 
             order.Handle(command);

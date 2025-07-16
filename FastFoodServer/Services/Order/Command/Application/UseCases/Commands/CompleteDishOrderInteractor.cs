@@ -2,11 +2,6 @@
 using Application.Services;
 using Contracts.Services.Order;
 using Domain.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Commands
 {

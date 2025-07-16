@@ -12,6 +12,10 @@ namespace Application.UseCases.Commands
     public class CheckOutCart : IInteractor<Command.CheckOutCart>
     {
         private readonly IApplicationService _applicationService;
+        public CheckOutCart(IApplicationService applicationService)
+        {
+            _applicationService = applicationService;
+        }
         public Task InteractAsync(Command.CheckOutCart message, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();

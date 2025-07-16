@@ -10,7 +10,7 @@ namespace Contracts.Services.Order
         public record OrderConfirm(string OrderId, string ItemId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
         public record OrderCancel(string OrderId, string ItemId, string Status, long Version) : Message, IDomainEvent;
         public record OrderCompleteDish(string OrderId, string ItemId, string Status, long Version) : Message, IDomainEvent;
-        public record OrderPlaced(string Id, string CustomerId, Dto.DtoPerson Customer, ulong Total, string PaymentMethod, string Description, IEnumerable<Dto.OrderItem> Items, string OrderStatus, DateTime Date, long Version) : Message, IDomainEvent;
+        public record OrderPlaced(string Id, string CustomerId, Dto.DtoPerson Customer, ulong Total, string PaymentMethod, IEnumerable<Dto.OrderItem> Items, string OrderStatus, DateTime Date, long Version) : Message, IDomainEvent;
         public record OrderRequire(string OrderId, string ItemId, string Status, long Version) : Message, IDomainEvent;
         public record OrderConfirmRequire(string OrderId, string ItemId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
     }

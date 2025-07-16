@@ -23,21 +23,6 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
                         h.Password("guest");
                     });
                     bus.ConfigureEndpoints(context);
-
-                    bus.ReceiveEndpoint("createcart", e =>
-                    {
-                        e.ConfigureConsumer<CreateCartConsumer>(context);
-                    });
-
-                    bus.ReceiveEndpoint("changecustomercart", e =>
-                    {
-                        e.ConfigureConsumer<ChangeCustomerCartConsumer>(context);
-                    });
-
-                    /*bus.ReceiveEndpoint("changedscriptioncart", e =>
-                    {
-                        e.ConfigureConsumer<ChangeDescriptionCartConsumer>(context);
-                    });*/
                 });
             });
             return services;

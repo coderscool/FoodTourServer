@@ -29,13 +29,13 @@ namespace Contracts.DataTransferObject
                 };
         }
        
-        public record DtoSearch(List<string> Nation, List<string> Category)
+        public record DtoSearch(string Nation, List<string> Category)
         {
             public static implicit operator Abstractions.Protobuf.Search(DtoSearch search)
                 => new()
                 {
                     Category = { search.Category },
-                    Nation = { search.Nation },
+                    Nation = search.Nation 
                 };
         }
         public record Rate(float Point);
@@ -74,7 +74,7 @@ namespace Contracts.DataTransferObject
                 };
         }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
-        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note, bool Choose, bool CheckOut);
+        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note, bool CheckOut);
         public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,
             DtoPrice Price, string Status)
         {
@@ -89,8 +89,8 @@ namespace Contracts.DataTransferObject
                        item.Price,
                        "Pendding");
         }
-        public record DtoShoppingCart(string CartId, string CustomerId, DtoPerson Customer, ulong Total, string PaymentMethod, string Description, IEnumerable<CartItem> Items);
-        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, string Description, string Status, OrderItem Item);
+        public record DtoShoppingCart(string CustomerId, IEnumerable<CartItem> Items);
+        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, OrderItem Item);
 
     }
 }

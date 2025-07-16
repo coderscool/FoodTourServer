@@ -27,8 +27,6 @@ namespace Application.UseCases.Events
                 @event.CustomerId, 
                 @event.Customer, 
                 @event.Total,
-                @event.Description,
-                @event.OrderStatus,
                 @event.Version);
 
             await _projectionGateway.ReplaceInsertAsync(order, cancellationToken);

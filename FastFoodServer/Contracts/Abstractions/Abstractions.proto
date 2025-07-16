@@ -70,7 +70,7 @@ message Dish {
 
 message Search {
     repeated string Category = 1;
-    repeated string Nation = 2;
+    string Nation = 2;
 }
 
 message Address {

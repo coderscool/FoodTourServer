@@ -21,6 +21,7 @@ builder.Services.AddScoped<IProjectAccountShipperWhenAccountShipperChangedIntera
 builder.Services.AddScoped<IProjectAccountSellerWhenAccountSellerChangedInteractor, ProjectAccountSellerWhenAccountSellerChangedInteractor>();
 builder.Services.AddScoped<IFindInteractor<Query.PositionStore, Projection.AccountSeller>, GetListStoreNear>();
 builder.Services.AddScoped<IPagedInteractor<Query.SearchQuery, Projection.AccountSellerES>, SearchListStore>();
+builder.Services.AddScoped<IInteractor<Query.GetAccountId, Projection.AccountSeller>, GetAccountSeller>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddElasticSearch();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();

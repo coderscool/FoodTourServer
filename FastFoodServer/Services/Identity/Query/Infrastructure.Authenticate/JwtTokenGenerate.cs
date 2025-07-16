@@ -20,7 +20,7 @@ namespace Infrastructure.Authenticate
         public async Task<string> Generate(string Id, string Role, CancellationToken cancellationToken)
         {
             var singingCredentials = new SigningCredentials(
-                key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789ABCDEF")),
+                key: new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_super_secure_secret_key_1234567890")),
                 algorithm: SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
