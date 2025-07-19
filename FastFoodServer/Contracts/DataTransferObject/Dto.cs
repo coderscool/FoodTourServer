@@ -28,7 +28,17 @@ namespace Contracts.DataTransferObject
                     End = timeActive.End
                 };
         }
-       
+
+        public record ExtraFood(string Name, ulong Price)
+        {
+            public static implicit operator Abstractions.Protobuf.ExtraFoodDetail(ExtraFood extraFood)
+                => new()
+                {
+                    Name = extraFood.Name,
+                    Price = extraFood.Price
+                };
+        }
+
         public record DtoSearch(string Nation, List<string> Category)
         {
             public static implicit operator Abstractions.Protobuf.Search(DtoSearch search)
@@ -74,16 +84,17 @@ namespace Contracts.DataTransferObject
                 };
         }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
-        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, DtoPrice Price, ushort Quantity, string Note, bool CheckOut);
-        public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, ushort Quantity, string Note,
-            DtoPrice Price, string Status)
+        public record CartItem(string ItemId, string RestaurantId, string DishId, DtoDish Dish, List<string> Extra, DtoPrice Price, ushort Quantity, string Note, bool CheckOut);
+        public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, List<string> Extra,
+            ushort Quantity, string Note, DtoPrice Price, string Status)
         {
             public static implicit operator OrderItem(CartItem item)
                 => new(ObjectId.GenerateNewId().ToString(),
                        item.RestaurantId,
                        item.DishId,
-                       item.Restaurant,
+                       null,
                        item.Dish,
+                       item.Extra,
                        item.Quantity,
                        item.Note,
                        item.Price,

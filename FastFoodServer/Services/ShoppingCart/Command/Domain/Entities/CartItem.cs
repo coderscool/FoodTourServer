@@ -10,14 +10,14 @@ namespace Domain.Entities
 {
     public class CartItem : Entity<CartItemValidator>
     {
-        public CartItem(string itemId, string restaurantId, string dishId, Dto.DtoPerson restaurant, Dto.DtoDish dish, 
+        public CartItem(string itemId, string restaurantId, string dishId, Dto.DtoDish dish, List<string> extra,
             Dto.DtoPrice price, ushort quantity, string note, bool checkOut) 
         {
             Id = itemId;
             RestaurantId = restaurantId;
             DishId = dishId;
-            Restaurant = restaurant;
             Dish = dish;
+            Extra = extra;
             Price = price;
             Quantity = quantity;
             Note = note;
@@ -25,8 +25,8 @@ namespace Domain.Entities
         }
         public string RestaurantId { get; }
         public string DishId { get; }
-        public Dto.DtoPerson Restaurant { get; }
         public Dto.DtoDish Dish { get; }
+        public List<string> Extra { get; }
         public Dto.DtoPrice Price { get; }
         public ushort Quantity { get; private set; }
         public string Note { get; }
@@ -42,9 +42,9 @@ namespace Domain.Entities
             => CheckOut = checkOut;
 
         public static implicit operator CartItem(Dto.CartItem item)
-            => new(item.ItemId, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Price, item.Quantity, item.Note, item.CheckOut);
+            => new(item.ItemId, item.RestaurantId, item.DishId, item.Dish, item.Extra, item.Price, item.Quantity, item.Note, item.CheckOut);
 
         public static implicit operator Dto.CartItem(CartItem item)
-            => new(item.Id, item.RestaurantId, item.DishId, item.Restaurant, item.Dish, item.Price, item.Quantity, item.Note, item.CheckOut);
+            => new(item.Id, item.RestaurantId, item.DishId, item.Dish, item.Extra, item.Price, item.Quantity, item.Note, item.CheckOut);
     }
 }

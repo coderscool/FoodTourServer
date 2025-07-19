@@ -12,6 +12,7 @@ namespace Domain.Aggregates
         public string RestaurantId { get; private set; }
         public Dto.DtoDish DishItem { get; private set; }
         public Dto.DtoPrice Price { get; private set; }
+        public List<Dto.ExtraFood> Extra { get; private set; } = new();
         public Dto.DtoSearch Search { get; private set; }
         public ushort Quantity { get; private set; }
 
@@ -20,7 +21,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CreateDish cmd)
             => RaiseEvent<DomainEvent.DishCreate>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.RestaurantId,
-                cmd.Dish, cmd.Price, 0, cmd.Search, version));
+                cmd.Dish, cmd.Extra, cmd.Price, 0, cmd.Search, version));
 
         public void Handle(Command.UpdatePriceDish cmd)
             => RaiseEvent<DomainEvent.DishUpdatePrice>((version) => new(cmd.Id, cmd.Price, version));
@@ -38,7 +39,7 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.DishCreate @event)
-            => (Id, RestaurantId, DishItem, Price, Quantity, Search, _) = @event;
+            => (Id, RestaurantId, DishItem, Extra, Price, Quantity, Search, _) = @event;
 
         public void When(DomainEvent.DishUpdatePrice @event)
             => (Id, Price, _) = @event;

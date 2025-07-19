@@ -44,8 +44,8 @@ message CartItemDetail{
 	string CustomerId = 2;
 	string RestaurantId = 3;
 	string DishId = 4; 
-	Abstractions.Protobuf.Person Restaurant = 5;
 	Abstractions.Protobuf.Dish Dish = 6; 
+	repeated string Extra = 5;
 	Abstractions.Protobuf.Price Price = 7;
 	int32 Quantity = 8;
 	string Note = 9;

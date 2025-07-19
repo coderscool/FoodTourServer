@@ -44,11 +44,11 @@ namespace Domain.Aggregates
         {
             if (cmd.Confirm)
             {
-                RaiseEvent<DomainEvent.OrderConfirm>((version) => new(cmd.OrderId, cmd.ItemId, cmd.Confirm, OrderItemStatus.Accept, version));
+                RaiseEvent<DomainEvent.OrderConfirm>((version) => new(cmd.OrderId, cmd.ItemId, cmd.Restaurant, cmd.Confirm, OrderItemStatus.Accept, version));
             }
             else
             {
-                RaiseEvent<DomainEvent.OrderConfirm>((version) => new(cmd.OrderId, cmd.ItemId, cmd.Confirm, OrderItemStatus.Reject, version));
+                RaiseEvent<DomainEvent.OrderConfirm>((version) => new(cmd.OrderId, cmd.ItemId, cmd.Restaurant, cmd.Confirm, OrderItemStatus.Reject, version));
             }
         }
 
@@ -76,6 +76,7 @@ namespace Domain.Aggregates
         public void When(DomainEvent.OrderConfirm @event)
         {
             _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
+            _items.Single(x => x.Id == @event.ItemId).UpdateRestaurant(@event.Restaurant);
             ItemId = @event.ItemId;
         }
 

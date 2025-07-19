@@ -28,7 +28,7 @@ namespace Domain.Aggregates
             => RaiseEvent(version => _items.SingleOrDefault(cartItem => cartItem.DishId == cmd.DishId) is { IsDeleted: false } item
                 ? new DomainEvent.CartItemChangedQuantity(cmd.CustomerId, item.Id, (ushort)(item.Quantity + cmd.Quantity), version)
                 : new DomainEvent.CartItemAdd(cmd.CustomerId, ObjectId.GenerateNewId().ToString(),
-                    cmd.RestaurantId, cmd.DishId, cmd.Restaurant, cmd.Dish, cmd.Price, cmd.Quantity, cmd.Note, false, version));
+                    cmd.RestaurantId, cmd.DishId, cmd.Dish, cmd.Extra, cmd.Price, cmd.Quantity, cmd.Note, false, version));
 
         public void Handle(Command.CheckAndRemoveDishCart cmd)
         {
@@ -70,7 +70,7 @@ namespace Domain.Aggregates
             => Id = @event.Id;
         public void When(DomainEvent.CartItemAdd @event)
         {
-            _items.Add(new(@event.ItemId, @event.RestaurantId, @event.DishId, @event.Restaurant, @event.Dish, @event.Price, @event.Quantity, @event.Note, @event.CheckOut));
+            _items.Add(new(@event.ItemId, @event.RestaurantId, @event.DishId, @event.Dish, @event.Extra, @event.Price, @event.Quantity, @event.Note, @event.CheckOut));
             Id = @event.CustomerId;
         }
 

@@ -11,7 +11,7 @@ namespace WebApplication1.APIs.Dish
             : Validatable<CreateDishValidator>, ICommand<Command.CreateDish>
         {
             public Command.CreateDish Command
-                => new(RestaurantId, Payload.Dish, Payload.Price, Payload.Quantity, Payload.Search);
+                => new(RestaurantId, Payload.Dish, Payload.Extra, Payload.Price, Payload.Quantity, Payload.Search);
         }
     }
 }

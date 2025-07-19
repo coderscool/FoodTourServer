@@ -28,6 +28,7 @@ namespace Application.UseCases.Events
                 @event.Id, 
                 @event.RestaurantId, 
                 @event.Dish, 
+                @event.Extra,
                 @event.Price, 
                 @event.Quantity, 
                 @event.Search, 

@@ -92,3 +92,8 @@ message TimeActiveDetail {
     int32 End = 2;
 }
 
+message ExtraFoodDetail {
+    string Name = 1;
+    float Price = 2;
+}
+
