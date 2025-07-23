@@ -14,6 +14,6 @@ namespace Contracts.Services.ShoppingCart
         public record CheckAndRemoveDishCart(string Id, string CartId) : Message, ICommand;
         public record ChangedQuantityItemCart(string CustomerId, string ItemId, ushort Quantity) : Message, ICommand;
         public record CreateCart(string Id) : Message, ICommand;
-        public record CheckOutCart(string CartId, List<string> ChooseId, Dto.DtoPerson Customer, ulong Total, string PaymentMethod, bool IsSuccess) : Message, ICommand;
+        public record CheckOutCart(string CartId, List<string> ChooseId, Dto.DtoPerson Customer, ulong Total, string PaymentMethod) : Message, ICommand;
     }
 }

@@ -1,4 +1,5 @@
-﻿using WebApplication1.Abstractions;
+﻿using Contracts.Services.Cart.Protobuf;
+using WebApplication1.Abstractions;
 
 namespace WebApplication1.APIs.ShoppingCart
 {
@@ -13,6 +14,13 @@ namespace WebApplication1.APIs.ShoppingCart
                 => ApplicationApi.SendCommandAsync(command));
 
             builder.MapPost("api/shoppingcart/changed-quantity", ([AsParameters] Commands.ChangedQuantityItemCart command)
+                => ApplicationApi.SendCommandAsync(command));
+
+            builder.MapGet("/api/shoppingcart/list", ([AsParameters] Queries.GetListCart query)
+                => ApplicationApi.FindAsync<Carter.CarterClient, CartItemDetail>
+                    (query, (client, ct) => client.GetListDishCartAsync(query, cancellationToken: ct)));
+
+            builder.MapPost("api/shoppingcart/checkout", ([AsParameters] Commands.CheckOutCart command)
                 => ApplicationApi.SendCommandAsync(command));
 
             return builder;

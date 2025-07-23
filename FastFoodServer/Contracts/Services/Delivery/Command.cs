@@ -6,7 +6,7 @@ namespace Contracts.Services.Delivery
     public class Command
     {
         public record CreateDelivery(string OrderId, string ItemId, string RestaurantId, string CustomerId, Dto.DtoPerson Restaurant,
-            Dto.DtoPerson Customer, Dto.DtoDish Dish, ushort Quantity, Dto.DtoPrice Price, string OrderStatus) : Message, ICommand;
+            Dto.DtoPerson Customer, List<Dto.OrderItem> Items, string OrderStatus) : Message, ICommand;
 
         public record AddShipperDelivery(string Id, string DeliveryId, Dto.DtoPerson Shipper) : Message, ICommand;
 

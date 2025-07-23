@@ -14,6 +14,7 @@ namespace Application.DepedencyInjection.Extensions
             => services.AddScoped<IApplicationService, ApplicationService>()
                        .AddScoped<IInteractor<Command.AddCartItem>, AddCartItemInteractor>()
                        .AddScoped<IInteractor<Command.CheckAndRemoveDishCart>, RemoveItemCartInteractor>()
+                       .AddScoped<IInteractor<Command.CheckOutCart>, CheckOutCartInteractor>()
                        .AddScoped<IInteractor<Command.ChangedQuantityItemCart>, ChangedQuantityItemCartInteractor>()
                        .AddScoped<IInteractor<DomainEvent.CartCheckedOut>, PublishCartSubmittedWhenCartCheckedOutInteractor>()
                        .AddScoped<IInteractor<Identity.DomainEvent.UserRegister>, CreateCartWhenUserRegisterInteracor>();

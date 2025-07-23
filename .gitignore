@@ -242,3 +242,9 @@
 /FastFoodServer/Services/Delivery/Query/Infrastructure.EventBus/obj
 /FastFoodServer/Services/Delivery/Query/Infrastructure.Projection/bin/Debug/net9.0
 /FastFoodServer/Services/Delivery/Query/Infrastructure.Projection/obj
+/FastFoodServer/Services/Order/Command/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Command/Domain/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Command/Infrastructure.EventStore/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Command/Infrastructure.MessageBus/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Command/WorkerService1/bin/Debug/net9.0
+/FastFoodServer/Services/Order/Query/GrpcService1/bin/Debug/net9.0

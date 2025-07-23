@@ -1,4 +1,5 @@
 ﻿using Contracts.Services.Account.Protobuf;
+using Contracts.Services.Cart.Protobuf;
 using Contracts.Services.Dish.Protobuf;
 using Contracts.Services.Identity.Protobuf;
 using Grpc.Core;
@@ -101,6 +102,11 @@ namespace WebApi.DependencyInjection.Extensions
                 .AddOptions<DishGrpcClientOptions>()
                 .Bind(section);
 
+        public static OptionsBuilder<ShoppingCartGrpcClientOptions> ConfigureShoppingCartGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+           => services
+               .AddOptions<ShoppingCartGrpcClientOptions>()
+               .Bind(section);
+
         public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
 
@@ -109,6 +115,9 @@ namespace WebApi.DependencyInjection.Extensions
 
         public static void AddDishGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Disher.DisherClient, DishGrpcClientOptions>();
+
+        public static void AddShoppingCartGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Carter.CarterClient, ShoppingCartGrpcClientOptions>();
 
         private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase

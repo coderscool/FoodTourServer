@@ -97,3 +97,13 @@ message ExtraFoodDetail {
     float Price = 2;
 }
 
+message OrderItemDetail {     
+    string ItemId = 1;
+    string DishId = 2;
+    Abstractions.Protobuf.Dish Dish = 3;
+    repeated string Extra = 4;
+    int32 Quantity = 5;
+    string Note = 6;
+    Abstractions.Protobuf.Price Price = 7;
+}
+

@@ -10,7 +10,7 @@ namespace WebApplication1.APIs.ShoppingCart
         public record AddCartItem(IBus Bus, string CartId, Payloads.AddItemCartPayload Payload, CancellationToken CancellationToken)
             : Validatable<AddItemCartValidator>, ICommand<Command.AddCartItem>
         {
-            public Command.AddCartItem Command => new(CartId, Payload.RestaurantId, Payload.DishId, Payload.Restaurant,
+            public Command.AddCartItem Command => new(CartId, Payload.RestaurantId, Payload.DishId, Payload.Extra,
                 Payload.Dish, Payload.Price, Payload.Quantity, Payload.Note);
         }
 
@@ -24,6 +24,12 @@ namespace WebApplication1.APIs.ShoppingCart
             : Validatable<ChangedQuantityItemCartValidator>, ICommand<Command.ChangedQuantityItemCart>
         {
             public Command.ChangedQuantityItemCart Command => new(ItemId, CartId, Quantity);
+        }
+
+        public record CheckOutCart(IBus Bus, string CartId, Payloads.CheckOutCartPayload Payload, CancellationToken CancellationToken)
+            : Validatable<CheckOutCartValidator>, ICommand<Command.CheckOutCart>
+        {
+            public Command.CheckOutCart Command => new(CartId, Payload.ChooseId, Payload.Customer, Payload.Total, Payload.PaymentMethod);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Contracts.Abstractions.Protobuf;
+using MongoDB.Bson;
 using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Contracts.DataTransferObject
@@ -85,23 +86,35 @@ namespace Contracts.DataTransferObject
         }
         public record EvaluateAvg(float Quality, float Price, float Position, float Space, float Serve);
         public record CartItem(string ItemId, string RestaurantId, string DishId, DtoDish Dish, List<string> Extra, DtoPrice Price, ushort Quantity, string Note, bool CheckOut);
-        public record OrderItem(string ItemId, string RestaurantId, string DishId, DtoPerson Restaurant, DtoDish Dish, List<string> Extra,
-            ushort Quantity, string Note, DtoPrice Price, string Status)
+        public record OrderItem(string ItemId, string DishId, DtoDish Dish, List<string> Extra, ushort Quantity, string Note, DtoPrice Price)
         {
             public static implicit operator OrderItem(CartItem item)
                 => new(ObjectId.GenerateNewId().ToString(),
-                       item.RestaurantId,
                        item.DishId,
-                       null,
                        item.Dish,
                        item.Extra,
                        item.Quantity,
                        item.Note,
-                       item.Price,
-                       "Pendding");
+                       item.Price);
+
+            public static implicit operator OrderItemDetail(OrderItem item)
+                => new()
+                {
+                    ItemId = item.ItemId,
+                    DishId = item.DishId,
+                    Dish = item.Dish,
+                    Price = item.Price,
+                    Quantity = item.Quantity,
+                    Note = item.Note
+                };
+        }
+        public record OrderGroup(string GroupId, string RestaurantId, DtoPerson Restaurant, List<OrderItem> OrderItem, string Status)
+        {
+            public static OrderGroup FromGroup(IGrouping<string, CartItem> order)
+                => new(ObjectId.GenerateNewId().ToString(), order.Key, null, order.Select(item => (OrderItem)item).ToList(), "Pendding");
         }
         public record DtoShoppingCart(string CustomerId, IEnumerable<CartItem> Items);
-        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, OrderItem Item);
+        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, OrderGroup Item);
 
     }
 }

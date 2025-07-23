@@ -9,8 +9,8 @@ namespace Application.UseCases.Events
         IInteractor<DomainEvent.OrderConfirm>;
     public class ProjectOrderItemWhenOrderChangedInteractor : IProjectOrderItemWhenOrderChangedInteractor
     {
-        private readonly IProjectionGateway<Projection.OrderItem> _projectionGateway;
-        public ProjectOrderItemWhenOrderChangedInteractor(IProjectionGateway<Projection.OrderItem> projectionGateway)
+        private readonly IProjectionGateway<Projection.OrderGroup> _projectionGateway;
+        public ProjectOrderItemWhenOrderChangedInteractor(IProjectionGateway<Projection.OrderGroup> projectionGateway)
         {
             _projectionGateway = projectionGateway;
         }
@@ -19,8 +19,8 @@ namespace Application.UseCases.Events
         {
             foreach(var item in @event.Items)
             {
-                Projection.OrderItem orderItem = new(item.ItemId, @event.Id, item.RestaurantId, @event.CustomerId, item.DishId,
-                    item.Restaurant, @event.Customer, item.Dish, item.Quantity, item.Price, item.Note, item.Status, @event.Date, @event.Version);
+                Projection.OrderGroup orderItem = new(item.GroupId, @event.Id, item.RestaurantId, @event.CustomerId,
+                    item.Restaurant, @event.Customer, item.OrderItem, item.Status, @event.Date, @event.Version);
 
                 await _projectionGateway.ReplaceInsertAsync(orderItem, cancellationToken);
             }

@@ -5,7 +5,7 @@ package Contracts.Services.Order.Protobuf;
 import "Abstractions/Abstractions.proto";
 
 // The greeting service definition.
-service Order {
+service Orderer {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply);
 }
@@ -27,14 +27,8 @@ message OrderDetails {
 	string Status = 4;
 }
 
-message OrderItems {
-	string Id = 1;
+message OrderGroupDetail {
+	string GroupId = 1;
 	string OrderId = 2;
-	string DishId = 3;
-	string RestaurantName = 4;
-	string DishName = 5;
-	Abstractions.Protobuf.Price Price = 6;
-	int32 Quantity = 7;
-	string Note = 8;
-	string Status = 9;
+	repeated Abstractions.Protobuf.OrderItemDetail Items = 3;
 }

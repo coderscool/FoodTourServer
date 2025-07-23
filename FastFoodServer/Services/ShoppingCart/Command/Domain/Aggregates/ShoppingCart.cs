@@ -55,11 +55,11 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CheckOutCart cmd)
         {
-            bool item = _items.Where(x => Chooses.Contains(x.Id)).Any(x => !x.CheckOut);
-            if(item == true)
-            {
+            //bool item = _items.Where(x => Chooses.Contains(x.Id)).Any(x => !x.CheckOut);
+            //if(item == true)
+            //{
                 RaiseEvent<DomainEvent.CartCheckedOut>(version => new(cmd.CartId, cmd.ChooseId, cmd.Customer, cmd.Total, cmd.PaymentMethod, version));
-            }
+            //}
         }
 
         protected override void Apply(IDomainEvent @event)
