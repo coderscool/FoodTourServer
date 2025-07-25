@@ -15,7 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IProjectOrderWhenOrderChangedInteractor, ProjectOrderWhenOrderChangedInteractor>();
 builder.Services.AddScoped<IProjectOrderItemWhenOrderChangedInteractor, ProjectOrderItemWhenOrderChangedInteractor>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();

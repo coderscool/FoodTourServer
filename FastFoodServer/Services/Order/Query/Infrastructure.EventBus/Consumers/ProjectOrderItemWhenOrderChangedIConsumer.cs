@@ -1,17 +1,15 @@
 ﻿using Application.UseCases.Events;
 using Contracts.Services.Order;
 using MassTransit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.EventBus.Consumers
 {
     public class ProjectOrderItemWhenOrderChangedIConsumer :
         IConsumer<DomainEvent.OrderPlaced>,
-        IConsumer<DomainEvent.OrderConfirm>
+        IConsumer<DomainEvent.OrderConfirm>,
+        IConsumer<DomainEvent.OrderCompleteDish>,
+        IConsumer<DomainEvent.OrderRequire>,
+        IConsumer<DomainEvent.OrderConfirmRequire>
     {
         private readonly IProjectOrderItemWhenOrderChangedInteractor _interactor;
         public ProjectOrderItemWhenOrderChangedIConsumer(IProjectOrderItemWhenOrderChangedInteractor interactor)
@@ -22,6 +20,15 @@ namespace Infrastructure.EventBus.Consumers
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
         public Task Consume(ConsumeContext<DomainEvent.OrderConfirm> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.OrderCompleteDish> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.OrderRequire> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.OrderConfirmRequire> context)
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
     }
 }

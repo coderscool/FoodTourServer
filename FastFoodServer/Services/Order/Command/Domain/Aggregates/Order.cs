@@ -50,6 +50,9 @@ namespace Domain.Aggregates
             }
         }
 
+        public void Handle(Command.CompleteDishOrder cmd)
+            => RaiseEvent<DomainEvent.OrderCompleteDish>((version) => new(cmd.OrderId, cmd.ItemId, OrderGroupStatus.Prepared, version));
+
         public void Handle(Command.RequireOrder cmd)
             => RaiseEvent<DomainEvent.OrderRequire>((version) => new(cmd.OrderId, cmd.ItemId, OrderGroupStatus.Require, version));
 
@@ -87,6 +90,12 @@ namespace Domain.Aggregates
         }
 
         public void When(DomainEvent.OrderCompleteDish @event)
+            => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
+
+        public void When(DomainEvent.OrderRequire @event)
+            => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
+
+        public void When(DomainEvent.OrderConfirmRequire @event)
             => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
 
         public static implicit operator Dto.DtoOrder(Order order)

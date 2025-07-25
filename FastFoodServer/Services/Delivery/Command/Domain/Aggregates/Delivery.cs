@@ -12,13 +12,8 @@ namespace Domain.Aggregates
         public string CustomerId { get; private set; }
         public string RestaurantId { get; private set; }
         public string ShipperId { get; private set; }
-        public Dto.DtoPerson Restaurant { get; private set; }
-        public Dto.DtoPerson Customer { get; private set; }
-        public Dto.DtoDish Dish { get; private set; }
         public Dto.DtoPerson Shipper { get; private set; }
-        public ushort Quantity { get; private set; }
-        public Dto.DtoPrice Price { get; private set; }
-        public string OrderStatus { get; private set; }
+        public bool OrderStatus { get; private set; }
         public string Status { get; private set; } = DeliveryStatus.Pendding;
 
         public override void Handle(ICommand command)
@@ -33,10 +28,8 @@ namespace Domain.Aggregates
                 cmd.CustomerId,
                 cmd.Restaurant,
                 cmd.Customer,
-                cmd.Dish,
-                cmd.Quantity,
-                cmd.Price,
-                cmd.OrderStatus,
+                cmd.Items,
+                false,
                 Status,
                 DateTime.UtcNow,
                 version));
@@ -47,7 +40,7 @@ namespace Domain.Aggregates
                  DeliveryStatus.Accepted, version));
 
         public void Handle(Command.UpdateOrderDelivery cmd)
-            => RaiseEvent<DomainEvent.DeliveryUpdateOrder>((version) => new(cmd.ItemId, "Complete", version));
+            => RaiseEvent<DomainEvent.DeliveryUpdateOrder>((version) => new(cmd.ItemId, true, version));
 
         public void Handle(Command.RequireDishDelivery cmd)
             => RaiseEvent<DomainEvent.DeliveryRequireDish>((version) => new(cmd.ItemId, OrderId, DeliveryStatus.Require, version));
@@ -68,15 +61,15 @@ namespace Domain.Aggregates
             => When(@event as dynamic);
 
         public void When(DomainEvent.DeliveryCreate @event)
-            => (Id, OrderId, CustomerId, RestaurantId, Restaurant, Customer, Dish, Quantity, Price, OrderStatus, Status, _, _) = @event;
+            => (Id, OrderId, CustomerId, RestaurantId, _, _, _, OrderStatus, Status, _, _) = @event;
 
         public void When(DomainEvent.DeliveryAddShipper @event)
-            => (_, ShipperId, Shipper, Status, _) = @event;
+            => (ShipperId, Id, Shipper, Status, _) = @event;
 
         public void When(DomainEvent.DeliveryUpdateOrder @event)
             => OrderStatus = @event.Status;
 
         public void When(DomainEvent.DeliveryReceiveDish @event)
-            => OrderStatus = @event.Status;
+            => Status = @event.Status;
     }
 }

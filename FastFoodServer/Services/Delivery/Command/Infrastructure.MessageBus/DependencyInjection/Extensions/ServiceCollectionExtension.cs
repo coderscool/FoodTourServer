@@ -28,11 +28,6 @@ namespace Infrastructure.MessageBus.DependencyInjection.Extensions
                         h.Password("guest");
                     });
                     bus.ConfigureEndpoints(context);
-
-                    bus.ReceiveEndpoint("createrestaurant", e =>
-                    {
-                        e.ConfigureConsumer<CreateRestaurantConsumer>(context);
-                    });
                 });
             });
             return services;

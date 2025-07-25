@@ -248,3 +248,12 @@
 /FastFoodServer/Services/Order/Command/Infrastructure.MessageBus/bin/Debug/net9.0
 /FastFoodServer/Services/Order/Command/WorkerService1/bin/Debug/net9.0
 /FastFoodServer/Services/Order/Query/GrpcService1/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/Domain/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/Infrastructure.EventStore/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/Infrastructure.MessageBus/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Command/WorkerService1/bin/Debug/net9.0
+/FastFoodServer/Services/Delivery/Query/GrpcService1/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/Infrastructure.EventStore/obj
+/FastFoodServer/Services/Payment/Command/WorkerService1/obj
+/FastFoodServer/Services/Payment/Query/Application/obj

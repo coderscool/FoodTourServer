@@ -1,8 +1,10 @@
 using WebApi.DependencyInjection.Extensions;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.APIs.Account;
+using WebApplication1.APIs.Delivery;
 using WebApplication1.APIs.Dish;
 using WebApplication1.APIs.Identities;
+using WebApplication1.APIs.Order;
 using WebApplication1.APIs.Restaurants;
 using WebApplication1.APIs.ShoppingCart;
 using WebApplication1.DependencyInjection.Options;
@@ -36,17 +38,15 @@ builder.Host.ConfigureServices((context, services) =>
 });
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
-//app.UseHttpsRedirection();
-
 var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
 app.MapDishApiV1();
+app.MapOrderApiV1();
 app.MapAccountApiV1();
+app.MapDeliveryApiV1();
 app.MapIdentityApiV1();
 app.MapRestaurantApiV1();
 app.MapShoppingCartApiV1();

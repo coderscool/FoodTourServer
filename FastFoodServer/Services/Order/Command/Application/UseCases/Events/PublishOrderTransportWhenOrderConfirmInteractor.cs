@@ -5,10 +5,10 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Events
 {
-    public class PublishOrderTransportWhenOrderConfirm : IInteractor<DomainEvent.OrderConfirm>
+    public class PublishOrderTransportWhenOrderConfirmInteractor : IInteractor<DomainEvent.OrderConfirm>
     {
         private readonly IApplicationService _applicationService;
-        public PublishOrderTransportWhenOrderConfirm(IApplicationService applicationService)
+        public PublishOrderTransportWhenOrderConfirmInteractor(IApplicationService applicationService)
         {
             _applicationService = applicationService;
         }

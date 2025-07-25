@@ -5,10 +5,10 @@ using Domain.Aggregates;
 
 namespace Application.UseCases.Commands
 {
-    public class ConfirmOrderInteractor : IInteractor<Command.ConfirmOrder?>
+    public class ConfirmOrderInteractor : IInteractor<Command.ConfirmOrder>
     {
         private readonly IApplicationService _applicationService;
-        public ConfirmOrderInteractor(IApplicationService applicationService)
+        public ConfirmOrderInteractor(IApplicationService applicationService) 
         {
             _applicationService = applicationService;
         }

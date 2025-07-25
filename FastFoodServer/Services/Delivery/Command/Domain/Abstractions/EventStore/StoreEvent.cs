@@ -11,6 +11,6 @@ namespace Domain.Abstractions.EventStore
     public record StoreEvent(string AggregateId, string AggregateType, string EventType, IDomainEvent Event, long Version, DateTimeOffset Timestamp)
     {
         public static StoreEvent Create(IAggregateRoot aggregate, IDomainEvent @event)
-            => new(@event.AggregateId, aggregate.GetType().Name, @event.GetType().Name, @event, @event.Version, @event.Timestamp);
+            => new(aggregate.Id, aggregate.GetType().Name, @event.GetType().Name, @event, @event.Version, @event.Timestamp);
     }
 }

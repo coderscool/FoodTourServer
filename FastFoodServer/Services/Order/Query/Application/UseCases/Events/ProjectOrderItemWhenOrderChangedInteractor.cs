@@ -6,7 +6,10 @@ namespace Application.UseCases.Events
 {
     public interface IProjectOrderItemWhenOrderChangedInteractor :
         IInteractor<DomainEvent.OrderPlaced>,
-        IInteractor<DomainEvent.OrderConfirm>;
+        IInteractor<DomainEvent.OrderConfirm>,
+        IInteractor<DomainEvent.OrderCompleteDish>,
+        IInteractor<DomainEvent.OrderRequire>,
+        IInteractor<DomainEvent.OrderConfirmRequire>;
     public class ProjectOrderItemWhenOrderChangedInteractor : IProjectOrderItemWhenOrderChangedInteractor
     {
         private readonly IProjectionGateway<Projection.OrderGroup> _projectionGateway;
@@ -27,11 +30,38 @@ namespace Application.UseCases.Events
         }
 
         public async Task InteractAsync(DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
+        {
+            await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
+
+            await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Restaurant,
+                value: @event.Restaurant,
+                cancellationToken: cancellationToken);
+        }
+
+        public async Task InteractAsync(DomainEvent.OrderCompleteDish @event, CancellationToken cancellationToken)
             => await _projectionGateway.UpdateFieldAsync(
                 id: @event.ItemId,
                 version: @event.Version,
                 field: orderItem => orderItem.Status,
                 value: @event.Status,
                 cancellationToken: cancellationToken);
+
+        public Task InteractAsync(DomainEvent.OrderRequire @event, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task InteractAsync(DomainEvent.OrderConfirmRequire @event, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
