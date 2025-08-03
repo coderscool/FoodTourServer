@@ -1,11 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.Dish;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
@@ -17,6 +12,6 @@ namespace Application.UseCases.Queries
             _projectionGateway = projectionGateway;
         }
         public async Task<List<Projection.Dishs>> InteractAsync(Query.ListDishTredingQuery query, CancellationToken cancellationToken)
-            => await _projectionGateway.ListAsync(cancellationToken);
+            => await _projectionGateway.SortAsync(x => x.Hidden == false, cancellationToken);
     }
 }

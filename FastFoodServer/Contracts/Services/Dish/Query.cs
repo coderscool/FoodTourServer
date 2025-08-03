@@ -25,10 +25,10 @@ namespace Contracts.Services.Dish
                 => new();
         }
 
-        public record DishRestaurantQuery(Paging Paging, string Id) : IQuery
+        public record DishRestaurantQuery(string Id) : IQuery
         {
             public static implicit operator DishRestaurantQuery(RestaurantIdRequest request)
-                 => new(request.Paging, request.Id);
+                 => new(request.Id);
         }
     }
 }

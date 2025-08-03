@@ -1,8 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
-using Contracts.Abstractions.Paging;
 using Contracts.Services.Account;
-using MongoDB.Driver;
 using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Application.UseCases.Queries

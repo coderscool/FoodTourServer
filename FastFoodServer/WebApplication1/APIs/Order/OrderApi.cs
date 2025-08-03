@@ -1,4 +1,6 @@
-﻿using WebApplication1.Abstractions;
+﻿using Contracts.Services.Order.Protobuf;
+using WebApplication1.Abstractions;
+using WebApplication1.APIs.Order;
 
 namespace WebApplication1.APIs.Order
 {
@@ -11,6 +13,10 @@ namespace WebApplication1.APIs.Order
 
             builder.MapPost("/api/order/complete", ([AsParameters] Commands.CompleteDishOrder command)
                 => ApplicationApi.SendCommandAsync(command));
+
+            builder.MapGet("/api/order/seller", ([AsParameters] Queries.GetListOrderSeller query)
+                => ApplicationApi.ListAsync<Orderer.OrdererClient, OrderUserReply>
+                    (query, (client, ct) => client.GetListOrderSellerAsync(query, cancellationToken: ct)));
 
             return builder;
         }

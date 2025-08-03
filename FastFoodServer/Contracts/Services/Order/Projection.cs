@@ -2,6 +2,7 @@
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Order.Protobuf;
 using static Contracts.DataTransferObject.Dto;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Contracts.Services.Order
 {
@@ -21,12 +22,14 @@ namespace Contracts.Services.Order
             DtoPerson Restaurant, DtoPerson Customer, List<OrderItem> Items,
             string Status, DateTime Date, long Version) : IProjection
         {
-            public static implicit operator OrderGroupDetail(OrderGroup order)
+            public static implicit operator OrderUserReply(OrderGroup order)
                 => new()
                 {
                     GroupId = order.Id,
                     OrderId = order.OrderId,
                     Items = { order.Items.Select(item => (OrderItemDetail)item) },
+                    Status = order.Status,
+                    CreatedAt = Timestamp.FromDateTime(order.Date)
                 };
         }
     }

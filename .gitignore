@@ -257,3 +257,4 @@
 /FastFoodServer/Services/Payment/Command/Infrastructure.EventStore/obj
 /FastFoodServer/Services/Payment/Command/WorkerService1/obj
 /FastFoodServer/Services/Payment/Query/Application/obj
+/FastFoodServer/ApiGateway/obj

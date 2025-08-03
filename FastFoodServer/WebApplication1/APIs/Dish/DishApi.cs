@@ -21,7 +21,7 @@ namespace WebApplication1.APIs.Dish
                     (query, (client, ct) => client.SearchListDishAsync(query, cancellationToken: ct)));
 
             builder.MapGet("/api/dish/restaurant", ([AsParameters] Queries.DishRestaurant query)
-                => ApplicationApi.ListAsync<Disher.DisherClient, DishDetails>
+                => ApplicationApi.FindAsync<Disher.DisherClient, DishDetails>
                     (query, (client, ct) => client.GetListDishByRestaurantIdAsync(query, cancellationToken: ct)));
 
             builder.MapGet("/api/dish/trending", ([AsParameters] Queries.ListDishTrending query)

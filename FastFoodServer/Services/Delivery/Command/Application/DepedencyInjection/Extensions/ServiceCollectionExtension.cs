@@ -15,6 +15,7 @@ namespace Application.DepedencyInjection.Extensions
                        .AddScoped<IInteractor<Order.SummaryEvent.OrderTransport>,  CreateDeliveryWhenOrderTransportInteractor>()
                        .AddScoped<IInteractor<Command.AddShipperDelivery>, AddShipperDeliveryInteractor>()
                        .AddScoped<IInteractor<Command.RequireDishDelivery>, RequireDishDeliveryInteractor>()
-                       .AddScoped<IInteractor<Order.DomainEvent.OrderCompleteDish>, UpdateOrderDeliveryWhenOrderCompleteDishInteractor>();
+                       .AddScoped<IInteractor<Order.DomainEvent.OrderCompleteDish>, UpdateOrderDeliveryWhenOrderCompleteDishInteractor>()
+                       .AddScoped<IInteractor<Order.DomainEvent.OrderConfirmRequire>, ReceiveDishDeliveryWhenOrderConfirmRequireInteractor>();
     }
 }

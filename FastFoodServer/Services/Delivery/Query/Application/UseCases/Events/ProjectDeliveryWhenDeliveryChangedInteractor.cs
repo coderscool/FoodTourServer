@@ -8,7 +8,9 @@ namespace Application.UseCases.Events
     public interface IProjectDeliveryWhenDeliveryChangedInteractor :
         IInteractor<DomainEvent.DeliveryCreate>,
         IInteractor<DomainEvent.DeliveryUpdateOrder>,
-        IInteractor<DomainEvent.DeliveryAddShipper>;
+        IInteractor<DomainEvent.DeliveryAddShipper>,
+        IInteractor<DomainEvent.DeliveryReceiveDish>,
+        IInteractor<DomainEvent.DeliveryRequireDish>;
     public class ProjectDeliveryWhenDeliveryChangedInteractor : IProjectDeliveryWhenDeliveryChangedInteractor
     {
         private readonly IProjectionGateway<Projection.Delivery> _projectionGateway;
@@ -56,5 +58,21 @@ namespace Application.UseCases.Events
                     (x => x.Status, @event.Status)
                 },
                 cancellationToken);
+
+        public async Task InteractAsync(DomainEvent.DeliveryReceiveDish @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
+
+        public async Task InteractAsync(DomainEvent.DeliveryRequireDish @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
     }
 }

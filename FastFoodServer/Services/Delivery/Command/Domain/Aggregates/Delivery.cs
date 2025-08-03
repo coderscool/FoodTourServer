@@ -71,5 +71,8 @@ namespace Domain.Aggregates
 
         public void When(DomainEvent.DeliveryReceiveDish @event)
             => Status = @event.Status;
+
+        public void When(DomainEvent.DeliveryRequireDish @event)
+            => Status = @event.Status;
     }
 }

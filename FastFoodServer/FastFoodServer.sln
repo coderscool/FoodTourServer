@@ -233,6 +233,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Query", "Query", "{EA0A7D97
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Services\Payment\Query\Application\Application.csproj", "{552AD872-70E7-4B62-AEDF-5BCF945E3943}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{8554CD2C-E315-4787-87BE-7D99B2AFF1FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -579,6 +581,10 @@ Global
 		{552AD872-70E7-4B62-AEDF-5BCF945E3943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{552AD872-70E7-4B62-AEDF-5BCF945E3943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{552AD872-70E7-4B62-AEDF-5BCF945E3943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8554CD2C-E315-4787-87BE-7D99B2AFF1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8554CD2C-E315-4787-87BE-7D99B2AFF1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8554CD2C-E315-4787-87BE-7D99B2AFF1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8554CD2C-E315-4787-87BE-7D99B2AFF1FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

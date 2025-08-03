@@ -2,11 +2,8 @@ using Application.Abstractions;
 using Contracts.Abstractions.Protobuf;
 using Contracts.Services.Dish;
 using Contracts.Services.Dish.Protobuf;
-using Contracts.Services.Identity.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Grpc.Net.Client;
-using GrpcService1;
 
 namespace GrpcService1.Services
 {
@@ -14,40 +11,39 @@ namespace GrpcService1.Services
     {
         private readonly ILogger<DisherService> _logger;
         private readonly IInteractor<Query.DishDetailsById, Projection.Dishs> _interactor;
-        private readonly IPagedInteractor<Query.DishRestaurantQuery, Projection.Dishs> _pagedRestaurantInteractor;
+        private readonly IFindInteractor<Query.DishRestaurantQuery, Projection.Dishs> _dishRestaurantInteractor;
         private readonly IPagedInteractor<Query.SearchListDish, Projection.Dishs> _pagedSearchInteractor;
-        private readonly IFindInteractor<Query.ListDishTredingQuery, Projection.Dishs> _findInteractor;
+        private readonly IFindInteractor<Query.ListDishTredingQuery, Projection.Dishs> _findDishInteractor;
         public DisherService(ILogger<DisherService> logger,
             IInteractor<Query.DishDetailsById, Projection.Dishs> interactor,
-            IPagedInteractor<Query.DishRestaurantQuery, Projection.Dishs> pagedRestaurantInteractor,
+            IFindInteractor<Query.DishRestaurantQuery, Projection.Dishs> dishRestaurantInteractor,
             IPagedInteractor<Query.SearchListDish, Projection.Dishs> pagedSearchInteractor,
-            IFindInteractor<Query.ListDishTredingQuery, Projection.Dishs> findInteractor)
+            IFindInteractor<Query.ListDishTredingQuery, Projection.Dishs> findDishInteractor)
         {
             _logger = logger;
             _interactor = interactor;
-            _pagedRestaurantInteractor = pagedRestaurantInteractor;
+            _dishRestaurantInteractor = dishRestaurantInteractor;
             _pagedSearchInteractor = pagedSearchInteractor;
-            _findInteractor = findInteractor;
+            _findDishInteractor = findDishInteractor;
         }
 
         public override async Task<GetResponse> GetDishDetailsById(DishDetailsByIdRequest request, ServerCallContext context)
         {
             var userDetails = await _interactor.InteractAsync(request, context.CancellationToken);
             return userDetails is null
-            ? new() { NotFound = new() }
-            : new() { Projection = Any.Pack((DishDetails)userDetails) };
+                ? new() { NotFound = new() }
+                : new() { Projection = Any.Pack((DishDetails)userDetails) };
         }
 
-        public override async Task<ListResponse> GetListDishByRestaurantId(RestaurantIdRequest request, ServerCallContext context)
+        public override async Task<FindResponse> GetListDishByRestaurantId(RestaurantIdRequest request, ServerCallContext context)
         {
-            var pagedResult = await _pagedRestaurantInteractor.InteractAsync(request, context.CancellationToken);
-            return pagedResult.Items.Any()
+            var findResult = await _dishRestaurantInteractor.InteractAsync(request, context.CancellationToken);
+            return findResult.Any()
             ? new()
             {
-                PagedResult = new()
+                FindResult = new()
                 {
-                    Projections = { pagedResult.Items.Select(item => Any.Pack((DishDetails)item)) },
-                    Page = pagedResult.Page
+                   Projections = { findResult.Select(item => Any.Pack((DishSearch)item)) },
                 }
             }
             : new() { NoContent = new() };
@@ -61,7 +57,7 @@ namespace GrpcService1.Services
             {
                 PagedResult = new()
                 {
-                    Projections = { pagedResult.Items.Select(item => Any.Pack((DishDetails)item)) },
+                    Projections = { pagedResult.Items.Select(item => Any.Pack((DishSearch)item)) },
                     Page = pagedResult.Page
                 }
             }
@@ -70,13 +66,13 @@ namespace GrpcService1.Services
 
         public override async Task<FindResponse> FindDishTrending(FindDishRequest request, ServerCallContext context)
         {
-            var findResult = await _findInteractor.InteractAsync(request, context.CancellationToken);
+            var findResult = await _findDishInteractor.InteractAsync(request, context.CancellationToken);
             return findResult.Any()
             ? new()
             {
                 FindResult = new()
                 {
-                    Projections = { findResult.Select(item => Any.Pack((DishDetails)item)) },
+                    Projections = { findResult.Select(item => Any.Pack((DishTrending)item)) },
                 }
             }
             : new() { NoContent = new() };

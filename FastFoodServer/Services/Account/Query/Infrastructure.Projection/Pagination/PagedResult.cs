@@ -18,15 +18,15 @@ namespace Infrastructure.Projection.Pagination
         }
 
         public IReadOnlyList<TProjection> Items
-            => _items.ToList().AsReadOnly();
-        
+            => _items.Take(_paging.Limit).ToList().AsReadOnly();
+
         public Page Page
             => new()
             {
-                Current =  1,
-                Size = 2,
-                HasNext = true,
-                HasPrevious = true
+                Current = _paging.Offset + 1,
+                Size = Items.Count,
+                HasNext = _items.Count > _paging.Limit,
+                HasPrevious = _paging.Offset > 0
             };
 
         public static async ValueTask<IPagedResult<TProjection>> CreateAsync(Paging paging, IQueryable<TProjection> source, CancellationToken cancellationToken)

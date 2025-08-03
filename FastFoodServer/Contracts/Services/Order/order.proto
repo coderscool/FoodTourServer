@@ -1,18 +1,24 @@
 syntax = "proto3";
 
 package Contracts.Services.Order.Protobuf;
-
+import "google/protobuf/timestamp.proto";
 import "Abstractions/Abstractions.proto";
 
 // The greeting service definition.
 service Orderer {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc GetListOrderSeller(OrderRequest) returns (Abstractions.Protobuf.ListResponse);
 }
 
 // The request message containing the user's name.
 message HelloRequest {
   string name = 1;
+}
+
+message OrderRequest {
+	string Id = 1;
+	Abstractions.Protobuf.Paging Paging = 2;
 }
 
 // The response message containing the greetings.
@@ -27,8 +33,10 @@ message OrderDetails {
 	string Status = 4;
 }
 
-message OrderGroupDetail {
+message OrderUserReply {
 	string GroupId = 1;
 	string OrderId = 2;
 	repeated Abstractions.Protobuf.OrderItemDetail Items = 3;
+	string Status = 4;
+	google.protobuf.Timestamp CreatedAt = 5;
 }

@@ -43,7 +43,6 @@ namespace WebApplication1.APIs.Dish
             public static implicit operator RestaurantIdRequest(DishRestaurant request)
                 => new()
                 {
-                    Paging = new() { Limit = request.Limit, Offset = request.Offset },
                     Id = request.Id
                 };
         }

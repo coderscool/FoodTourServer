@@ -54,14 +54,20 @@ namespace Application.UseCases.Events
                 value: @event.Status,
                 cancellationToken: cancellationToken);
 
-        public Task InteractAsync(DomainEvent.OrderRequire @event, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task InteractAsync(DomainEvent.OrderRequire @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
 
-        public Task InteractAsync(DomainEvent.OrderConfirmRequire @event, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task InteractAsync(DomainEvent.OrderConfirmRequire @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
     }
 }

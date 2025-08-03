@@ -48,13 +48,13 @@ namespace Domain.Enumerations
         public class PreparedStatus : OrderGroupStatus
         {
             public PreparedStatus()
-                : base(nameof(Accept), 2) { }
+                : base(nameof(Prepared), 2) { }
         }
 
         public class RequireStatus : OrderGroupStatus
         {
             public RequireStatus()
-                : base(nameof(Accept), 2) { }
+                : base(nameof(Require), 2) { }
         }
 
         public class TransportStatus : OrderGroupStatus

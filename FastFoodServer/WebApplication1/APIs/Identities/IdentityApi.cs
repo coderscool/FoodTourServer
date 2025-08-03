@@ -20,10 +20,6 @@ namespace WebApplication1.APIs.Identities
             builder.MapPost("/sign-up/shipper", ([AsParameters] Commands.RegisterShipper command)
                 => ApplicationApi.SendCommandAsync(command));
 
-            builder.MapGet("/restaurant-items", ([AsParameters] Queries.ListRestaurantItems query)
-                => ApplicationApi.ListAsync<Identiter.IdentiterClient, IdentityDetails>
-                    (query, (client, ct) => client.ListRestaurantItemsAsync(query, cancellationToken: ct)));
-
             return builder;
         }
     }

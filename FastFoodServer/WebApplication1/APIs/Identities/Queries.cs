@@ -12,12 +12,5 @@ namespace WebApplication1.APIs.Identities
             public static implicit operator LoginRequest(SignIn request)
                 => new() { UserName = request.Username, PassWord = request.Password };
         }
-
-        public record ListRestaurantItems(Identiter.IdentiterClient Client, int? Limit, int? Offset, CancellationToken CancellationToken)
-            : Validatable<ListRestaurantItemsValidator>, IQuery<Identiter.IdentiterClient>
-        {
-            public static implicit operator ListRestaurantItemsRequest(ListRestaurantItems request)
-                => new() { Paging = new() { Limit = request.Limit, Offset = request.Offset } };
-        }
     }
 }

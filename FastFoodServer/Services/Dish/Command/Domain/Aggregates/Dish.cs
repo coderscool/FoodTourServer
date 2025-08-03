@@ -4,7 +4,6 @@ using Contracts.Services.Dish;
 using Domain.Abstractions.Aggregates;
 using MongoDB.Bson;
 
-
 namespace Domain.Aggregates
 {
     public class Dish : AggregateRoot<DishValidator>
@@ -23,27 +22,29 @@ namespace Domain.Aggregates
             => RaiseEvent<DomainEvent.DishCreate>((version) => new(ObjectId.GenerateNewId().ToString(), cmd.RestaurantId,
                 cmd.Dish, cmd.Extra, cmd.Price, 0, cmd.Search, version));
 
-        public void Handle(Command.UpdatePriceDish cmd)
-            => RaiseEvent<DomainEvent.DishUpdatePrice>((version) => new(cmd.Id, cmd.Price, version));
+        public void Handle(Command.UpdateDish cmd)
+            => RaiseEvent<DomainEvent.DishUpdate>((version) => new(cmd.Id, cmd.Dish, cmd.Extra, cmd.Price, version));
 
-        /*public void Handle(Command.UpdateQuantity cmd)
-        {
-            var item = _items.Where(x => x.Id == cmd.Id).FirstOrDefault();
-            if (item != null)
-            {
-                RaiseEvent<DomainEvent.QuantityUpdate>((version) => new(
-                    cmd.Id, cmd.Quantity, version));
-            }
-        }*/
+        public void Handle(Command.UpdateQuantityDish cmd)
+            => RaiseEvent<DomainEvent.DishQuantityUpdate>((version) => new(cmd.Id, Quantity + cmd.Quantity, version));
+
+        public void Handle(Command.HiddenDish cmd)
+            => RaiseEvent<DomainEvent.DishHidden>((version) => new(cmd.Id, cmd.Hidden, version));
+
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
 
         public void When(DomainEvent.DishCreate @event)
             => (Id, RestaurantId, DishItem, Extra, Price, Quantity, Search, _) = @event;
 
-        public void When(DomainEvent.DishUpdatePrice @event)
-            => (Id, Price, _) = @event;
-        //public void When(DomainEvent.QuantityUpdate @event)
-            //=> _items.Single(item => item.Id == @event.AggregateId).UpdateQuantity(@event.Quantity);
+        public void When(DomainEvent.DishUpdate @event)
+            => (Id, DishItem, Extra, Price, _) = @event;
+
+        public void When(DomainEvent.DishQuantityUpdate @event)
+            => (Id, Quantity, _) = @event;
+
+        public void When(DomainEvent.DishHidden @event)
+            => IsDeleted = @event.Hidden;
+
     }
 }

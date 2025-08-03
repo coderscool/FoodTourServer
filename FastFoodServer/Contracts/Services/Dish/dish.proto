@@ -4,22 +4,38 @@ package Contracts.Services.Dish.Protobuf;
 
 import "Abstractions/Abstractions.proto";
 
-// The greeting service definition.
 service Disher {
-  // Sends a greeting
   rpc GetDishDetailsById (DishDetailsByIdRequest) returns (Abstractions.Protobuf.GetResponse);
-  rpc GetListDishByRestaurantId (RestaurantIdRequest) returns (Abstractions.Protobuf.ListResponse);
+  rpc GetListDishByRestaurantId (RestaurantIdRequest) returns (Abstractions.Protobuf.FindResponse);
   rpc SearchListDish (SearchDishRequest) returns (Abstractions.Protobuf.ListResponse);
   rpc FindDishTrending (FindDishRequest) returns (Abstractions.Protobuf.FindResponse);
+}
+
+message DishTrending {
+	string Id = 1;
+	string RestaurantId = 2;
+	Abstractions.Protobuf.Dish Dish = 3;
+	Abstractions.Protobuf.Price Price = 4;
+	int32 Quantity = 5;
+}
+
+message DishSearch{
+	string Id = 1;
+	string RestaurantId = 2;
+	Abstractions.Protobuf.Dish Dish = 3;
+	Abstractions.Protobuf.Price Price = 4;
+	Abstractions.Protobuf.Search Search = 5;
+	bool Hidden = 6;
 }
 
 message DishDetails {
 	string Id = 1;
 	string RestaurantId = 2;
 	Abstractions.Protobuf.Dish Dish = 3;
-	Abstractions.Protobuf.Price Price = 4;
-	int32 Quantity = 5;
-	Abstractions.Protobuf.Search Search = 6;
+	repeated Abstractions.Protobuf.ExtraFoodDetail Extra = 4;
+	Abstractions.Protobuf.Price Price = 5;
+	int32 Quantity = 6;
+	Abstractions.Protobuf.Search Search = 7;
 }
 
 message DishDetailsByIdRequest {
@@ -27,8 +43,7 @@ message DishDetailsByIdRequest {
 }
 
 message RestaurantIdRequest {
-	Abstractions.Protobuf.Paging Paging = 1;
-	string Id = 2;
+	string Id = 1;
 }
 
 message SearchDishRequest {

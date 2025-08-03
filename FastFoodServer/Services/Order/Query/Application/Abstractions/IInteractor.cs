@@ -1,9 +1,5 @@
 ﻿using Contracts.Abstractions.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Contracts.Abstractions.Paging;
 
 namespace Application.Abstractions
 {
@@ -24,6 +20,6 @@ namespace Application.Abstractions
     where TQuery : IQuery
     where TProjection : IProjection
     {
-        Task<List<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
+        ValueTask<IPagedResult<TProjection>> InteractAsync(TQuery query, CancellationToken cancellationToken);
     }
 }

@@ -2,12 +2,11 @@
 using Contracts.Services.Cart.Protobuf;
 using Contracts.Services.Dish.Protobuf;
 using Contracts.Services.Identity.Protobuf;
+using Contracts.Services.Order.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.DependencyInjection.Options;
@@ -69,21 +68,6 @@ namespace WebApi.DependencyInjection.Extensions
                 });
             });
 
-            string issuer = "https://localhost:44381";
-            string signingKey = "0123456789ABCDEF";
-            byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey);
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
-                    };
-                });
             return services;
         }
 
@@ -107,6 +91,11 @@ namespace WebApi.DependencyInjection.Extensions
                .AddOptions<ShoppingCartGrpcClientOptions>()
                .Bind(section);
 
+        public static OptionsBuilder<OrderGrpcClientOptions> ConfigureOrderGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+           => services
+               .AddOptions<OrderGrpcClientOptions>()
+               .Bind(section);
+
         public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
 
@@ -118,6 +107,9 @@ namespace WebApi.DependencyInjection.Extensions
 
         public static void AddShoppingCartGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Carter.CarterClient, ShoppingCartGrpcClientOptions>();
+
+        public static void AddOrderGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Orderer.OrdererClient, OrderGrpcClientOptions>();
 
         private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase

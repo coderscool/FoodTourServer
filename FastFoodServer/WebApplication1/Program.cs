@@ -21,6 +21,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddAccountGrpcClient();
     services.AddDishGrpcClient();
     services.AddShoppingCartGrpcClient();
+    services.AddOrderGrpcClient();
 
     services.ConfigureIdentityGrpcClientOptions(
             context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
@@ -33,6 +34,9 @@ builder.Host.ConfigureServices((context, services) =>
 
     services.ConfigureShoppingCartGrpcClientOptions(
             context.Configuration.GetSection(nameof(ShoppingCartGrpcClientOptions)));
+
+    services.ConfigureOrderGrpcClientOptions(
+            context.Configuration.GetSection(nameof(OrderGrpcClientOptions)));
 
     services.AddSwaggerGen();
 });
