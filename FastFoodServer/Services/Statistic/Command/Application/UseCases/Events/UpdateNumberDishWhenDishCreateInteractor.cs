@@ -20,7 +20,7 @@ namespace Application.UseCases.Events
         }
         public async Task InteractAsync(Dish.DomainEvent.DishCreate @event, CancellationToken cancellationToken)
         {
-            var statistic = await _applicationService.LoadAggregateAsync<Statistic>(@event.PersonId, cancellationToken);
+            var statistic = await _applicationService.LoadAggregateAsync<StatisticSeller>(@event.PersonId, cancellationToken);
             statistic.Handle(new Command.UpdateNumberDish(@event.PersonId));
             await _applicationService.AppendEventsAsync(statistic, cancellationToken);
         }

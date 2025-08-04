@@ -1,11 +1,6 @@
 ﻿using Contracts.Services.Dish;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 {
@@ -30,7 +25,8 @@ namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 
         private static void AddDefaultMapping(ConnectionSettings settings) 
         {
-            settings.DefaultMappingFor<Projection.Dishs>(d => d.Ignore(x => x.Quantity));
+            settings.DefaultMappingFor<Projection.Dishs>(d => d.Ignore(x => x.Quantity)
+                                                               .Ignore(x => x.Extra));
         }
 
         private static void CreateIndex(IElasticClient client, string indexName) 

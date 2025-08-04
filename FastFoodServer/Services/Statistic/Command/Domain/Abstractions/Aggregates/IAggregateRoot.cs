@@ -1,13 +1,9 @@
 ﻿using Contracts.Abstractions.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Abstractions.Entities;
 
 namespace Domain.Abstractions.Aggregates
 {
-    public interface IAggregateRoot
+    public interface IAggregateRoot : IEntity
     {
         IEnumerable<IDomainEvent> UncommittedEvents { get; }
         void LoadFromHistory(IEnumerable<IDomainEvent> events);

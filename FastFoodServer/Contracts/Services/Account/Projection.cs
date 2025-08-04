@@ -1,7 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.DataTransferObject;
 using MongoDB.Driver.GeoJsonObjectModel;
-using Newtonsoft.Json;
 
 namespace Contracts.Services.Account
 {

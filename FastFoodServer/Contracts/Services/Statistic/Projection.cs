@@ -12,24 +12,9 @@ namespace Contracts.Services.Statistic
 {
     public static class Projection
     {
-        public class Statistic : IProjection
+        public record StatisticSeller(string Id, ushort NumberOrder, ushort NumberMeal, ushort NumberDish, ulong Revenue, int NumberRate, Dto.EvaluateAvg EvaluateAvg, long Version) : IProjection
         {
-            [BsonId]
-            [BsonRepresentation(BsonType.ObjectId)]
-            public string Id { get; set; }
-            [BsonElement("NumberOder")]
-            public int NumberOrder { get; set; }
-            [BsonElement("NumberMeal")]
-            public int NumberMeal { get; set; }
-            [BsonElement("NumberDish")]
-            public int NumberDish { get; set; }
-            [BsonElement("Revenue")]
-            public long Revenue { get; set; }
-            [BsonElement("NumberRate")]
-            public int NumberRate { get; set; }
-            [BsonElement("EvaluateAvg")]
-            public Dto.EvaluateAvg EvaluateAvg { get; set; }
-            public long Version { get; set; }
+            
         }
     }
 }

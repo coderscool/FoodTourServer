@@ -8,6 +8,8 @@ service Accounter {
   rpc GetListStoreNear (LocationRequest) returns (Abstractions.Protobuf.FindResponse);
   rpc SearchListStore (SearchRequest) returns (Abstractions.Protobuf.ListResponse);
   rpc GetAccountSeller (AccountIdRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetAccountUser (AccountIdRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetAccountShipper (AccountIdRequest) returns (Abstractions.Protobuf.GetResponse);
 }
 
 message AccountUserDetail {

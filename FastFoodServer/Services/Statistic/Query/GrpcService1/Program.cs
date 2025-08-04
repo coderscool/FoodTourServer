@@ -11,7 +11,7 @@ using Contracts.Services.Statistic;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
-builder.Services.AddScoped<IInteractor<DomainEvent.StatisticCreate>, StatisticCreateInteractor >();
+builder.Services.AddScoped<IInteractor<DomainEvent.StatisticCreate>, StatisticSellerCreateInteractor >();
 builder.Services.AddScoped<IInteractor<DomainEvent.NumberDishUpdate>, NumberDishUpdateInteractor>();
 builder.Services.AddScoped<IInteractor<DomainEvent.RevenueUpdate>, RevenueUpdateInteractor>();
 builder.Services.AddConfigurationMasstransit();

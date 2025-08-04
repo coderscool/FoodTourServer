@@ -40,5 +40,29 @@ namespace Infrastructure.ElasticSearch
             Console.WriteLine(response.Documents.ToList().ToString());
             return await PagedResult<TProjection>.CreateAsync(Paging, response.Documents.ToList(), cancellationToken);
         }
+
+        public async Task UpdateFieldsAsync(
+    string id,
+    Dictionary<string, object> updates,
+    CancellationToken cancellationToken)
+        {
+            var scriptSource = string.Join(" ",
+        updates.Select(kv => $"ctx._source.{kv.Key} = params.{kv.Key};"));
+
+            var response = await _client.UpdateAsync<TProjection>(id, u => u
+                .Index("dish")
+                .Script(s => s
+                    .Source(scriptSource)
+                    .Params(updates)
+                ),
+                cancellationToken
+            );
+
+            if (!response.IsValid)
+            {
+                throw new Exception($"Elasticsearch update failed: {response.ServerError?.Error?.Reason}");
+            }
+        }
+
     }
 }

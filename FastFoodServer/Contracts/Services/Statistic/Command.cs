@@ -9,7 +9,7 @@ namespace Contracts.Services.Statistic
 {
     public static class Command
     {
-        public record CreateStatistic(string Id) : Message, ICommand;
+        public record CreateSellerStatistic(string Id) : Message, ICommand;
         public record UpdateNumberDish(string Id) : Message, ICommand;
         public record UpdateRevanue(string Id, int Quantity, long Price) : Message, ICommand;
     }

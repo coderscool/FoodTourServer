@@ -22,7 +22,7 @@ namespace Application.UseCases.Events
         {
             if(@event.Status == true)
             {
-                var statistic = await _applicationService.LoadAggregateAsync<Statistic>(@event.RestaurantId, cancellationToken);
+                var statistic = await _applicationService.LoadAggregateAsync<StatisticSeller>(@event.RestaurantId, cancellationToken);
                 statistic.Handle(new Command.UpdateRevanue(@event.RestaurantId, @event.Quantity, @event.Price));
                 await _applicationService.AppendEventsAsync(statistic, cancellationToken);
             }

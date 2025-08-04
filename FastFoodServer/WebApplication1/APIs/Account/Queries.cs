@@ -1,6 +1,4 @@
-﻿using Contracts.Abstractions.Paging;
-using Contracts.Services.Account.Protobuf;
-using Contracts.Services.Identity.Protobuf;
+﻿using Contracts.Services.Account.Protobuf;
 using WebApplication1.Abstractions;
 using WebApplication1.APIs.Account.Validators;
 
@@ -32,10 +30,10 @@ namespace WebApplication1.APIs.Account
                 };
         }
 
-        public record GetAccountSeller(Accounter.AccounterClient Client, string Id, CancellationToken CancellationToken)
-            : Validatable<GetAccountSellerValidator>, IQuery<Accounter.AccounterClient>
+        public record GetAccountId(Accounter.AccounterClient Client, string Id, CancellationToken CancellationToken)
+            : Validatable<GetAccountIdValidator>, IQuery<Accounter.AccounterClient>
         {
-            public static implicit operator AccountIdRequest(GetAccountSeller request)
+            public static implicit operator AccountIdRequest(GetAccountId request)
                 => new() { Id = request.Id };
         }
     }

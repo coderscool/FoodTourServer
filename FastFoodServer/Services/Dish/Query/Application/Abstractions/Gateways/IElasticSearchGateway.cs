@@ -1,11 +1,6 @@
 ﻿using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
 using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Abstractions.Gateways
 {
@@ -19,5 +14,10 @@ namespace Application.Abstractions.Gateways
         );
 
         Task InsertDocumentAsync(TProjection project);
+
+        Task UpdateFieldsAsync(
+            string id,
+            Dictionary<string, object> updates,
+            CancellationToken cancellationToken);
     }
 }

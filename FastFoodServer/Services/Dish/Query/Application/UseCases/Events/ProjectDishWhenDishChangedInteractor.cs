@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.Dish;
+using Nest;
 using System.Linq.Expressions;
 
 namespace Application.UseCases.Events
@@ -40,7 +41,8 @@ namespace Application.UseCases.Events
         }
 
         public async Task InteractAsync(DomainEvent.DishUpdate @event, CancellationToken cancellationToken)
-            => await _projectionGateway.UpdateFieldsAsync(
+        {
+            await _projectionGateway.UpdateFieldsAsync(
                 id: @event.Id,
                 version: @event.Version,
                 updates: new (Expression<Func<Projection.Dishs, object>>, object)[]
@@ -51,13 +53,37 @@ namespace Application.UseCases.Events
                 },
                 cancellationToken);
 
+            await _elasticSearchGateway.UpdateFieldsAsync
+            (
+                @event.Id,
+                updates: new Dictionary<string, object>
+                {
+                    { nameof(Projection.Dishs.Dish), @event.Dish },
+                    { nameof(Projection.Dishs.Price), @event.Price }
+                },
+                cancellationToken: cancellationToken
+            );
+        }
+
         public async Task InteractAsync(DomainEvent.DishHidden @event, CancellationToken cancellationToken)
-            => await _projectionGateway.UpdateFieldAsync(
+        {
+            await _projectionGateway.UpdateFieldAsync(
                 id: @event.Id,
                 version: @event.Version,
                 field: dish => dish.Hidden,
                 value: @event.Hidden,
                 cancellationToken: cancellationToken);
+
+            await _elasticSearchGateway.UpdateFieldsAsync
+            (
+                @event.Id,
+                updates: new Dictionary<string, object>
+                {
+                    { nameof(Projection.Dishs.Hidden), @event.Hidden }
+                },
+                cancellationToken: cancellationToken
+            );
+        }
 
         public async Task InteractAsync(DomainEvent.DishQuantityUpdate @event, CancellationToken cancellationToken)
             => await _projectionGateway.UpdateFieldAsync(

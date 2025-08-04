@@ -1,5 +1,4 @@
-﻿using Contracts.Abstractions.Protobuf;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Contracts.DataTransferObject
@@ -50,7 +49,7 @@ namespace Contracts.DataTransferObject
                 };
         }
         public record Rate(float Point);
-        public record DtoPerson(string Name, string Image, DtoAddress Address, string Phone)
+        public record DtoPerson(string Name, DtoAddress Address, string Phone)
         {
             public static implicit operator Abstractions.Protobuf.Person(DtoPerson person)
                 => new()
@@ -97,7 +96,7 @@ namespace Contracts.DataTransferObject
                        item.Note,
                        item.Price);
 
-            public static implicit operator OrderItemDetail(OrderItem item)
+            public static implicit operator Abstractions.Protobuf.OrderItemDetail(OrderItem item)
                 => new()
                 {
                     ItemId = item.ItemId,
