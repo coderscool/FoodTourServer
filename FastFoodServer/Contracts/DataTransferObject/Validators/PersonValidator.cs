@@ -15,10 +15,6 @@ namespace Contracts.DataTransferObject.Validators
                 .NotNull()
                 .NotEmpty();
 
-            RuleFor(person => person.Image)
-                .NotNull()
-                .NotEmpty();
-
             RuleFor(person => person.Address)
                 .NotNull()
                 .NotEmpty();

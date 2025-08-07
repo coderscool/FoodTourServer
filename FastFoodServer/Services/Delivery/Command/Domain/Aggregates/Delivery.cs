@@ -49,11 +49,26 @@ namespace Domain.Aggregates
         {
             if (cmd.Confirm)
             {
-                RaiseEvent<DomainEvent.DeliveryReceiveDish>((version) => new(cmd.ItemId, OrderId, cmd.Confirm, DeliveryStatus.Transport, version));
+                RaiseEvent<DomainEvent.DeliveryReceiveDish>((version) => new(cmd.ItemId, cmd.Confirm, DeliveryStatus.Transport, version));
             }
             else
             {
-                RaiseEvent<DomainEvent.DeliveryReceiveDish>((version) => new(cmd.ItemId, OrderId, cmd.Confirm, DeliveryStatus.Accepted, version));
+                RaiseEvent<DomainEvent.DeliveryReceiveDish>((version) => new(cmd.ItemId, cmd.Confirm, DeliveryStatus.Accepted, version));
+            }
+        }
+
+        public void Handle(Command.RequireCompleteDelivery cmd)
+            => RaiseEvent<DomainEvent.DeliveryRequireDish>((version) => new(Id, OrderId, DeliveryStatus.RequireComplete, version));
+
+        public void Handle(Command.CompleteDelivery cmd)
+        {
+            if(cmd.Confirm)
+            {
+                RaiseEvent<DomainEvent.DeliveryComplete>((version) => new(Id, cmd.Confirm, DeliveryStatus.Complete, version));
+            }
+            else
+            {
+                RaiseEvent<DomainEvent.DeliveryComplete>((version) => new(Id, cmd.Confirm, DeliveryStatus.Transport, version));
             }
         }
 
@@ -73,6 +88,12 @@ namespace Domain.Aggregates
             => Status = @event.Status;
 
         public void When(DomainEvent.DeliveryRequireDish @event)
+            => Status = @event.Status;
+
+        public void When(DomainEvent.DeliveryComplete @event)
+            => Status = @event.Status;
+
+        public void When(DomainEvent.DeliveryRequireComplete @event)
             => Status = @event.Status;
     }
 }

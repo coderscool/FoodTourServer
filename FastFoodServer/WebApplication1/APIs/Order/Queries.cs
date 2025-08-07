@@ -16,5 +16,16 @@ namespace WebApplication1.APIs.Order
                     Paging = new() { Limit = request.Limit, Offset = request.Offset }
                 };
         }
+
+        public record GetListOrderUser(Orderer.OrdererClient Client, string Id, int Limit, int Offset, CancellationToken CancellationToken)
+            : Validatable<GetListOrderUserValidator>, IQuery<Orderer.OrdererClient>
+        {
+            public static implicit operator OrderRequest(GetListOrderUser request)
+                => new()
+                {
+                    Id = request.Id,
+                    Paging = new() { Limit = request.Limit, Offset = request.Offset }
+                };
+        }
     }
 }

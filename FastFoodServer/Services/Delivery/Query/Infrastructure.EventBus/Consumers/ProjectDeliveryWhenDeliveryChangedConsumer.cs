@@ -9,7 +9,9 @@ namespace Infrastructure.EventBus.Consumers
         IConsumer<DomainEvent.DeliveryUpdateOrder>,
         IConsumer<DomainEvent.DeliveryAddShipper>,
         IConsumer<DomainEvent.DeliveryRequireDish>,
-        IConsumer<DomainEvent.DeliveryReceiveDish>
+        IConsumer<DomainEvent.DeliveryReceiveDish>,
+        IConsumer<DomainEvent.DeliveryRequireComplete>,
+        IConsumer<DomainEvent.DeliveryComplete>
     {
         private readonly IProjectDeliveryWhenDeliveryChangedInteractor _interactor;
         public ProjectDeliveryWhenDeliveryChangedConsumer(IProjectDeliveryWhenDeliveryChangedInteractor interactor) 
@@ -30,6 +32,12 @@ namespace Infrastructure.EventBus.Consumers
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
         public Task Consume(ConsumeContext<DomainEvent.DeliveryReceiveDish> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.DeliveryRequireComplete> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.DeliveryComplete> context)
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
     }
 }

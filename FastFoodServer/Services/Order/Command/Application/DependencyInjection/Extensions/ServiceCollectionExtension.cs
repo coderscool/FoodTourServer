@@ -18,7 +18,9 @@ namespace Application.DependencyInjection.Extensions
                        .AddScoped<IInteractor<ShoppingCart.SummaryEvent.CartSubmitted>, PlaceOrderWhenCartSubmittedInteractor>()
                        .AddScoped<IInteractor<Command.CompleteDishOrder>, CompleteDishOrderInteractor>()
                        .AddScoped<IInteractor<Command.ConfirmOrder>, ConfirmOrderInteractor>()
+                       .AddScoped<IInteractor<Delivery.DomainEvent.DeliveryRequireComplete>, RequireCompleteOrderWhenRequireCompleteDeliveryInteractor>()
                        .AddScoped<IInteractor<Delivery.DomainEvent.DeliveryRequireDish>, RequireOrderWhenDeiveryRequireDishInteractor>()   
-                       .AddScoped<IInteractor<DomainEvent.OrderConfirm>, PublishOrderTransportWhenOrderConfirmInteractor>();
+                       .AddScoped<IInteractor<DomainEvent.OrderConfirm>, PublishOrderTransportWhenOrderConfirmInteractor>()
+                       .AddScoped<IInteractor<Command.CompleteOrder>, CompleteOrderInteractor>();
     }
 }

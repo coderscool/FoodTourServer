@@ -22,11 +22,22 @@ namespace Contracts.Services.Order
             DtoPerson Restaurant, DtoPerson Customer, List<OrderItem> Items,
             string Status, DateTime Date, long Version) : IProjection
         {
-            public static implicit operator OrderUserReply(OrderGroup order)
+            public static implicit operator OrderUser(OrderGroup order)
                 => new()
                 {
                     GroupId = order.Id,
                     OrderId = order.OrderId,
+                    Items = { order.Items.Select(item => (OrderItemDetail)item) },
+                    Status = order.Status,
+                    CreatedAt = Timestamp.FromDateTime(order.Date)
+                };
+
+            public static implicit operator OrderSeller(OrderGroup order)
+                => new()
+                {
+                    GroupId = order.Id,
+                    OrderId = order.OrderId,
+                    Customer = order.Customer,
                     Items = { order.Items.Select(item => (OrderItemDetail)item) },
                     Status = order.Status,
                     CreatedAt = Timestamp.FromDateTime(order.Date)

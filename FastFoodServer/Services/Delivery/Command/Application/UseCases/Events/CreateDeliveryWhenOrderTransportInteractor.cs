@@ -18,13 +18,13 @@ namespace Application.UseCases.Events
             Delivery delivery = new ();
             delivery.Handle(new Command.CreateDelivery(
                 @event.Order.OrderId,
-                @event.Order.Item.GroupId,
-                @event.Order.Item.RestaurantId,
+                @event.Order.Group.GroupId,
+                @event.Order.Group.RestaurantId,
                 @event.Order.CustomerId,
-                @event.Order.Item.Restaurant,
+                @event.Order.Group.Restaurant,
                 @event.Order.Customer,
-                @event.Order.Item.OrderItem,
-                @event.Order.Item.Status));
+                @event.Order.Group.OrderItem,
+                @event.Order.Group.Status));
 
             await _applicationService.AppendEventsAsync(delivery, cancellationToken);
         }

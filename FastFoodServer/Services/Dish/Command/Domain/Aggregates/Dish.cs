@@ -26,7 +26,7 @@ namespace Domain.Aggregates
             => RaiseEvent<DomainEvent.DishUpdate>((version) => new(cmd.Id, cmd.Dish, cmd.Extra, cmd.Price, version));
 
         public void Handle(Command.UpdateQuantityDish cmd)
-            => RaiseEvent<DomainEvent.DishQuantityUpdate>((version) => new(cmd.Id, Quantity + cmd.Quantity, version));
+            => RaiseEvent<DomainEvent.DishQuantityUpdate>((version) => new(cmd.Id, (ushort)(Quantity + cmd.Quantity), version));
 
         public void Handle(Command.HiddenDish cmd)
             => RaiseEvent<DomainEvent.DishHidden>((version) => new(cmd.Id, cmd.Hidden, version));

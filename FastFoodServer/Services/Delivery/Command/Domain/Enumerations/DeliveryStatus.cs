@@ -1,9 +1,4 @@
 ﻿using Ardalis.SmartEnum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Enumerations
 {
@@ -18,6 +13,7 @@ namespace Domain.Enumerations
         public static readonly DeliveryStatus Accepted = new AcceptStatus();
         public static readonly DeliveryStatus Require = new RequireStatus();
         public static readonly DeliveryStatus Transport = new TransportStatus();
+        public static readonly DeliveryStatus RequireComplete = new RequireCompleteStatus();
         public static readonly DeliveryStatus Complete = new CompleteStatus();
 
         public static implicit operator DeliveryStatus(string name)
@@ -72,6 +68,12 @@ namespace Domain.Enumerations
         {
             public RequireStatus()
                 : base(nameof(Require), 6) { }
+        }
+
+        public class RequireCompleteStatus : DeliveryStatus
+        {
+            public RequireCompleteStatus()
+                : base(nameof(RequireComplete), 7) { }
         }
     }
 }

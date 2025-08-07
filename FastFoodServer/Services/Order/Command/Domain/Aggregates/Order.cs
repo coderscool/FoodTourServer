@@ -55,7 +55,7 @@ namespace Domain.Aggregates
 
         public void Handle(Command.RequireOrder cmd)
             => RaiseEvent<DomainEvent.OrderRequire>((version) => new(cmd.OrderId, cmd.ItemId, OrderGroupStatus.Require, version));
-
+        
         public void Handle(Command.ConfirmRequireOrder cmd)
         {
             if (cmd.Confirm)
@@ -70,6 +70,21 @@ namespace Domain.Aggregates
 
         public void Handle(Command.CancelOrder cmd)
             => RaiseEvent<DomainEvent.OrderCancel>((version) => new(cmd.OrderId, cmd.ItemId, OrderStatus.Cancel, version));
+
+        public void Handle(Command.RequireCompleteOrder cmd)
+            => RaiseEvent<DomainEvent.OrderRequireComplete>((version) => new(cmd.ItemId, cmd.OrderId, OrderGroupStatus.RequireComplete, version));
+
+        public void Handle(Command.CompleteOrder cmd)
+        {
+            if (cmd.Confirm)
+            {
+                RaiseEvent<DomainEvent.OrderComplete>((version) => new(cmd.ItemId, cmd.OrderId, cmd.Confirm, OrderGroupStatus.Complete, version));
+            }
+            else
+            {
+                RaiseEvent<DomainEvent.OrderComplete>((version) => new(cmd.ItemId, cmd.OrderId, cmd.Confirm, OrderStatus.Transport, version));
+            }
+        }
 
         protected override void Apply(IDomainEvent @event)
             => When(@event as dynamic);
@@ -98,8 +113,14 @@ namespace Domain.Aggregates
         public void When(DomainEvent.OrderConfirmRequire @event)
             => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
 
+        public void When(DomainEvent.OrderRequireComplete @event)
+            => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
+
+        public void When(DomainEvent.OrderComplete @event)
+            => _items.Single(x => x.Id == @event.ItemId).UpdateStatus(@event.Status);
+
         public static implicit operator Dto.DtoOrder(Order order)
-           => new(order.Id, order.CustomerId, order.Customer, order.Total, order.Items.Single(x => x.Id == order.ItemId));
+           => new(order.Id, order.CustomerId, order.Customer, order.Total, order.Items.Single(x => x.Id == order.ItemId), order.PaymentMethod);
 
         public List<Dto.OrderGroup> CreateOrdersFromItems(IEnumerable<Dto.CartItem> items)
         {

@@ -17,5 +17,9 @@ namespace Contracts.Services.Delivery
         public record RequireDishDelivery(string ItemId) : Message, ICommand;
 
         public record ConfirmDelivery(string ItemId, bool Confirm) : Message, ICommand;
+
+        public record RequireCompleteDelivery(string ItemId) : Message, ICommand;
+
+        public record CompleteDelivery(string ItemId, bool Confirm) : Message, ICommand;
     }
 }

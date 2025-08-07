@@ -1,6 +1,5 @@
 ﻿using Contracts.Services.Order.Protobuf;
 using WebApplication1.Abstractions;
-using WebApplication1.APIs.Order;
 
 namespace WebApplication1.APIs.Order
 {
@@ -15,8 +14,12 @@ namespace WebApplication1.APIs.Order
                 => ApplicationApi.SendCommandAsync(command));
 
             builder.MapGet("/api/order/seller", ([AsParameters] Queries.GetListOrderSeller query)
-                => ApplicationApi.ListAsync<Orderer.OrdererClient, OrderUserReply>
+                => ApplicationApi.ListAsync<Orderer.OrdererClient, OrderSeller>
                     (query, (client, ct) => client.GetListOrderSellerAsync(query, cancellationToken: ct)));
+
+            builder.MapGet("/api/order/user", ([AsParameters] Queries.GetListOrderUser query)
+                => ApplicationApi.ListAsync<Orderer.OrdererClient, OrderUser>
+                    (query, (client, ct) => client.GetListOrderUserAsync(query, cancellationToken: ct)));
 
             return builder;
         }

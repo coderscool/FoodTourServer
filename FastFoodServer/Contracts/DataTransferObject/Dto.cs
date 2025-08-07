@@ -113,7 +113,7 @@ namespace Contracts.DataTransferObject
                 => new(ObjectId.GenerateNewId().ToString(), order.Key, null, order.Select(item => (OrderItem)item).ToList(), "Pendding");
         }
         public record DtoShoppingCart(string CustomerId, IEnumerable<CartItem> Items);
-        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, OrderGroup Group);
+        public record DtoOrder(string OrderId, string CustomerId, DtoPerson Customer, ulong Total, OrderGroup Group, string PaymentMethod);
 
     }
 }

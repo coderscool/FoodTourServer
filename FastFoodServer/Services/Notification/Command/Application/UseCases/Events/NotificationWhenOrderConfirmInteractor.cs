@@ -28,9 +28,9 @@ namespace Application.UseCases.Events
 
         public async Task InteractAsync(Order.DomainEvent.OrderConfirm @event, CancellationToken cancellationToken)
         {
-            var s = _queueService.GetConnectionId(@event.RestaurantId);
-            await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", "order");
-            var message = Message(@event.Name, @event.Quantity);
+            //var s = _queueService.GetConnectionId(@event.RestaurantId);
+            //await _hubContext.Clients.Client(s).SendAsync("ReceiveNotification", "order");
+            //var message = Message(@event.Name, @event.Quantity);
             //Notification notification = new();
             //notification.Handle(new Command.NotificationMessage(@event.CustomerId, @event.Name, message));
             //await _applicationService.AppendEventsAsync(notification, cancellationToken);

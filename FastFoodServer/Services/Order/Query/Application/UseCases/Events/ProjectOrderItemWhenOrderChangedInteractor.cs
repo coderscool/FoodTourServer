@@ -9,7 +9,9 @@ namespace Application.UseCases.Events
         IInteractor<DomainEvent.OrderConfirm>,
         IInteractor<DomainEvent.OrderCompleteDish>,
         IInteractor<DomainEvent.OrderRequire>,
-        IInteractor<DomainEvent.OrderConfirmRequire>;
+        IInteractor<DomainEvent.OrderConfirmRequire>,
+        IInteractor<DomainEvent.OrderRequireComplete>,
+        IInteractor<DomainEvent.OrderComplete>;
     public class ProjectOrderItemWhenOrderChangedInteractor : IProjectOrderItemWhenOrderChangedInteractor
     {
         private readonly IProjectionGateway<Projection.OrderGroup> _projectionGateway;
@@ -63,6 +65,22 @@ namespace Application.UseCases.Events
                 cancellationToken: cancellationToken);
 
         public async Task InteractAsync(DomainEvent.OrderConfirmRequire @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
+
+        public async Task InteractAsync(DomainEvent.OrderRequireComplete @event, CancellationToken cancellationToken)
+            => await _projectionGateway.UpdateFieldAsync(
+                id: @event.ItemId,
+                version: @event.Version,
+                field: orderItem => orderItem.Status,
+                value: @event.Status,
+                cancellationToken: cancellationToken);
+
+        public async Task InteractAsync(DomainEvent.OrderComplete @event, CancellationToken cancellationToken)
             => await _projectionGateway.UpdateFieldAsync(
                 id: @event.ItemId,
                 version: @event.Version,

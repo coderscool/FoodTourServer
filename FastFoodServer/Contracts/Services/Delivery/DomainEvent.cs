@@ -12,10 +12,14 @@ namespace Contracts.Services.Delivery
 
         public record DeliveryRequireDish(string ItemId, string OrderId, string Status, long Version) : Message, IDomainEvent;
 
-        public record DeliveryReceiveDish(string ItemId, string OrderId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
+        public record DeliveryReceiveDish(string ItemId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
 
         public record DeliveryUpdateOrder(string ItemId, bool Status, long Version) : Message, IDomainEvent;
 
         public record DeliveryConfirm(string ItemId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
+
+        public record DeliveryRequireComplete(string ItemId, string OrderId, string Status, long Version) : Message, IDomainEvent;
+
+        public record DeliveryComplete(string ItemId, bool Confirm, string Status, long Version) : Message, IDomainEvent;
     }
 }

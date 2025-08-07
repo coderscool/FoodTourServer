@@ -13,6 +13,7 @@ namespace Domain.Enumerations
         public static readonly OrderGroupStatus Prepared = new PreparedStatus();
         public static readonly OrderGroupStatus Require = new RequireStatus();
         public static readonly OrderGroupStatus Transport = new TransportStatus();
+        public static readonly OrderGroupStatus RequireComplete = new RequireCompleteStatus();
         public static readonly OrderGroupStatus Complete = new CompleteStatus();
 
         public static implicit operator OrderGroupStatus(string name)
@@ -48,25 +49,31 @@ namespace Domain.Enumerations
         public class PreparedStatus : OrderGroupStatus
         {
             public PreparedStatus()
-                : base(nameof(Prepared), 2) { }
+                : base(nameof(Prepared), 3) { }
         }
 
         public class RequireStatus : OrderGroupStatus
         {
             public RequireStatus()
-                : base(nameof(Require), 2) { }
+                : base(nameof(Require), 4) { }
         }
 
         public class TransportStatus : OrderGroupStatus
         {
             public TransportStatus()
-                : base(nameof(Transport), 3) { }
+                : base(nameof(Transport), 5) { }
+        }
+
+        public class RequireCompleteStatus : OrderGroupStatus
+        {
+            public RequireCompleteStatus()
+                : base(nameof(RequireComplete), 6) { }
         }
 
         public class CompleteStatus : OrderGroupStatus
         {
             public CompleteStatus()
-                : base(nameof(Complete), 4) { }
+                : base(nameof(Complete), 7) { }
         }
     }
 }

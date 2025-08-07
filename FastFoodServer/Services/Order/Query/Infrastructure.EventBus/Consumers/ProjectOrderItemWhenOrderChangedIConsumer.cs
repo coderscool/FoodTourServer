@@ -9,7 +9,9 @@ namespace Infrastructure.EventBus.Consumers
         IConsumer<DomainEvent.OrderConfirm>,
         IConsumer<DomainEvent.OrderCompleteDish>,
         IConsumer<DomainEvent.OrderRequire>,
-        IConsumer<DomainEvent.OrderConfirmRequire>
+        IConsumer<DomainEvent.OrderConfirmRequire>,
+        IConsumer<DomainEvent.OrderRequireComplete>,
+        IConsumer<DomainEvent.OrderComplete>
     {
         private readonly IProjectOrderItemWhenOrderChangedInteractor _interactor;
         public ProjectOrderItemWhenOrderChangedIConsumer(IProjectOrderItemWhenOrderChangedInteractor interactor)
@@ -29,6 +31,12 @@ namespace Infrastructure.EventBus.Consumers
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
 
         public Task Consume(ConsumeContext<DomainEvent.OrderConfirmRequire> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.OrderRequireComplete> context)
+            => _interactor.InteractAsync(context.Message, context.CancellationToken);
+
+        public Task Consume(ConsumeContext<DomainEvent.OrderComplete> context)
             => _interactor.InteractAsync(context.Message, context.CancellationToken);
     }
 }

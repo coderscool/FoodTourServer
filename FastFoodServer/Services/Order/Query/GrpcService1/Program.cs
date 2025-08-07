@@ -17,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
 builder.Services.AddScoped<IProjectOrderItemWhenOrderChangedInteractor, ProjectOrderItemWhenOrderChangedInteractor>();
-builder.Services.AddScoped<IPagedInteractor<Query.GetOrderQuery, Projection.OrderGroup>, GetListOrderSeller>();
+builder.Services.AddScoped<IPagedInteractor<Query.GetOrderSellerQuery, Projection.OrderGroup>, GetListOrderSeller>();
+builder.Services.AddScoped<IPagedInteractor<Query.GetOrderUserQuery, Projection.OrderGroup>, GetListOrderUser>();
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));

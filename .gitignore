@@ -258,3 +258,16 @@
 /FastFoodServer/Services/Payment/Command/WorkerService1/obj
 /FastFoodServer/Services/Payment/Query/Application/obj
 /FastFoodServer/ApiGateway/obj
+/FastFoodServer/Services/Notification/Command/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Notification/Command/Infrastructure.EventStore/bin/Debug/net9.0
+/FastFoodServer/Services/Notification/Command/Infrastructure.MessageBus/bin/Debug/net9.0
+/FastFoodServer/Services/Notification/Command/NotificationHub/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/Infrastructure.EventStore/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Command/WorkerService1/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Query/Application/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Query/GrpcService1/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Query/GrpcService1/obj
+/FastFoodServer/Services/Payment/Query/Infrastructure.EventBus/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Query/Infrastructure.EventBus/obj
+/FastFoodServer/Services/Payment/Query/Infrastructure.Projection/bin/Debug/net9.0
+/FastFoodServer/Services/Payment/Query/Infrastructure.Projection/obj
