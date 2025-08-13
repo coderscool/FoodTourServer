@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package Contracts.Services.Order.Protobuf;
+
+import "google/protobuf/timestamp.proto";
+
+import "Abstractions/Abstractions.proto";
+
+service Orderer {
+	rpc GetOrderDetail(GetByIdRequest) returns (Abstractions.Protobuf.GetResponse);
+	rpc GetListOrderSeller(OrderRequest) returns (Abstractions.Protobuf.ListResponse);
+	rpc GetListOrderUser(OrderRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+message GetByIdRequest {
+	string Id = 1;
+}
+
+message OrderRequest {
+	string Id = 1;
+	Abstractions.Protobuf.Paging Paging = 2;
+}
+
+message OrderDetails {
+	string GroupId = 1;
+	string OrderId = 2;
+	string RestaurantId = 3;
+	string CustomerId = 4;
+	Abstractions.Protobuf.Person Restaurant = 5;
+	Abstractions.Protobuf.Person Customer = 6;
+	repeated Abstractions.Protobuf.OrderItemDetail Items = 7;
+	string Status = 8;
+	google.protobuf.Timestamp CreatedAt = 9;
+}
+
+message OrderUser {
+	string GroupId = 1;
+	string OrderId = 2;
+	repeated Abstractions.Protobuf.OrderItemDetail Items = 3;
+	string Status = 4;
+	google.protobuf.Timestamp CreatedAt = 5;
+}
+
+message OrderSeller {
+	string GroupId = 1;
+	string OrderId = 2;
+	Abstractions.Protobuf.Person Customer = 3;
+	repeated Abstractions.Protobuf.OrderItemDetail Items = 4;
+	string Status = 5;
+	google.protobuf.Timestamp CreatedAt = 6;
+}

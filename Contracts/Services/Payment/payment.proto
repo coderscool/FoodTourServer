@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package Contracts.Services.Payment.Protobuf;
+
+import "google/protobuf/timestamp.proto";
+
+import "Abstractions/Abstractions.proto";
+
+service Paymenter {
+	rpc GetPaymentDetail (GetPaymentByIdRequest) returns (Abstractions.Protobuf.GetResponse);
+}
+
+message GetPaymentByIdRequest {
+	string Id = 1;
+}
+
+message PaymentDetails {
+	string Id = 1;
+	string OrderId = 2;
+	double Total = 3;
+	string PaymentMenthod = 4;
+	string TransactionId = 5;
+	string PaymentStatus =6;
+	bool SellerConfirm = 7;
+	google.protobuf.Timestamp PaidAt = 8;
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package Contracts.Services.Delivery.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+import "google/protobuf/timestamp.proto";
+
+service Deliverier {
+  rpc GetDeliveryDetail (GetByIdRequest) returns (Abstractions.Protobuf.GetResponse);
+  rpc GetListDelivery (GetListRequest) returns (Abstractions.Protobuf.ListResponse);
+}
+
+message GetByIdRequest {
+  string Id = 1;
+}
+
+message GetListRequest {
+	Abstractions.Protobuf.Paging Paging = 1;
+}
+
+message DeliveryDetail {
+	string Id = 1;
+	string OrderId = 2;
+	string RestaurantId = 3;
+	string CustomerId = 4;
+	string ShipperId = 5;
+	Abstractions.Protobuf.Person Restaurant = 6;
+	Abstractions.Protobuf.Person Customer = 7;
+	repeated Abstractions.Protobuf.OrderItemDetail Items = 8;
+	bool CompletePrepared = 9;
+	string Status = 10;
+	google.protobuf.Timestamp PaidAt = 11;
+}
