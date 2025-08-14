@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: foodtourserver-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: {{ .Values.domain }}
+      http:
+        paths:
+          - path: /web-api
+            pathType: Prefix
+            backend:
+              service:
+                name: web-api-service
+                port:
+                  number: 80
+          - path: /identity-command
+            pathType: Prefix
+            backend:
+              service:
+                name: identity-command-service
+                port:
+                  number: 80
+          - path: /identity-query
+            pathType: Prefix
+            backend:
+              service:
+                name: identity-query-service
+                port:
+                  number: 80

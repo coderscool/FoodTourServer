@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package Contracts.Services.Statistic.Protobuf;
+
+import "Abstractions/Abstractions.proto";
+
+service Statisticer {
+  rpc GetStatisticDetail (GetByIdRequest) returns (Abstractions.Protobuf.GetResponse);
+}
+
+message GetByIdRequest {
+  string Id = 1;
+}
+
+message StatisticDetail {
+	string Id = 1;
+	int32 NumberOrder = 2;
+	int32 NumberMeal = 3;
+	int32 NumberDish = 4;
+	double Revenue = 5;
+}

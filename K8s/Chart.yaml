@@ -1,0 +1,4 @@
+apiVersion: v1
+name: foodtourserver
+version: 1.0.0
+description: Helm chart cho microservices

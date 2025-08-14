@@ -36,5 +36,8 @@
       <GrpcServices>Both</GrpcServices>
     </Protobuf>
     <Protobuf Include="Services\ShoppingCart\cart.proto" GrpcServices="Both" />
+    <Protobuf Include="Services\Statistic\statistic.proto">
+      <GrpcServices>Both</GrpcServices>
+    </Protobuf>
   </ItemGroup>
 </Project>
