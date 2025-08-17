@@ -11,7 +11,7 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '9a614476-965c-4d5c-8fb1-e41486dc6685'
+  dockerRegistryServiceConnection: 'foodtourserveracr'
   imageRepository: 'coderscoolfoodtourserver'
   containerRegistry: 'foodtourserveracr.azurecr.io'
   dockerfilePath: '**/Dockerfile'
@@ -70,7 +70,7 @@ stages:
   dependsOn: Build
   jobs:
   - deployment: Deploy
-    environment: 'FoodTourServer.aks'
+    environment: 'FoodTourServer'
     pool:
       vmImage: $(vmImageName)
     strategy:
@@ -85,7 +85,7 @@ stages:
             displayName: Helm upgrade/install
             inputs:
               connectionType: 'Azure Resource Manager'
-              azureSubscription: $(aksServiceConnection)
+              kubernetesServiceConnection: $(aksServiceConnection)
               azureResourceGroup: 'foodtourservice-rg'
               kubernetesCluster: 'foodtourservice-aks'
               command: upgrade
