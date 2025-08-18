@@ -10,7 +10,7 @@ resources:
   - repository: FoodTourServerGitHub   
     type: github
     name: coderscool/FoodTourServer
-    endpoint: FoodTour-GitHub  
+    endpoint: FoodTour-Github  
 
 variables:
 
