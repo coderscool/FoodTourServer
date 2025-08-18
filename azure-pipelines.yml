@@ -21,7 +21,8 @@ variables:
   aksServiceConnection: 'foodtourserver-aks-default'
 
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool:
+  name: 'FoodTourPool'
 
 
 stages:
