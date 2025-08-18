@@ -21,7 +21,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'foodtourserveracr6661450a-auth'
-  chartPath: 'FoodTourServer/K8s'
+  chartPath: 'K8s'
   aksServiceConnection: 'foodtourserver-aks-default'
 
   # Agent VM image name
