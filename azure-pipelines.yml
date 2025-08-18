@@ -37,6 +37,8 @@ stages:
     pool:
       name: 'FoodTourPool'
     steps:
+    - checkout: git://github.com/coderscool/FoodTourServer@main
+      persistCredentials: true
     # Build & push web-api
     - task: Docker@2
       displayName: Build and Push web-api
