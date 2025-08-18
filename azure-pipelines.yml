@@ -7,7 +7,7 @@ trigger:
 
 resources:
   repositories:
-  - repository: FoodTourServer  
+  - repository: FoodTourServerGitHub   
     type: github
     name: coderscool/FoodTourServer
     endpoint: FoodTour-GitHub  
@@ -37,7 +37,7 @@ stages:
     pool:
       name: 'FoodTourPool'
     steps:
-    - checkout: https://github.com/coderscool/FoodTourServer
+    - checkout: FoodTourServerGitHub   
       persistCredentials: true
     # Build & push web-api
     - task: Docker@2
