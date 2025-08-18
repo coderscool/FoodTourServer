@@ -27,41 +27,20 @@ stages:
     - checkout: FoodTourServerGitHub   
       persistCredentials: true
 
-    - task: Docker@2
-      displayName: Build and Push web-api
-      inputs:
-        command: buildAndPush
-        repository: web-api
-        dockerfile: WebApplication1
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(Build.BuildId)
-      env:
-        DOCKER_BUILDKIT: 0   # 🔑 Tắt BuildKit
+    - script: |
+        echo "Logging into ACR..."
+        az acr login --name foodtourserveracr
+        docker buildx create --use
+        docker buildx build -t $(containerRegistry)/web-api:$(Build.BuildId) -f WebApplication1 --push .
+      displayName: Build and Push web-api with buildx
 
-    - task: Docker@2
-      displayName: Build and Push identity-command
-      inputs:
-        command: buildAndPush
-        repository: identity-command
-        dockerfile: Services/Identity/Command/WorkerService1
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(Build.BuildId)
-      env:
-        DOCKER_BUILDKIT: 0
+    - script: |
+        docker buildx build -t $(containerRegistry)/identity-command:$(Build.BuildId) -f Services/Identity/Command/WorkerService1 --push .
+      displayName: Build and Push identity-command with buildx
 
-    - task: Docker@2
-      displayName: Build and Push identity-query
-      inputs:
-        command: buildAndPush
-        repository: identity-query
-        dockerfile: Services/Identity/Query/GrpcService1
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(Build.BuildId)
-      env:
-        DOCKER_BUILDKIT: 0
+    - script: |
+        docker buildx build -t $(containerRegistry)/identity-query:$(Build.BuildId) -f Services/Identity/Query/GrpcService1 --push .
+      displayName: Build and Push identity-query with buildx
 
 - stage: Deploy
   displayName: Deploy to AKS
@@ -96,4 +75,5 @@ stages:
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set identity-command.image=$(containerRegistry)/identity-command:$(Build.BuildId)
                 --set identity-query.image=$(containerRegistry)/identity-query:$(Build.BuildId)
+
 
