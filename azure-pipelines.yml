@@ -45,7 +45,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: web-api
-        dockerfile: FoodTourServer/WebApi/Dockerfile
+        dockerfile: WebApplication1/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
@@ -56,7 +56,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-command
-        dockerfile: FoodTourServer/Services/Identity/Command/Dockerfile
+        dockerfile: Services/Identity/Command/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
@@ -67,7 +67,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-query
-        dockerfile: FoodTourServer/Services/Identity/Query/Dockerfile
+        dockerfile: Services/Identity/Query/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
