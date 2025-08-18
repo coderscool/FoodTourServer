@@ -6,7 +6,11 @@ trigger:
 - main
 
 resources:
-- repo: self
+  repositories:
+  - repository: FoodTourServer  
+    type: github
+    name: coderscool/FoodTourServer
+    endpoint: FoodTour-GitHub  
 
 variables:
 
@@ -78,6 +82,8 @@ stages:
       runOnce:
         deploy:
           steps:
+          - checkout: self
+            persistCredentials: true
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
