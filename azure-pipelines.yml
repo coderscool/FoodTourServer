@@ -45,10 +45,12 @@ stages:
       inputs:
         command: buildAndPush
         repository: web-api
-        dockerfile: WebApplication1/Dockerfile
+        dockerfile: WebApplication1
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
+      env:
+        DOCKER_BUILDKIT: 1
 
     # Build & push identity-command
     - task: Docker@2
@@ -56,7 +58,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-command
-        dockerfile: Services/Identity/Command/Dockerfile
+        dockerfile: Services/Identity/Command/WorkerService1
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
@@ -67,7 +69,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-query
-        dockerfile: Services/Identity/Query/Dockerfile
+        dockerfile: Services/Identity/Query/GrpcService1
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
