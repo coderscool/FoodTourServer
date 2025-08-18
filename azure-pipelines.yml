@@ -31,7 +31,7 @@ stages:
   jobs:
   - job: Build
     pool:
-      vmImage: $(vmImageName)
+      name: 'FoodTourPool'
     steps:
     # Build & push web-api
     - task: Docker@2
@@ -73,7 +73,7 @@ stages:
   - deployment: Deploy
     environment: 'FoodTourServer'
     pool:
-      vmImage: $(vmImageName)
+      name: 'FoodTourPool'
     strategy:
       runOnce:
         deploy:
