@@ -41,7 +41,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: web-api
-        dockerfile: WebApplication1
+        dockerfile: WebApplication1/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
@@ -52,7 +52,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-command
-        dockerfile: Services/Identity/Command/WorkerService1
+        dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
@@ -63,7 +63,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: identity-query
-        dockerfile: Services/Identity/Query/GrpcService1
+        dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
