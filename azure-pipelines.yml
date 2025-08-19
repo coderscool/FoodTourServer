@@ -35,6 +35,8 @@ stages:
     steps:
     - checkout: FoodTourServerGitHub   
       persistCredentials: true
+    - script: ls -R
+      displayName: "List repo files"
     # Build & push web-api
     - task: Docker@2
       displayName: Build and Push web-api
@@ -42,6 +44,7 @@ stages:
         command: buildAndPush
         repository: web-api
         dockerfile: WebApplication1/Dockerfile
+        buildContext: .
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
