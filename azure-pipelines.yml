@@ -45,8 +45,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
-      env:
-        DOCKER_BUILDKIT: 1
 
     # Build & push identity-command
     - task: Docker@2
