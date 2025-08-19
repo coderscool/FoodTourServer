@@ -1,0 +1,107 @@
+trigger:
+- main
+
+resources:
+  repositories:
+  - repository: FoodTourServerGitHub   
+    type: github
+    name: coderscool/FoodTourServer
+    endpoint: FoodTour-Github  
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'foodtourserveracr'
+  imageRepository: 'coderscoolfoodtourserver'
+  containerRegistry: 'foodtourserveracr.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'foodtourserveracr6661450a-auth'
+  chartPath: 'K8s'
+  aksServiceConnection: 'foodtourserver-aks-default'
+
+  # Agent VM image name
+pool:
+  name: 'FoodTourPool'
+
+
+stages:
+- stage: Build
+  displayName: Build and Push Images
+  jobs:
+  - job: Build
+    pool:
+      name: 'FoodTourPool'
+    steps:
+    - checkout: FoodTourServerGitHub   
+      persistCredentials: true
+    - script: ls -R
+      displayName: "List repo files"
+    # Build & push web-api
+    - task: Docker@2
+      displayName: Build and Push web-api
+      inputs:
+        command: buildAndPush
+        repository: web-api
+        dockerfile: WebApplication1/Dockerfile
+        buildContext: .
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(Build.BuildId)
+
+    # Build & push identity-command
+    - task: Docker@2
+      displayName: Build and Push identity-command
+      inputs:
+        command: buildAndPush
+        repository: identity-command
+        dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(Build.BuildId)
+
+    # Build & push order-service
+    - task: Docker@2
+      displayName: Build and Push identity-query
+      inputs:
+        command: buildAndPush
+        repository: identity-query
+        dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(Build.BuildId)
+
+- stage: Deploy
+  displayName: Deploy to AKS
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    environment: 'FoodTourServer'
+    pool:
+      name: 'FoodTourPool'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+            persistCredentials: true
+          - task: HelmInstaller@1
+            inputs:
+              helmVersionToInstall: 'latest'
+
+          - task: HelmDeploy@0
+            displayName: Helm upgrade/install
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              kubernetesServiceConnection: $(aksServiceConnection)
+              azureResourceGroup: 'foodtourservice-rg'
+              kubernetesCluster: 'foodtourservice-aks'
+              command: upgrade
+              chartType: FilePath
+              chartPath: $(chartPath)
+              releaseName: foodtourserver
+              install: true
+              arguments: >
+                --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
+                --set identity-command.image=$(containerRegistry)/identity-command:$(Build.BuildId)
+                --set identity-query.image=$(containerRegistry)/identity-query:$(Build.BuildId)
