@@ -17,7 +17,7 @@ COPY ["Contracts/Contracts.csproj", "Contracts/"]
 RUN dotnet restore "./WebApplication1/WebApplication1.csproj"
 COPY . .
 WORKDIR "/src/WebApplication1"
-RUN dotnet build "./WebApplication1.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./WebApplication1.csproj" -c $BUILD_CONFIGURATION -o /app/build --verbosity diag
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
