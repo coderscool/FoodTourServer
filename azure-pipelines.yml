@@ -48,29 +48,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
-
-    # Build & push identity-command
-    - task: Docker@2
-      displayName: Build and Push identity-command
-      inputs:
-        command: buildAndPush
-        repository: identity-command
-        dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(Build.BuildId)
-
-    # Build & push order-service
-    - task: Docker@2
-      displayName: Build and Push identity-query
-      inputs:
-        command: buildAndPush
-        repository: identity-query
-        dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(Build.BuildId)
-
 - stage: Deploy
   displayName: Deploy to AKS
   dependsOn: Build
@@ -103,5 +80,3 @@ stages:
               install: true
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
-                --set identity-command.image=$(containerRegistry)/identity-command:$(Build.BuildId)
-                --set identity-query.image=$(containerRegistry)/identity-query:$(Build.BuildId)
