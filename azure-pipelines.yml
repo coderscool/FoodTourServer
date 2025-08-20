@@ -48,6 +48,9 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
+        script: |
+          sudo apt-get update -y
+          sudo apt-get install unzip -y
 - stage: Deploy
   displayName: Deploy to AKS
   dependsOn: Build
