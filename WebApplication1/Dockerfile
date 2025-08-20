@@ -1,38 +1,35 @@
-﻿# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
+﻿# Base runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
-# This stage is used to build the service project
+# Build stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-# Copy csproj để restore
-COPY ./WebApplication1/WebApplication1.csproj ./WebApplication1/
-COPY ./Contracts/Contracts.csproj ./Contracts/
 
-# Restore dependency
-RUN dotnet restore -v m ./WebApplication1/WebApplication1.csproj
+# Copy csproj files for restore
+COPY Contracts/Contracts.csproj Contracts/
+COPY WebApplication1/WebApplication1.csproj WebApplication1/
 
-# Copy toàn bộ source code
-COPY ./WebApplication1/. ./WebApplication1/
-COPY ../Contracts/Contracts.csproj ./Contracts/
+# Restore dependencies
+RUN dotnet restore WebApplication1/WebApplication1.csproj
+
+# Copy full source code
+COPY Contracts/ Contracts/
+COPY WebApplication1/ WebApplication1/
 
 # Build project
 WORKDIR /src/WebApplication1
-RUN dotnet build -c Release --no-restore -v m -o /app/build
+RUN dotnet build -c $BUILD_CONFIGURATION --no-restore -v m -o /app/build
 
-# This stage is used to publish the service project to be copied to the final stage
+# Publish stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./WebApplication1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish WebApplication1.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+# Final runtime image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
