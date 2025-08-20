@@ -22,15 +22,16 @@ COPY WebApplication1/ WebApplication1/
 
 # Build project
 WORKDIR /src/WebApplication1
-RUN dotnet build -c $BUILD_CONFIGURATION --no-restore -v m -o /app/build
+RUN dotnet build -c Release --no-restore -v m -o /app/build
 
 # Publish stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish WebApplication1.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish WebApplication1.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # Final runtime image
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_URLS=http://+:8080
 ENTRYPOINT ["dotnet", "WebApplication1.dll"]

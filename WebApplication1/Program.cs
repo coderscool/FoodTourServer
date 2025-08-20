@@ -5,7 +5,6 @@ using WebApplication1.APIs.Delivery;
 using WebApplication1.APIs.Dish;
 using WebApplication1.APIs.Identities;
 using WebApplication1.APIs.Order;
-using WebApplication1.APIs.Restaurants;
 using WebApplication1.APIs.ShoppingCart;
 using WebApplication1.DependencyInjection.Options;
 
@@ -22,6 +21,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddDishGrpcClient();
     services.AddShoppingCartGrpcClient();
     services.AddOrderGrpcClient();
+    services.AddDeliveryGrpcClient();
 
     services.ConfigureIdentityGrpcClientOptions(
             context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
@@ -38,6 +38,9 @@ builder.Host.ConfigureServices((context, services) =>
     services.ConfigureOrderGrpcClientOptions(
             context.Configuration.GetSection(nameof(OrderGrpcClientOptions)));
 
+    services.ConfigureDeliveryGrpcClientOptions(
+            context.Configuration.GetSection(nameof(DeliveryGrpcClientOptions)));
+
     services.AddSwaggerGen();
 });
 var app = builder.Build();
@@ -52,14 +55,10 @@ app.MapOrderApiV1();
 app.MapAccountApiV1();
 app.MapDeliveryApiV1();
 app.MapIdentityApiV1();
-app.MapRestaurantApiV1();
 app.MapShoppingCartApiV1();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
 

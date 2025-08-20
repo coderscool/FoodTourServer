@@ -7,9 +7,10 @@ using Grpc.Core;
 using Grpc.Net.Client.Configuration;
 using MassTransit;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using WebApi.DependencyInjection.Options;
 using WebApplication1.DependencyInjection.Options;
+using Microsoft.OpenApi.Models;
+using Contracts.Services.Delivery.Protobuf;
 
 namespace WebApi.DependencyInjection.Extensions
 {
@@ -21,7 +22,7 @@ namespace WebApi.DependencyInjection.Extensions
             {
                 mt.UsingRabbitMq((context, bus) =>
                 {
-                    bus.Host("localhost", "/", h =>
+                    bus.Host("host.docker.internal", "/", h =>
                     {
                         h.Username("guest");
                         h.Password("guest");
@@ -96,6 +97,11 @@ namespace WebApi.DependencyInjection.Extensions
                .AddOptions<OrderGrpcClientOptions>()
                .Bind(section);
 
+        public static OptionsBuilder<DeliveryGrpcClientOptions> ConfigureDeliveryGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+           => services
+               .AddOptions<DeliveryGrpcClientOptions>()
+               .Bind(section);
+
         public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
 
@@ -110,6 +116,9 @@ namespace WebApi.DependencyInjection.Extensions
 
         public static void AddOrderGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Orderer.OrdererClient, OrderGrpcClientOptions>();
+
+        public static void AddDeliveryGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Deliverier.DeliverierClient, DeliveryGrpcClientOptions>();
 
         private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase
