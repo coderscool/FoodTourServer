@@ -3,11 +3,3 @@ domain: api.foodtourserver.com
 web-api:
   image: foodtourserver.azurecr.io/web-api:latest
   port: 80
-
-# identity-command:
-#   image: foodtourserver.azurecr.io/identity-command-service:latest
-#   port: 80
-
-# identity-query:
-#   image: foodtourserver.azurecr.io/identity-query-service:latest
-#   port: 80

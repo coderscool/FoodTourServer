@@ -1,4 +1,4 @@
-apiVersion: foodtourserver.k8s.io/v1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: foodtourserver-ingress
@@ -16,17 +16,3 @@ spec:
                 name: web-api-service
                 port:
                   number: 80
-          # - path: /identity-command
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: identity-command-service
-          #       port:
-          #         number: 80
-          # - path: /identity-query
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: identity-query-service
-          #       port:
-          #         number: 80
