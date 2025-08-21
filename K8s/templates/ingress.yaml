@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: foodtourserver-ingress
   annotations:
-    kubernetes.io/ingress.class: nginx
+    ingressClassName: nginx
 spec:
   rules:
     - host: {{ .Values.domain }}
