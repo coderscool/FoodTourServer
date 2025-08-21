@@ -35,8 +35,6 @@ stages:
     steps:
     - checkout: FoodTourServerGitHub   
       persistCredentials: true
-    - script: ls -R
-      displayName: "List repo files"
     # Build & push web-api
     - task: Docker@2
       displayName: Build and Push web-api
@@ -62,9 +60,18 @@ stages:
           steps:
           - checkout: self
             persistCredentials: true
+          - script: |
+              sudo apt-get update
+              sudo apt-get install -y unzip
+            displayName: 'Install unzip'
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
+          
+          - task: KubectlInstaller@0
+            inputs:
+              kubernetesVersion: 'latest'
+            displayName: 'Install kubectl'
 
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
