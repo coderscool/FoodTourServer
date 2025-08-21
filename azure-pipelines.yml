@@ -85,6 +85,5 @@ stages:
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set domain=api.foodtourserver.com
                 --timeout 30m
-                get ingress -n default
 
           
