@@ -8,4 +8,4 @@ spec:
     app: web-api
   ports:
     - port: 80
-      targetPort: {{ .Values.web-api.port }}
+      targetPort: {{ .Values.webapi.port }}
