@@ -87,3 +87,4 @@ stages:
               install: true
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
+                --set domain=api.foodtourserver.com
