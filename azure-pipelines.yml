@@ -78,8 +78,8 @@ stages:
             inputs:
               connectionType: 'Azure Resource Manager'
               kubernetesServiceConnection: $(aksServiceConnection)
-              azureResourceGroup: 'foodtourservice-rg'
-              kubernetesCluster: 'foodtourservice-aks'
+              azureResourceGroup: 'foodtourserver-rg'
+              kubernetesCluster: 'foodtourserver-aks'
               command: upgrade
               chartType: FilePath
               chartPath: $(chartPath)
