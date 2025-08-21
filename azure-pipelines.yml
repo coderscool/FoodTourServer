@@ -73,6 +73,12 @@ stages:
               kubernetesVersion: 'latest'
             displayName: 'Install kubectl'
 
+          - script: |
+              echo "=== Check cluster connectivity ==="
+              kubectl get nodes
+              kubectl get pods -A
+            displayName: 'Debug AKS connectivity'
+
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
@@ -87,3 +93,4 @@ stages:
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set domain=api.foodtourserver.com
+                --timeout 30m
