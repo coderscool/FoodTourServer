@@ -91,7 +91,7 @@ stages:
             displayName: Apply ingress resource
             inputs:
               connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceConnection: $(aksServiceConnection)
+              kubernetesServiceEndpoint: $(aksServiceConnection)
               azureResourceGroup: 'foodtourserver-rg'
               kubernetesCluster: 'foodtourserver-aks'
               namespace: default
