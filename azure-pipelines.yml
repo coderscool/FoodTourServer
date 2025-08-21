@@ -87,6 +87,7 @@ stages:
               install: true
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
+                --set domain=api.foodtourserver.com
           - task: Kubernetes@1
             displayName: Apply ingress resource
             inputs:
