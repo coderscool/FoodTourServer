@@ -82,8 +82,10 @@ stages:
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
-              connectionType: 'Kubernetes Service Connection'
-              kubernetesServiceConnection: $(aksServiceConnection)
+              connectionType: 'Azure Resource Manager'
+              azureSubscriptionEndpoint: 'foodtour-prod-conn'
+              azureResourceGroup: 'foodtourserver-rg'
+              kubernetesCluster: 'foodtourserver-aks'
               namespace: default
               command: upgrade
               chartType: FilePath
