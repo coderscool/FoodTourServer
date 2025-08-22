@@ -88,6 +88,6 @@ stages:
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set domain=api.foodtourserver.com
-                --timeout 10m
+                --timeout 5m
 
           
