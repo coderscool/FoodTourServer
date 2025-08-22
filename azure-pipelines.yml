@@ -86,7 +86,7 @@ stages:
               releaseName: foodtourserver
               install: true
               arguments: >
-                --set webapi.image=$(containerRegistry)/webapi:$(Build.BuildId)
+                --set webapi.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set domain=api.foodtourserver.com
                 --timeout 5m
 
