@@ -2,9 +2,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: foodtourserver-ingress
-  annotations:
-    ingressClassName: nginx
 spec:
+  ingressClassName: nginx
   rules:
     - host: {{ .Values.domain }}
       http:
