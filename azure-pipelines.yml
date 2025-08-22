@@ -75,7 +75,7 @@ stages:
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
-              connectionType: 'Azure Resource Manager'
+              connectionType: 'Kubernetes Service Connection'
               kubernetesServiceConnection: $(aksServiceConnection)
               azureResourceGroup: 'foodtourserver-rg'
               kubernetesCluster: 'foodtourserver-aks'
@@ -88,6 +88,6 @@ stages:
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set domain=api.foodtourserver.com
-                --timeout 30m
+                --timeout 10m
 
           
