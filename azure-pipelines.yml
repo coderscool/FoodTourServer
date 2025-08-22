@@ -67,7 +67,7 @@ stages:
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
-          - task: Kubectl@1
+          - task: Kubernetes@1
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscriptionEndpoint: 'foodtour-prod-conn'
