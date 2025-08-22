@@ -9,21 +9,23 @@ resources:
     endpoint: FoodTour-Github  
 
 variables:
-
-  # Container registry service connection established during pipeline creation
+  # Container registry service connection
   dockerRegistryServiceConnection: 'foodtourserveracr'
   imageRepository: 'coderscoolfoodtourserver'
   containerRegistry: 'foodtourserveracr.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'foodtourserveracr6661450a-auth'
+
   chartPath: 'K8s'
   aksServiceConnection: 'foodtourserver-aks-default'
+  azureResourceGroup: 'foodtourserver-rg'
+  aksCluster: 'foodtourserver-aks'
+  releaseName: 'foodtourserver'
+  namespace: 'default'
 
-  # Agent VM image name
 pool:
   name: 'FoodTourPool'
-
 
 stages:
 - stage: Build
@@ -35,7 +37,7 @@ stages:
     steps:
     - checkout: FoodTourServerGitHub   
       persistCredentials: true
-    # Build & push web-api
+
     - task: Docker@2
       displayName: Build and Push web-api
       inputs:
@@ -46,6 +48,7 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(Build.BuildId)
+
 - stage: Deploy
   displayName: Deploy to AKS
   dependsOn: Build
@@ -60,52 +63,60 @@ stages:
           steps:
           - checkout: self
             persistCredentials: true
+
+          # Đảm bảo có unzip và jq
           - script: |
               sudo apt-get update
-              sudo apt-get install -y unzip
-            displayName: 'Install unzip'
-          - script: |
-              set -e
-              echo "=== Check Helm release status ==="
-              release="foodtourserver"
-              namespace="default"
+              sudo apt-get install -y unzip jq
+            displayName: 'Install unzip & jq'
 
-              # Xem release list
-              helm list -n $namespace
-
-              # Lấy trạng thái
-              STATUS=$(helm status $release -n $namespace --output json | jq -r '.info.status' || echo "notfound")
-
-              echo "Release status: $STATUS"
-
-              if [ "$STATUS" = "pending-upgrade" ] || [ "$STATUS" = "pending-install" ] || [ "$STATUS" = "pending-rollback" ]; then
-                echo "⚠️ Release đang bị pending. Xóa release trước khi deploy lại..."
-                helm uninstall $release -n $namespace
-              fi
-            displayName: "Check & Cleanup Helm release"
+          # Cài Helm nếu chưa có
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
+
+          # Check trạng thái release trước khi upgrade
+          - script: |
+              set -e
+              release="$(releaseName)"
+              namespace="$(namespace)"
+
+              echo "=== Check Helm release status ==="
+              helm list -n $namespace || true
+
+              STATUS=$(helm status $release -n $namespace -o json | jq -r '.info.status' 2>/dev/null || echo "notfound")
+
+              echo "Release status: $STATUS"
+
+              if [[ "$STATUS" == pending* ]]; then
+                echo "⚠️ Release đang pending → uninstall trước khi deploy lại..."
+                helm uninstall $release -n $namespace || true
+              fi
+            displayName: "Check & Cleanup Helm release"
+
+          # Test kết nối cluster
           - task: Kubernetes@1
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscriptionEndpoint: 'foodtour-prod-conn'
-              azureResourceGroup: 'foodtourserver-rg'
-              kubernetesCluster: 'foodtourserver-aks'
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(aksCluster)
               command: get
-              arguments: pods -n default
+              arguments: pods -n $(namespace)
+
+          # Helm upgrade / install
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
               connectionType: 'Azure Resource Manager'
               kubernetesServiceConnection: $(aksServiceConnection)
-              azureResourceGroup: 'foodtourserver-rg'
-              kubernetesCluster: 'foodtourserver-aks'
-              namespace: default
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(aksCluster)
+              namespace: $(namespace)
               command: upgrade
               chartType: FilePath
               chartPath: $(chartPath)
-              releaseName: foodtourserver
+              releaseName: $(releaseName)
               install: true
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
