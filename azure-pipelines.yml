@@ -16,14 +16,10 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'foodtourserveracr6661450a-auth'
-
   chartPath: 'K8s'
   aksServiceConnection: 'foodtourserver-aks-default'
-  azureResourceGroup: 'foodtourserver-rg'
-  aksCluster: 'foodtourserver-aks'
-  releaseName: 'foodtourserver'
-  namespace: 'default'
 
+  # Agent VM image name
 pool:
   name: 'FoodTourPool'
 
@@ -37,7 +33,6 @@ stages:
     steps:
     - checkout: FoodTourServerGitHub   
       persistCredentials: true
-
     - task: Docker@2
       displayName: Build and Push web-api
       inputs:
@@ -64,59 +59,45 @@ stages:
           - checkout: self
             persistCredentials: true
 
-          # Đảm bảo có unzip và jq
-          - script: |
-              sudo apt-get update
-              sudo apt-get install -y unzip jq
-            displayName: 'Install unzip & jq'
-
-          # Cài Helm nếu chưa có
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
 
-          # Check trạng thái release trước khi upgrade
-          - script: |
-              set -e
-              release="$(releaseName)"
-              namespace="$(namespace)"
-
-              echo "=== Check Helm release status ==="
-              helm list -n $namespace || true
-
-              STATUS=$(helm status $release -n $namespace -o json | jq -r '.info.status' 2>/dev/null || echo "notfound")
-
-              echo "Release status: $STATUS"
-
-              if [[ "$STATUS" == pending* ]]; then
-                echo "⚠️ Release đang pending → uninstall trước khi deploy lại..."
-                helm uninstall $release -n $namespace || true
-              fi
-            displayName: "Check & Cleanup Helm release"
-
-          # Test kết nối cluster
           - task: Kubernetes@1
             inputs:
               connectionType: 'Azure Resource Manager'
               azureSubscriptionEndpoint: 'foodtour-prod-conn'
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(aksCluster)
+              azureResourceGroup: 'foodtourserver-rg'
+              kubernetesCluster: 'foodtourserver-aks'
               command: get
-              arguments: pods -n $(namespace)
+              arguments: pods -n default
 
-          # Helm upgrade / install
+          # ✅ Force cleanup lock trước khi deploy
+          - script: |
+              set -e
+              release="foodtourserver"
+              namespace="default"
+
+              echo "=== Force cleanup Helm release lock nếu có ==="
+              kubectl delete secret -n $namespace -l owner=helm,name=$release || true
+              kubectl delete configmap -n $namespace -l owner=helm,name=$release || true
+
+              echo "=== Kiểm tra lại release list ==="
+              helm list -n $namespace || true
+            displayName: "Force cleanup Helm lock"
+
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
               connectionType: 'Azure Resource Manager'
               kubernetesServiceConnection: $(aksServiceConnection)
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(aksCluster)
-              namespace: $(namespace)
+              azureResourceGroup: 'foodtourserver-rg'
+              kubernetesCluster: 'foodtourserver-aks'
+              namespace: default
               command: upgrade
               chartType: FilePath
               chartPath: $(chartPath)
-              releaseName: $(releaseName)
+              releaseName: foodtourserver
               install: true
               arguments: >
                 --set web-api.image=$(containerRegistry)/web-api:$(Build.BuildId)
