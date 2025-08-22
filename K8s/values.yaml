@@ -2,4 +2,4 @@ domain: api.foodtourserver.com
 
 webapi:
   image: foodtourserveracr.azurecr.io/web-api:latest
-  port: 80
+  port: 8080
