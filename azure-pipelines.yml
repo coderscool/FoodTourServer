@@ -64,6 +64,25 @@ stages:
               sudo apt-get update
               sudo apt-get install -y unzip
             displayName: 'Install unzip'
+          - script: |
+              set -e
+              echo "=== Check Helm release status ==="
+              release="foodtourserver"
+              namespace="default"
+
+              # Xem release list
+              helm list -n $namespace
+
+              # Lấy trạng thái
+              STATUS=$(helm status $release -n $namespace --output json | jq -r '.info.status' || echo "notfound")
+
+              echo "Release status: $STATUS"
+
+              if [ "$STATUS" = "pending-upgrade" ] || [ "$STATUS" = "pending-install" ] || [ "$STATUS" = "pending-rollback" ]; then
+                echo "⚠️ Release đang bị pending. Xóa release trước khi deploy lại..."
+                helm uninstall $release -n $namespace
+              fi
+            displayName: "Check & Cleanup Helm release"
           - task: HelmInstaller@1
             inputs:
               helmVersionToInstall: 'latest'
