@@ -72,20 +72,6 @@ stages:
               command: get
               arguments: pods -n default
 
-          # ✅ Force cleanup lock trước khi deploy
-          - script: |
-              set -e
-              release="foodtourserver"
-              namespace="default"
-
-              echo "=== Force cleanup Helm release lock nếu có ==="
-              kubectl delete secret -n $namespace -l owner=helm,name=$release || true
-              kubectl delete configmap -n $namespace -l owner=helm,name=$release || true
-
-              echo "=== Kiểm tra lại release list ==="
-              helm list -n $namespace || true
-            displayName: "Force cleanup Helm lock"
-
           - task: HelmDeploy@0
             displayName: Helm upgrade/install
             inputs:
