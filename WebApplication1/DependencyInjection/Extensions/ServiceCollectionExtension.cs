@@ -22,11 +22,7 @@ namespace WebApi.DependencyInjection.Extensions
             {
                 mt.UsingRabbitMq((context, bus) =>
                 {
-                    bus.Host("host.docker.internal", "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
+                    bus.Host(new Uri("amqps://flchehre:XxJUMzxjwPmRolCdjpKYEwCXs6muYn55@toucan.lmq.cloudamqp.com/flchehre"));
                     bus.ConfigureEndpoints(context);
                 });
             });
