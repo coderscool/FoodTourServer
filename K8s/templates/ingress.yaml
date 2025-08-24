@@ -5,12 +5,12 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-      http:
-        paths:
-          - path: /web-api
-            pathType: Prefix
-            backend:
-              service:
-                name: web-api-service
-                port:
-                  number: 80
+      - http:
+          paths:
+            - path: /web-api
+              pathType: Prefix
+              backend:
+                service:
+                  name: web-api-service
+                  port:
+                    number: 80
