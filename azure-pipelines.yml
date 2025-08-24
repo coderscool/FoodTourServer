@@ -87,7 +87,6 @@ stages:
               install: true
               arguments: >
                 --set webapi.image=$(containerRegistry)/web-api:$(Build.BuildId)
-                --set domain=api.foodtourserver.com
                 --timeout 5m
 
           
