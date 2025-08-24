@@ -57,6 +57,8 @@ app.MapDeliveryApiV1();
 app.MapIdentityApiV1();
 app.MapShoppingCartApiV1();
 
+app.UsePathBase("/web-api");
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
