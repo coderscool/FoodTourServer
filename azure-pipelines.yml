@@ -14,7 +14,7 @@ parameters:
     default:
       - name: web-api
         dockerfile: WebApplication1/Dockerfile
-      - name: identity-commnad
+      - name: identity-command
         dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
       - name: identity-query
         dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
