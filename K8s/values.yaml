@@ -5,12 +5,12 @@ webapi:
   port: 8080
   env:
     - name: IdentityQuery__Url
-      value: "http://identity-query-service:5123"
+      value: "http://identity-query-service:8080"
 
 identitycommand:
   image: foodtourserveracr.azurecr.io/identity-command:latest
 
 identityquery:
   image: foodtourserveracr.azurecr.io/identity-query:latest
-  port: 5123
+  port: 8080
 
