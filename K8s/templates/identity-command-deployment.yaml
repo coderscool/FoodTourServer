@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-command-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-command
+  template:
+    metadata:
+      labels:
+        app: identity-command
+    spec:
+      containers:
+        - name: identity-command
+          image: {{ .Values.identitycommand.image }}
+          ports:
+            - containerPort: {{ .Values.identitycommand.port }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"

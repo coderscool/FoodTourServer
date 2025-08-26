@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Services\\Identity\\Command\\WorkerService1\\WorkerService1.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Services\\Identity\\Query\\GrpcService1\\GrpcService1.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "WebApplication1\\WebApplication1.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

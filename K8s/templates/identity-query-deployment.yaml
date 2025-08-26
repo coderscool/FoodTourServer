@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-query
+  template:
+    metadata:
+      labels:
+        app: identity-query
+    spec:
+      containers:
+        - name: identity-query
+          image: {{ .Values.identityquery.image }}
+          ports:
+            - containerPort: {{ .Values.identityquery.port }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
