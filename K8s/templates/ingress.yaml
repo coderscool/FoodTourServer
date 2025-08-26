@@ -14,11 +14,6 @@ spec:
                   name: web-api-service
                   port:
                     number: 80
-            - path: /identity-command
-              pathType: Prefix
-              backend:
-                service:
-                  name: identity-command-service
             - path: /identity-query
               pathType: Prefix
               backend:
