@@ -3,6 +3,9 @@ domain: api.foodtourserver.com
 webapi:
   image: foodtourserveracr.azurecr.io/web-api:latest
   port: 8080
+  env:
+    - name: IdentityQuery__Url
+      value: "http://identity-query:8080"
 
 identitycommand:
   image: foodtourserveracr.azurecr.io/identity-command:latest

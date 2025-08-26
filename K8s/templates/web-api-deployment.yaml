@@ -17,6 +17,11 @@ spec:
           image: {{ .Values.webapi.image }}
           ports:
             - containerPort: {{ .Values.webapi.port }}
+          env:
+            {{- range .Values.webapi.env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
           resources:
             requests:
               cpu: "100m"
