@@ -3,3 +3,11 @@ domain: api.foodtourserver.com
 webapi:
   image: foodtourserveracr.azurecr.io/web-api:latest
   port: 8080
+
+identitycommand:
+  image: foodtourserveracr.azurecr.io/identity-command:latest
+
+identityquery:
+  image: foodtourserveracr.azurecr.io/identity-query:latest
+  port: 8080
+
