@@ -15,8 +15,6 @@ spec:
       containers:
         - name: identity-command
           image: {{ .Values.identitycommand.image }}
-          ports:
-            - containerPort: {{ .Values.identitycommand.port }}
           resources:
             requests:
               cpu: "100m"

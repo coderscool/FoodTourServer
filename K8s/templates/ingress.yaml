@@ -19,8 +19,6 @@ spec:
               backend:
                 service:
                   name: identity-command-service
-                  port:
-                    number: 80
             - path: /identity-query
               pathType: Prefix
               backend:
