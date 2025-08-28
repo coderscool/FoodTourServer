@@ -18,6 +18,18 @@ parameters:
         dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
       - name: identity-query
         dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
+      - name: account-query
+        dockerfile: Services/Account/Command/WorkerService1/Dockerfile
+      - name: account-query
+        dockerfile: Services/Account/Query/GrpcService1/Dockerfile
+      - name: dish-query
+        dockerfile: Services/Dish/Command/WorkerService1/Dockerfile
+      - name: dish-query
+        dockerfile: Services/Dish/Query/GrpcService1/Dockerfile
+      - name: statistic-query
+        dockerfile: Services/Statistic/Command/WorkerService1/Dockerfile
+      - name: statistic-query
+        dockerfile: Services/Statistic/Query/GrpcService1/Dockerfile
 
 variables:
   # Container registry service connection
@@ -100,6 +112,12 @@ stages:
                 --set webapi.image=$(containerRegistry)/web-api:$(Build.BuildId)
                 --set identitycommand.image=$(containerRegistry)/identity-command:$(Build.BuildId)
                 --set identityquery.image=$(containerRegistry)/identity-query:$(Build.BuildId)
+                --set accountcommand.image=$(containerRegistry)/account-command:$(Build.BuildId)
+                --set accountquery.image=$(containerRegistry)/account-query:$(Build.BuildId)
+                --set dishcommand.image=$(containerRegistry)/dish-command:$(Build.BuildId)
+                --set dishquery.image=$(containerRegistry)/dish-query:$(Build.BuildId)
+                --set statisticcommand.image=$(containerRegistry)/statistic-command:$(Build.BuildId)
+                --set statisticquery.image=$(containerRegistry)/statistic-query:$(Build.BuildId)
                 --timeout 5m
 
           
