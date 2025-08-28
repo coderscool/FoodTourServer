@@ -15,11 +15,8 @@ namespace Infrastructure.EventBus.DependencyInjection.Extensions
                 mt.AddConsumers(Assembly.GetExecutingAssembly());
                 mt.UsingRabbitMq((context, bus) =>
                 {
-                    bus.Host("localhost", "/", h =>
-                    {
-                        h.Username("guest");
-                        h.Password("guest");
-                    });
+                    bus.Host(new Uri("amqps://flchehre:XxJUMzxjwPmRolCdjpKYEwCXs6muYn55@toucan.lmq.cloudamqp.com/flchehre"));
+                    
                     bus.ConfigureEndpoints(context);
                 });
             });

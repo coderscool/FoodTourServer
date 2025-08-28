@@ -23,7 +23,7 @@ builder.Services.AddScoped<IPagedInteractor<Query.SearchListDish, Projection.Dis
 builder.Services.AddConfigurationMasstransit();
 builder.Services.AddElasticSearch();
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
-builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb://localhost:27017"));
+builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb+srv://vhp:Sasori%40123@foodtour-mongodb.global.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000"));
 builder.Services.AddGrpc();
 
 var app = builder.Build();

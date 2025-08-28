@@ -4,9 +4,9 @@ using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class UpdateDishConsumer : Consumer<Command.UpdatePriceDish>
+    public class UpdateDishConsumer : Consumer<Command.UpdateDish>
     {
-        public UpdateDishConsumer(IInteractor<Command.UpdatePriceDish> interactor) : base(interactor)
+        public UpdateDishConsumer(IInteractor<Command.UpdateDish> interactor) : base(interactor)
         {
         }
     }

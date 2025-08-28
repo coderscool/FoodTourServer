@@ -6,6 +6,7 @@ using WebApplication1.APIs.Dish;
 using WebApplication1.APIs.Identities;
 using WebApplication1.APIs.Order;
 using WebApplication1.APIs.ShoppingCart;
+using WebApplication1.APIs.Statistic;
 using WebApplication1.DependencyInjection.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Host.ConfigureServices((context, services) =>
     services.AddShoppingCartGrpcClient();
     services.AddOrderGrpcClient();
     services.AddDeliveryGrpcClient();
+    services.AddStatisticGrpcClient();
 
     services.ConfigureIdentityGrpcClientOptions(
             context.Configuration.GetSection(nameof(IdentityGrpcClientOptions)));
@@ -41,6 +43,9 @@ builder.Host.ConfigureServices((context, services) =>
     services.ConfigureDeliveryGrpcClientOptions(
             context.Configuration.GetSection(nameof(DeliveryGrpcClientOptions)));
 
+    services.ConfigureStatisticGrpcClientOptions(
+            context.Configuration.GetSection(nameof(StatisticGrpcClientOptions)));
+
     services.AddSwaggerGen();
 });
 var app = builder.Build();
@@ -55,6 +60,7 @@ app.MapOrderApiV1();
 app.MapAccountApiV1();
 app.MapDeliveryApiV1();
 app.MapIdentityApiV1();
+app.MapStatisticApiV1();
 app.MapShoppingCartApiV1();
 
 app.UsePathBase("/web-api");

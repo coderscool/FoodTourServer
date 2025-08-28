@@ -6,11 +6,38 @@ webapi:
   env:
     - name: IdentityQuery__Url
       value: "http://identity-query-service:8080"
+    - name: AccountQuery__Url
+      value: "http://account-query-service:8080"
+    - name: DishQuery__Url
+      value: "http://dish-query-service:8080"
+    - name: StatisticQuery__Url
+      value: "http://statistic-query-service:8080"
 
 identitycommand:
   image: foodtourserveracr.azurecr.io/identity-command:latest
 
 identityquery:
   image: foodtourserveracr.azurecr.io/identity-query:latest
+  port: 8080
+
+accountcommand:
+  image: foodtourserveracr.azurecr.io/account-command:latest
+
+accountquery:
+  image: foodtourserveracr.azurecr.io/account-query:latest
+  port: 8080
+
+statisticcommand:
+  image: foodtourserveracr.azurecr.io/dish-command:latest
+
+dishquery:
+  image: foodtourserveracr.azurecr.io/dish-query:latest
+  port: 8080
+
+statisticcommand:
+  image: foodtourserveracr.azurecr.io/statistic-command:latest
+
+statisticquery:
+  image: foodtourserveracr.azurecr.io/statistic-query:latest
   port: 8080
 

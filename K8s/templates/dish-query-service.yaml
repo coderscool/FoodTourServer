@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dish-query-service
+spec:
+  type: ClusterIP
+  selector:
+    app: dish-query
+  ports:
+    - port: 8080
+      targetPort: {{ .Values.dishquery.port }}

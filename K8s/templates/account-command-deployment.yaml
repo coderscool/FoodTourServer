@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-command-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-command
+  template:
+    metadata:
+      labels:
+        app: account-command
+    spec:
+      containers:
+        - name: account-command
+          image: {{ .Values.accountcommand.image }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"

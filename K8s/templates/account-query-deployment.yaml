@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-query
+  template:
+    metadata:
+      labels:
+        app: account-query
+    spec:
+      containers:
+        - name: account-query
+          image: {{ .Values.accountquery.image }}
+          ports:
+            - containerPort: {{ .Values.accountquery.port }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"

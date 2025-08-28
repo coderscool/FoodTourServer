@@ -1,12 +1,12 @@
 ﻿using Application.Abstractions;
-using Contracts.Services.Restaurant;
+using Contracts.Services.Payment;
 using Infrastructure.MessageBus.Abstractions;
 
 namespace Infrastructure.MessageBus.Consumers
 {
-    public class UpdateRevanueWhenPaymentSellerConfirmConsumer : Consumer<DomainEvent.RestaurantReply>
+    public class UpdateRevanueWhenPaymentSellerConfirmConsumer : Consumer<DomainEvent.PaymentSellerConnfirm>
     {
-        public UpdateRevanueWhenPaymentSellerConfirmConsumer(IInteractor<DomainEvent.RestaurantReply> interactor) : base(interactor)
+        public UpdateRevanueWhenPaymentSellerConfirmConsumer(IInteractor<DomainEvent.PaymentSellerConnfirm> interactor) : base(interactor)
         {
         }
     }

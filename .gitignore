@@ -445,3 +445,8 @@
 /Services/Statistic/Query/Infrastructure.Projection/obj
 /WebApplication1/bin/Debug/net9.0
 /WebApplication1/obj
+/Services/Statistic/Command/WorkerService1/bin/Debug/net9.0
+/Services/Statistic/Command/Infrastructure.MessageBus/bin/Debug/net9.0
+/Services/Statistic/Command/Infrastructure.EventStore/bin/Debug/net9.0
+/Services/Statistic/Command/Domain/bin/Debug/net9.0
+/Services/Statistic/Command/Application/bin/Debug/net9.0

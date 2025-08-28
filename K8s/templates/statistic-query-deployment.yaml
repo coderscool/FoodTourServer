@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistic-query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statistic-query
+  template:
+    metadata:
+      labels:
+        app: statistic-query
+    spec:
+      containers:
+        - name: statistic-query
+          image: {{ .Values.statisticquery.image }}
+          ports:
+            - containerPort: {{ .Values.statisticquery.port }}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"

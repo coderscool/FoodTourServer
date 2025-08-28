@@ -11,6 +11,7 @@ using WebApi.DependencyInjection.Options;
 using WebApplication1.DependencyInjection.Options;
 using Microsoft.OpenApi.Models;
 using Contracts.Services.Delivery.Protobuf;
+using Contracts.Services.Statistic.Protobuf;
 
 namespace WebApi.DependencyInjection.Extensions
 {
@@ -98,6 +99,11 @@ namespace WebApi.DependencyInjection.Extensions
                .AddOptions<DeliveryGrpcClientOptions>()
                .Bind(section);
 
+        public static OptionsBuilder<StatisticGrpcClientOptions> ConfigureStatisticGrpcClientOptions(this IServiceCollection services, IConfigurationSection section)
+           => services
+               .AddOptions<StatisticGrpcClientOptions>()
+               .Bind(section);
+
         public static void AddIdentityGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Identiter.IdentiterClient, IdentityGrpcClientOptions>();
 
@@ -115,6 +121,9 @@ namespace WebApi.DependencyInjection.Extensions
 
         public static void AddDeliveryGrpcClient(this IServiceCollection services)
         => services.AddGrpcClient<Deliverier.DeliverierClient, DeliveryGrpcClientOptions>();
+
+        public static void AddStatisticGrpcClient(this IServiceCollection services)
+        => services.AddGrpcClient<Statisticer.StatisticerClient, StatisticGrpcClientOptions>();
 
         private static void AddGrpcClient<TClient, TOptions>(this IServiceCollection services)
             where TClient : ClientBase
