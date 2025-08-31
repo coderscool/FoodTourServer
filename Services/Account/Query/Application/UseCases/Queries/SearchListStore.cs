@@ -2,12 +2,6 @@
 using Application.Abstractions.Gateways;
 using Contracts.Abstractions.Paging;
 using Contracts.Services.Account;
-using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.UseCases.Queries
 {
@@ -20,16 +14,26 @@ namespace Application.UseCases.Queries
         }
         public async ValueTask<IPagedResult<Projection.AccountSellerES>> InteractAsync(Query.SearchQuery query, CancellationToken cancellationToken)
         {
-            var queryES = new Func<QueryContainerDescriptor<Projection.AccountSellerES>, QueryContainer>(q =>
-                q.Bool(b => b
-                    .Must(
-                        m => m.Match(mq => mq.Field(f => f.Name).Query(query.Keyword)),
-                        m => m.Match(t => t.Field(f => f.Nation).Query(query.Nation)),
-                        m => m.Match(t => t.Field(f => f.Address).Query(query.City))
-                    )
-                )
-            );
-            return await _elasticSearchGateway.SearchAsync("account", queryES, query.Paging, cancellationToken);
+            return await _elasticSearchGateway.SearchAsync(
+        string.IsNullOrWhiteSpace(query.Keyword) ? "*" : query.Keyword,
+        options =>
+        {
+            options.Size = 1000;
+            options.Skip = 0;
+
+            var filters = new List<string>();
+            if (!string.IsNullOrWhiteSpace(query.Nation))
+                filters.Add($"Nation eq '{query.Nation}'");
+            if (!string.IsNullOrWhiteSpace(query.City))
+                filters.Add($"Address eq '{query.City}'");
+
+            if (filters.Count > 0)
+                options.Filter = string.Join(" and ", filters);
+
+            return options;
+        },
+        query.Paging,
+        cancellationToken);
         }
     }
 }

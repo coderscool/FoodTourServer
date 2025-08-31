@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: account-query-deployment
+  annotations:
+    azure.workload.identity/client-id: 35a020fe-9513-4139-9087-e2385cd5cb45
 spec:
   replicas: 1
   selector:

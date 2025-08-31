@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped(typeof(IProjectionGateway<>), typeof(ProjectionGateway<>));
 builder.Services.AddScoped(typeof(IPositionProjectionGateway<>), typeof(PositionProjectionGateway<>));
-builder.Services.AddScoped(typeof(IElasticSearchGateway<>), typeof(ElasticSearchGateway<>));
+builder.Services.AddScoped(typeof(IElasticSearchGateway<>), typeof(AzureSearchGateway<>));
 builder.Services.AddScoped<IProjectAccountUserWhenAccountUserChangedInteractor, ProjectAccountUserWhenAccountUserChangedInteractor>();
 builder.Services.AddScoped<IProjectAccountShipperWhenAccountShipperChangedInteractor, ProjectAccountShipperWhenAccountShipperChangedInteractor>();
 builder.Services.AddScoped<IProjectAccountSellerWhenAccountSellerChangedInteractor, ProjectAccountSellerWhenAccountSellerChangedInteractor>();
@@ -25,7 +25,7 @@ builder.Services.AddScoped<IInteractor<Query.GetAccountId, Projection.AccountSel
 builder.Services.AddScoped<IInteractor<Query.GetAccountId, Projection.AccountUser>, GetAccountUser>();
 builder.Services.AddScoped<IInteractor<Query.GetAccountId, Projection.AccountShipper>, GetAccountShipper>();
 builder.Services.AddConfigurationMasstransit();
-builder.Services.AddElasticSearch();
+builder.Services.AddAzureSearch(builder.Configuration);
 builder.Services.AddTransient<IMongoDbContext, ProjectionDbContext>();
 builder.Services.AddSingleton<IMongoClient>(s => new MongoClient("mongodb+srv://vhp:Sasori%40123@foodtour-mongodb.global.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000"));
 builder.Services.AddGrpc();
