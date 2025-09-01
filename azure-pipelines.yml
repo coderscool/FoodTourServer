@@ -18,15 +18,15 @@ parameters:
         dockerfile: Services/Identity/Command/WorkerService1/Dockerfile
       - name: identity-query
         dockerfile: Services/Identity/Query/GrpcService1/Dockerfile
-      - name: account-query
+      - name: account-command
         dockerfile: Services/Account/Command/WorkerService1/Dockerfile
       - name: account-query
         dockerfile: Services/Account/Query/GrpcService1/Dockerfile
-      - name: dish-query
+      - name: dish-command
         dockerfile: Services/Dish/Command/WorkerService1/Dockerfile
       - name: dish-query
         dockerfile: Services/Dish/Query/GrpcService1/Dockerfile
-      - name: statistic-query
+      - name: statistic-command
         dockerfile: Services/Statistic/Command/WorkerService1/Dockerfile
       - name: statistic-query
         dockerfile: Services/Statistic/Query/GrpcService1/Dockerfile
