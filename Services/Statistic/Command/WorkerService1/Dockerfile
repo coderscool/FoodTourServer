@@ -10,21 +10,21 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY Services/Statistic/Command/WorkerService1/WorkerService1.csproj, Services/Statistic/Command/WorkerService1/
-COPY Services/Statistic/Command/Infrastructure.EventStore/Infrastructure.EventStore.csproj, Services/Statistic/Command/Infrastructure.EventStore/
-COPY Services/Statistic/Command/Application/Application.csproj, Services/Statistic/Command/Application/
-COPY Services/Statistic/Command/Domain/Domain.csproj, Services/Statistic/Command/Domain/
-COPY Contracts/Contracts.csproj, Contracts/
-COPY Services/Statistic/Command/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj, Services/Statistic/Command/Infrastructure.MessageBus/
+COPY Services/Statistic/Command/WorkerService1/WorkerService1.csproj Services/Statistic/Command/WorkerService1/
+COPY Services/Statistic/Command/Infrastructure.EventStore/Infrastructure.EventStore.csproj Services/Statistic/Command/Infrastructure.EventStore/
+COPY Services/Statistic/Command/Application/Application.csproj Services/Statistic/Command/Application/
+COPY Services/Statistic/Command/Domain/Domain.csproj Services/Statistic/Command/Domain/
+COPY Contracts/Contracts.csproj Contracts/
+COPY Services/Statistic/Command/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj Services/Statistic/Command/Infrastructure.MessageBus/
 
 RUN dotnet restore Services/Statistic/Command/WorkerService1/WorkerService1.csproj
 
-COPY Services/Statistic/Command/WorkerService1/, Services/Statistic/Command/WorkerService1/
-COPY Services/Statistic/Command/Infrastructure.EventStore/, Services/Statistic/Command/Infrastructure.EventStore/
-COPY Services/Statistic/Command/Application/, Services/Statistic/Command/Application/
-COPY Services/Statistic/Command/Domain/, Services/Statistic/Command/Domain/
-COPY Contracts/, Contracts/
-COPY Services/Statistic/Command/Infrastructure.MessageBus/, Services/Statistic/Command/Infrastructure.MessageBus/
+COPY Services/Statistic/Command/WorkerService1/ Services/Statistic/Command/WorkerService1/
+COPY Services/Statistic/Command/Infrastructure.EventStore/ Services/Statistic/Command/Infrastructure.EventStore/
+COPY Services/Statistic/Command/Application/ Services/Statistic/Command/Application/
+COPY Services/Statistic/Command/Domain/ Services/Statistic/Command/Domain/
+COPY Contracts/ Contracts/
+COPY Services/Statistic/Command/Infrastructure.MessageBus/ Services/Statistic/Command/Infrastructure.MessageBus/
 
 WORKDIR /src/Services/Statistic/Command/WorkerService1
 RUN dotnet build -c Release --no-restore -v m -o /app/build

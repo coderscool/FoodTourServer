@@ -1,37 +1,53 @@
-﻿using Contracts.Services.Dish;
+﻿using Azure;
+using Azure.Identity;
+using Azure.Search.Documents;
+using Azure.Search.Documents.Indexes;
+using Azure.Search.Documents.Indexes.Models;
+using Azure.Security.KeyVault.Secrets;
+using Contracts.Services.Dish;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Nest;
 
 namespace Infrastructure.ElasticSearch.DependencyInjection.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddElasticSearch(this IServiceCollection services)
+        public static IServiceCollection AddAzureSearch(this IServiceCollection services, IConfiguration config)
         {
-            var url = "http://localhost:9200";
-            var defaulIndex = "dish";
+            var serviceName = "foodtourdb-es";
+            var indexName = "dishs";
 
-            var setting = new ConnectionSettings(new Uri(url)).PrettyJson().DefaultIndex(defaulIndex);
+            var keyVaultUrl = "https://foodtour-keyvault.vault.azure.net/"; // ví dụ: "https://foodtour-keyvault.vault.azure.net/"
+            var secretName = "FoodTourSearch--AdminKey"; // tên secret bạn lưu trong Key Vault
 
-            AddDefaultMapping(setting);
+            var secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+            KeyVaultSecret secret = secretClient.GetSecret(secretName);
 
-            var client = new ElasticClient(setting);
+            var apiKey = secret.Value; // lấy ra API key
+            var endpoint = new Uri($"https://{serviceName}.search.windows.net");
+            var credential = new AzureKeyCredential(apiKey);
 
-            services.AddSingleton<IElasticClient>(client);
+            // Tạo SearchIndexClient
+            var indexClient = new SearchIndexClient(endpoint, credential);
+            EnsureIndexExists<Projection.Dishs>(indexClient, indexName);
 
-            CreateIndex(client, defaulIndex);
+            // Tạo SearchClient và inject vào DI
+            var searchClient = new SearchClient(endpoint, indexName, credential);
+            services.AddSingleton(searchClient);
+
             return services;
         }
 
-        private static void AddDefaultMapping(ConnectionSettings settings) 
+        private static void EnsureIndexExists<T>(SearchIndexClient indexClient, string indexName)
         {
-            settings.DefaultMappingFor<Projection.Dishs>(d => d.Ignore(x => x.Quantity)
-                                                               .Ignore(x => x.Extra));
-        }
+            var exists = indexClient.GetIndexNames().Contains(indexName);
+            if (!exists)
+            {
+                var fields = new FieldBuilder().Build(typeof(T));
+                var definition = new SearchIndex(indexName, fields);
 
-        private static void CreateIndex(IElasticClient client, string indexName) 
-        {
-            client.Indices.Create(indexName, i => i.Map<Projection.Dishs>(x => x.AutoMap()));
+                indexClient.CreateOrUpdateIndex(definition);
+            }
         }
     }
 }

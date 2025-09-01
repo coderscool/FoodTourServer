@@ -1,7 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Gateways;
 using Contracts.Services.Dish;
-using Nest;
 using System.Linq.Expressions;
 
 namespace Application.UseCases.Events
@@ -53,7 +52,7 @@ namespace Application.UseCases.Events
                 },
                 cancellationToken);
 
-            await _elasticSearchGateway.UpdateFieldsAsync
+            /*await _elasticSearchGateway.UpdateFieldsAsync
             (
                 @event.Id,
                 updates: new Dictionary<string, object>
@@ -62,7 +61,7 @@ namespace Application.UseCases.Events
                     { nameof(Projection.Dishs.Price), @event.Price }
                 },
                 cancellationToken: cancellationToken
-            );
+            );*/
         }
 
         public async Task InteractAsync(DomainEvent.DishHidden @event, CancellationToken cancellationToken)
@@ -74,7 +73,7 @@ namespace Application.UseCases.Events
                 value: @event.Hidden,
                 cancellationToken: cancellationToken);
 
-            await _elasticSearchGateway.UpdateFieldsAsync
+            /*await _elasticSearchGateway.UpdateFieldsAsync
             (
                 @event.Id,
                 updates: new Dictionary<string, object>
@@ -82,7 +81,7 @@ namespace Application.UseCases.Events
                     { nameof(Projection.Dishs.Hidden), @event.Hidden }
                 },
                 cancellationToken: cancellationToken
-            );
+            );*/
         }
 
         public async Task InteractAsync(DomainEvent.DishQuantityUpdate @event, CancellationToken cancellationToken)

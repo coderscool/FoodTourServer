@@ -1,4 +1,6 @@
 ﻿using Application.Abstractions.Gateways;
+using Azure.Search.Documents;
+using Azure.Search.Documents.Models;
 using Contracts.Abstractions.Messages;
 using Contracts.Abstractions.Paging;
 using Infrastructure.ElasticSearch.Pagination;
@@ -6,63 +8,60 @@ using Nest;
 
 namespace Infrastructure.ElasticSearch
 {
-    public class ElasticSearchGateway<TProjection> : IElasticSearchGateway<TProjection>
+    public class AzureSearchGateway<TProjection> : IElasticSearchGateway<TProjection>
         where TProjection : class, IProjection
     {
-        private readonly IElasticClient _client;
+        private readonly SearchClient _client;
 
-        public ElasticSearchGateway(IElasticClient client)
+        public AzureSearchGateway(SearchClient client)
         {
             _client = client;
         }
 
         public async Task InsertDocumentAsync(TProjection projection)
         {
-            Console.WriteLine("------------------------");
-            var response = await _client.IndexDocumentAsync(projection);
-            if (response.IsValid)
+            try
             {
-                Console.WriteLine("Đã thêm dữ liệu thành công.");
+                var response = await _client.IndexDocumentsAsync(
+                    IndexDocumentsBatch.Create(
+                        IndexDocumentsAction.Upload(projection)
+                    )
+                );
+
+                if (response.Value.Results.All(r => r.Succeeded))
+                {
+                    Console.WriteLine("Đã thêm dữ liệu thành công vào Azure Search.");
+                }
+                else
+                {
+                    foreach (var result in response.Value.Results.Where(r => !r.Succeeded))
+                    {
+                        Console.WriteLine($"Lỗi khi insert: {result.ErrorMessage}");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {response.OriginalException.Message}");
+                Console.WriteLine($"Exception: {ex.Message}");
             }
         }
 
-        public async ValueTask<IPagedResult<TProjection>> SearchAsync(string indexName, Func<QueryContainerDescriptor<TProjection>, QueryContainer> query, 
-            Paging Paging, CancellationToken cancellationToken)
+        public async ValueTask<IPagedResult<TProjection>> SearchAsync(
+            string searchText,
+            Func<SearchOptions, SearchOptions> configureOptions,
+            Paging paging,
+            CancellationToken cancellationToken)
         {
-            var response = await _client.SearchAsync<TProjection>(s => s
-                .Index(indexName)
-                .Query(query)
-            );
-            Console.WriteLine(response.Documents.ToList().ToString());
-            return await PagedResult<TProjection>.CreateAsync(Paging, response.Documents.ToList(), cancellationToken);
+            var options = configureOptions(new SearchOptions());
+
+            var response = await _client.SearchAsync<TProjection>(
+                searchText,
+                options,
+                cancellationToken);
+
+            var docs = response.Value.GetResults().Select(r => r.Document).ToList();
+
+            return await PagedResult<TProjection>.CreateAsync(paging, docs, cancellationToken);
         }
-
-        public async Task UpdateFieldsAsync(
-    string id,
-    Dictionary<string, object> updates,
-    CancellationToken cancellationToken)
-        {
-            var scriptSource = string.Join(" ",
-        updates.Select(kv => $"ctx._source.{kv.Key} = params.{kv.Key};"));
-
-            var response = await _client.UpdateAsync<TProjection>(id, u => u
-                .Index("dish")
-                .Script(s => s
-                    .Source(scriptSource)
-                    .Params(updates)
-                ),
-                cancellationToken
-            );
-
-            if (!response.IsValid)
-            {
-                throw new Exception($"Elasticsearch update failed: {response.ServerError?.Error?.Reason}");
-            }
-        }
-
     }
 }

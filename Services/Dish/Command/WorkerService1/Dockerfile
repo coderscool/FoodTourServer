@@ -10,21 +10,21 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY Services/Dish/Command/WorkerService1/WorkerService1.csproj, Services/Dish/Command/WorkerService1/
-COPY Services/Dish/Command/Infrastructure.EventStore/Infrastructure.EventStore.csproj, Services/Dish/Command/Infrastructure.EventStore/
-COPY Services/Dish/Command/Application/Application.csproj, Services/Dish/Command/Application/
-COPY Services/Dish/Command/Domain/Domain.csproj, Services/Dish/Command/Domain/
-COPY Contracts/Contracts.csproj, Contracts/
-COPY Services/Dish/Command/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj, Services/Dish/Command/Infrastructure.MessageBus/
+COPY Services/Dish/Command/WorkerService1/WorkerService1.csproj Services/Dish/Command/WorkerService1/
+COPY Services/Dish/Command/Infrastructure.EventStore/Infrastructure.EventStore.csproj Services/Dish/Command/Infrastructure.EventStore/
+COPY Services/Dish/Command/Application/Application.csproj Services/Dish/Command/Application/
+COPY Services/Dish/Command/Domain/Domain.csproj Services/Dish/Command/Domain/
+COPY Contracts/Contracts.csproj Contracts/
+COPY Services/Dish/Command/Infrastructure.MessageBus/Infrastructure.MessageBus.csproj Services/Dish/Command/Infrastructure.MessageBus/
 
 RUN dotnet restore Services/Dish/Command/WorkerService1/WorkerService1.csproj
 
-COPY Services/Dish/Command/WorkerService1/, Services/Dish/Command/WorkerService1/
-COPY Services/Dish/Command/Infrastructure.EventStore/, Services/Dish/Command/Infrastructure.EventStore/
-COPY Services/Dish/Command/Application/, Services/Dish/Command/Application/
-COPY Services/Dish/Command/Domain/, Services/Dish/Command/Domain/
-COPY Contracts/, Contracts/
-COPY Services/Dish/Command/Infrastructure.MessageBus/, Services/Dish/Command/Infrastructure.MessageBus/
+COPY Services/Dish/Command/WorkerService1/ Services/Dish/Command/WorkerService1/
+COPY Services/Dish/Command/Infrastructure.EventStore/ Services/Dish/Command/Infrastructure.EventStore/
+COPY Services/Dish/Command/Application/ Services/Dish/Command/Application/
+COPY Services/Dish/Command/Domain/ Services/Dish/Command/Domain/
+COPY Contracts/ Contracts/
+COPY Services/Dish/Command/Infrastructure.MessageBus/ Services/Dish/Command/Infrastructure.MessageBus/
 
 WORKDIR /src/Services/Dish/Command/WorkerService1
 RUN dotnet build -c Release --no-restore -v m -o /app/build
